@@ -18,8 +18,10 @@ require('mason-lspconfig').setup({
         'rust_analyzer',
         'clangd',
         'pyright',
+        'lua_ls',
         'marksman',
     },
+    automatic_installation = true,
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup({})
