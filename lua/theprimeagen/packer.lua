@@ -113,4 +113,17 @@ return require('packer').startup(function(use)
         requires = {'nvim-tree/nvim-web-devicons'}
     }
     use { 'numToStr/Comment.nvim' }
+    use { "mfussenegger/nvim-dap" }
+    use { "mfussenegger/nvim-dap-python" }
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+    use { "stevearc/dressing.nvim" }
+    use { 
+        "ziontee113/icon-picker.nvim",
+        config = function()
+            require("icon-picker").setup({
+                disable_legacy_commands = true
+            })
+        end,
+    }
+
 end)
