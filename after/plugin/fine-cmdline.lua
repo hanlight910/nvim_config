@@ -31,13 +31,13 @@ fineline.setup({
             vim.keymap.set('i', '<Esc>', '<cmd>stopinsert<cr>', {buffer = input.bufnr})
         end,
         set_keymaps = function(imap, feedkeys)
-            imap('<leader>s', '%s///gc<Left><Left><Left><Left>')
+            imap('<A-s>', '%s///gc<Left><Left><Left><Left>')
             imap('<C-s>', 's///gc<Left><Left><Left><Left>')
             imap('qq', fn.close);
 
             imap('<C-p>', fn.up_search_history)
             imap('<C-n>', fn.down_search_history)
-            imap('<Tab>', fn.complete_or_next_item);
+            imap('<C-n>', fn.complete_or_next_item);
         end
     }
 })

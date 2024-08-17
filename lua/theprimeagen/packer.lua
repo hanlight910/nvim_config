@@ -36,8 +36,6 @@ return require('packer').startup(function(use)
             {'williamboman/mason-lspconfig.nvim'},
 
             {'neovim/nvim-lspconfig'},
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-nvim-lsp'},
             {'L3MON4D3/LuaSnip'},
         }
     }
@@ -117,13 +115,19 @@ return require('packer').startup(function(use)
     use { "mfussenegger/nvim-dap-python" }
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     use { "stevearc/dressing.nvim" }
-    use { 
-        "ziontee113/icon-picker.nvim",
-        config = function()
-            require("icon-picker").setup({
-                disable_legacy_commands = true
-            })
-        end,
-    }
-
+    use { "ziontee113/icon-picker.nvim"}
+    use({
+        "epwalsh/obsidian.nvim",
+        tag = "*",  -- recommended, use latest release instead of latest commit
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
+    })
+    use{ 'neovim/nvim-lspconfig' }
+    use{ 'hrsh7th/cmp-nvim-lsp' }
+    use{ 'hrsh7th/cmp-buffer' }
+    use{ 'hrsh7th/cmp-path' }
+    use{ 'hrsh7th/cmp-cmdline' }
+    use{ 'hrsh7th/nvim-cmp'   }
+    use { 'BurntSushi/ripgrep' }
 end)

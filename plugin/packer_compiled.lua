@@ -84,13 +84,28 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
+  },
   ["dashboard-nvim"] = {
-    config = { "\27LJ\2\n�\3\0\0\6\0\r\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0034\4\5\0005\5\a\0>\5\1\0045\5\b\0>\5\2\0045\5\t\0>\5\3\0045\5\n\0>\5\4\4=\4\v\3=\3\f\2B\0\2\1K\0\1\0\vconfig\rshortcut\1\0\4\bkey\6d\vaction\23Telescope dotfiles\ngroup\vNumber\tdesc\17 dotfiles\1\0\4\bkey\6a\vaction\18Telescope app\ngroup\19DiagnosticHint\tdesc\r Apps\1\0\6\bkey\6f\vaction\25Telescope find_files\ngroup\nLabel\tdesc\nFiles\ficon_hl\14@variable\ticon\t \1\0\4\bkey\6u\vaction\16Lazy update\ngroup\14@property\tdesc\16󰊳 Update\16week_header\1\0\2\rshortcut\0\16week_header\0\1\0\1\venable\2\1\0\2\ntheme\nhyper\vconfig\0\nsetup\14dashboard\frequire\0" },
+    config = { "\27LJ\2\n�\3\0\0\6\0\r\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0034\4\5\0005\5\a\0>\5\1\0045\5\b\0>\5\2\0045\5\t\0>\5\3\0045\5\n\0>\5\4\4=\4\v\3=\3\f\2B\0\2\1K\0\1\0\vconfig\rshortcut\1\0\4\bkey\6d\tdesc\17 dotfiles\ngroup\vNumber\vaction\23Telescope dotfiles\1\0\4\bkey\6a\tdesc\r Apps\ngroup\19DiagnosticHint\vaction\18Telescope app\1\0\6\ticon\t \vaction\25Telescope find_files\bkey\6f\ficon_hl\14@variable\tdesc\nFiles\ngroup\nLabel\1\0\4\bkey\6u\tdesc\16󰊳 Update\ngroup\14@property\vaction\16Lazy update\16week_header\1\0\2\rshortcut\0\16week_header\0\1\0\1\venable\2\1\0\2\ntheme\nhyper\vconfig\0\nsetup\14dashboard\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -113,7 +128,6 @@ _G.packer_plugins = {
     url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["icon-picker.nvim"] = {
-    config = { "\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\28disable_legacy_commands\2\nsetup\16icon-picker\frequire\0" },
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/icon-picker.nvim",
     url = "https://github.com/ziontee113/icon-picker.nvim"
@@ -200,6 +214,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
+  ["obsidian.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/obsidian.nvim",
+    url = "https://github.com/epwalsh/obsidian.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -214,6 +233,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/pomo.nvim",
     url = "https://github.com/epwalsh/pomo.nvim"
+  },
+  ripgrep = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/ripgrep",
+    url = "https://github.com/BurntSushi/ripgrep"
   },
   ["rose-pine"] = {
     config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
@@ -267,10 +291,6 @@ time([[Setup for markdown-preview.nvim]], false)
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
--- Config for: icon-picker.nvim
-time([[Config for icon-picker.nvim]], true)
-try_loadstring("\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\28disable_legacy_commands\2\nsetup\16icon-picker\frequire\0", "config", "icon-picker.nvim")
-time([[Config for icon-picker.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

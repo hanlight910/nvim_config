@@ -1,6 +1,6 @@
 vim.opt.guicursor = ""
 
-vim.opt.nu = true
+vim.opt.nu = true;
 vim.opt.relativenumber = true --현제 줄 기준 위 아래 줄 오름차순으로 자동 바뀜
 
 vim.opt.tabstop = 4
@@ -37,3 +37,4 @@ vim.cmd [[
     autocmd BufEnter * silent! lcd %:p:h
   augroup END
 ]]
+vim.opt.conceallevel = 2;
