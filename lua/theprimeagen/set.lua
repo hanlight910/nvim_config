@@ -35,9 +35,9 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 vim.cmd [[
-  augroup ChangeDirectory
-    autocmd!
-    autocmd BufEnter * silent! lcd %:p:h
-  augroup END
+	augroup ChangeDirectory
+	autocmd!
+	autocmd BufEnter * silent! lcd %:p:h
+	augroup END
 ]]
 vim.opt.conceallevel = 2;
