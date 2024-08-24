@@ -4,8 +4,6 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt.termguicolors = true
 
-vim.keymap.set('n', '<leader>nt', '<Cmd>NvimTreeOpen<Cr>');
-
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
     on_attach = "default",
     hijack_cursor = false,
@@ -280,9 +278,10 @@ local function my_on_attach(bufnr)
     -- custom mappings
     vim.keymap.set('n', '<C-R>', api.tree.change_root_to_parent, opts('Up'))
     vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
-    vim.keymap.set('n', '<C-a>', api.tree.toggle) 
-
+    vim.keymap.set('n', '<leader>nt', api.tree.toggle) 
 end
+
+vim.keymap.set('n', '<leader>nt', "<cmd>NvimTreeOpen<cr>");
 
 require("nvim-tree").setup {
     on_attach = my_on_attach,
