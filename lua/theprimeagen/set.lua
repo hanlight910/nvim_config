@@ -6,8 +6,11 @@ vim.opt.relativenumber = true --현제 줄 기준 위 아래 줄 오름차순으
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = 
-    false;
+vim.opt.expandtab = false;
+
+function nothing()
+	print("nothing");
+end
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.autoread = true --vim 외부에서 파일이 변경될 경우 자동으로 다시 읽어드립니다.
