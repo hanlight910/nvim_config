@@ -24,14 +24,14 @@ require('mason-lspconfig').setup({
     automatic_installation = true,
     handlers = {
         function(server_name)
-            require('lspconfig')[server_name].setup({})
+            require('lspconfig').pyright.setup({
+				setting = {
+					python = {
+						pythonPath="/home/light/archive/01-PROJECTS/lms/venv/bin/python3";
+					}
+				}
+			})
         end,
     },
 });
 
--- local cmp = require('cmp')
--- local cmp_select = {behavior = cmp.SelectBehavior.Select}
--- local cmp_mappings = lsp_zero.defaults.cmp_mappings({
---     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
---     ['<C-Space>'] = cmp.mapping.complete(),
--- })

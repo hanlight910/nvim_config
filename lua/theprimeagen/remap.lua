@@ -1,4 +1,5 @@
 local c = require("theprimeagen.templates.c");
+vim.g.ssu_path = "/home/light/archive/01-PROJECTS/ssu/1학년_2학기/courses/";
 
 function open_terminal ()
     vim.cmd("botright new");
@@ -60,8 +61,6 @@ vim.keymap.set("t", "kj", "<C-\\><C-n>");
 
 vim.keymap.set("n", "<leader>w", "<C-w>w");
 vim.keymap.set("n", "<A-w>", "<cmd>w<Cr>");
-vim.keymap.set("v", "kj", "<Esc>");
-vim.keymap.set("v", "jk", "<Esc>");
 vim.keymap.set("n", "<leader>nv", "<cmd>ex /home/light/archive/05-FLEETING/nvim_setting.md<CR>");
 vim.keymap.set("n", "<A-s>", "<cmd>ex /home/light/.config/nvim/lua/theprimeagen/remap.lua<CR>");
 vim.keymap.set("n", "<leader>bd", "<cmd>bd!<CR>");
@@ -130,4 +129,7 @@ move_previous_buffer = function()
 end
 
 vim.keymap.set("n", "<leader>bn", "<cmd>lua move_next_buffer()<cr>");
-vim.keymap.set("n", "<leader>bp", "<cmd>lua move_previous_buffer()CR>");
+vim.keymap.set("n", "<leader>bp", "<cmd>lua move_previous_buffer()<CR>");
+
+vim.keymap.set("n", "<leader>ssu", "<cmd>ex " .. vim.g.ssu_path .. "<CR>")
+vim.keymap.set("n", "<leader>p", "\"0p")
