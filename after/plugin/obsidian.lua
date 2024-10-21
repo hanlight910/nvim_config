@@ -3,7 +3,9 @@ local ROOTH_PATH = "archive";
 local TEMPLATES_PATH = ROOTH_PATH .. "/03-RESOURCES/templates/";
 local DAILY_NOTE_PATH = "/04-PERMANENT/creating-daily-note"
 
+vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTags<CR>");
 obsidian.setup({
+	ui = { enable = false },
     workspaces = {
         {
             name = "personal",
