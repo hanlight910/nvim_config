@@ -1,6 +1,5 @@
--- === variables ===
+--" === variables ===
 local opt = { silent = true }
-
 
 -- === modules ===
 local c = require("templates.c");
@@ -31,12 +30,15 @@ vim.keymap.set("i", "<Tab>", "<Tab>");
 vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
--- === Normal vimode === 
+-- === normal mode === 
+vim.keymap.set("n", "<BS>", "<Nop>");
+vim.keymap.set("n", "<Del>", "<Nop>");
 vim.keymap.set("n", "<A-q>", open_bash_config);
 vim.keymap.set("n", "<leader>pp", "\"0p")
 vim.keymap.set("n", "<leader>yy", "\"0y")
 vim.keymap.set("n", "<A-b>",  move_to_prev_normal_buffer);
 vim.keymap.set("n", "<A-y>", "\"+y");
+
 vim.keymap.set("n", "<A-l>", move_to_terminal_window);
 
 vim.keymap.set("n", "<A-n>", move_to_next_normal_buffer);
@@ -77,10 +79,12 @@ vim.keymap.set("n", "<leader>ssu", "<cmd>ex " .. vim.g.ssu_path .. "<CR>")
 vim.keymap.set("n", "<leader>pw", "<cmd>!pwd | xclip -sel clip<CR>", { silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
+-- === visual mode === 
+vim.keymap.set("v", "<C-c>", "\"+y");
+
 -- === Terminal mode ===
 vim.keymap.set("t", "<A-=>", "<cmd>resize +5<CR>");
 vim.keymap.set("t", "<A-->", "<cmd>resize -5<CR>");
-vim.keymap.set("t","<C-n>", "<C-\\><C-n>");
 vim.keymap.set("t", "<A-q>", "<C-\\><C-n><cmd>bd!<Cr>");
 vim.keymap.set("t", "kj", "<C-\\><C-n>");
 vim.keymap.set("t", "<A-w>", move_workspace);

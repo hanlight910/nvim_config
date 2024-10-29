@@ -183,12 +183,46 @@ functions.compile_c = function()
 	else
 		functions.open_terminal();
 	end
-	vim.api.nvim_input("gc " .. file_name .. "<CR><CR>" .. "r<CR>n<CR>") ;
+	vim.api.nvim_input("gc " .. file_name .. "<CR><CR>" .. "r<CR><CR>") ;
 	return;
 end
 
 functions.compile_cpp = function()
 	local file_name = vim.fn.expand("%");
+	functions.open_terminal();
+	vim.api.nvim_input("g++ " .. file_name .. " `pkg-config --cflags --libs opencv4` -g<cr>");
+	vim.api.nvim_input("gdb " .. "./a.out<CR>");
+	-- vim.defer_fn(function ()
+	-- 	vim.api.nvim_input("./a.out<CR>");
+	-- end, 2000);
+end;
+
+functions.run_py = function()
+	local file_name = vim.fn.expand("%");
+	functions.open_terminal();
+	vim.api.nvim_input("python3 " .. file_name .. "<CR>");
+end
+
+functions.run_c = function()
+	local file_type = check_file_format();
+	print(file_type);
+	if file_type == "c" then
+		functions.compile_c();
+	end
+	if file_type == "cpp" then
+		print("hello, cpp");
+		functions.compile_cpp();
+	end
+
+	if file_type == "python" then
+		print("hello py");
+		functions.run_py();
+	end
+
+end
+
+-- terminal
+local open_terminal = function()
 	local buffers = vim.api.nvim_list_bufs();
 	local found_terminal = false;	
 	local terminal_buf;
@@ -201,33 +235,7 @@ functions.compile_cpp = function()
 	end
 	if found_terminal then
 		vim.api.nvim_buf_delete(terminal_buf, {force = true});
-		functions.open_terminal();
-	else
-		functions.open_terminal();
 	end
-	vim.api.nvim_input("g++ " .. file_name .. " `pkg-config --cflags --libs opencv4`<cr>");
-	vim.defer_fn(function ()
-		vim.api.nvim_input("./a.out<CR>");
-	end, 2000);
-end;
-
-functions.run_c = function()
-	local file_type = check_file_format();
-	if file_type == "c" then
-		functions.compile_c();
-	end
-	print(file_type, "cpp");
-	if file_type == "cpp" then
-		print("hello, cpp");
-		functions.compile_cpp();
-	end
-
-	if file_type == "py" then
-	end
-end
-
--- terminal
-local open_terminal = function()
 	vim.cmd("botright new");
 	vim.opt.number = false;
 	vim.opt.relativenumber = false;
