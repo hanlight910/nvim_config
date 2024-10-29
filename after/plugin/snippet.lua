@@ -12,38 +12,14 @@ vim.keymap.set({"i"}, "<A-k>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<A-n>", function() ls.jump( 1) end, {silent = true})
 vim.keymap.set({"i", "s"}, "<A-p>", function() ls.jump(-1) end, {silent = true})
 
--- vim.keymap.set("i", "<A-n>", "<Plug>luasnip-next-choice", {});
+vim.keymap.set("i", "<A-j>", "<Plug>luasnip-next-choice", {});
+
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
 end, {silent = true})
-
-ls.add_snippets("all", {
-	s("prarr", {
-		t("for (int32_t i = 0; i < "), i(1), t({"; i += 1) {", ""}),
-		d(2, function(args)
-			return sn(nil, {
-				i(1, args[1]);
-			})
-		end, {1}),
-		i(0);
-		t({"", "}"}),
-
-	}),
-	s("trig", {
-		t"text: ", i(1), t{"", "copy: "},
-		d(2, function(args)
-			-- the returned snippetNode doesn't need a position; it's inserted
-			-- "inside" the dynamicNode.
-			return sn(nil, {
-				-- jump-indices are local to each snippetNode, so restart at 1.
-				i(1, args[1])
-			})
-		end, {1})
-	})
-})
 
 ls.filetype_extend("markdown", {"c", "cpp"});
 ls.filetype_extend("lua", {"c"});
@@ -71,6 +47,7 @@ ls.add_snippets("lua", {
 		})
 	})
 })
+
 ls.add_snippets("c", {
 	s("std", {
 		c(1, {
