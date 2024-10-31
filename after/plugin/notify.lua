@@ -1,18 +1,20 @@
 -- plugins
 local plugin = "This is sample plugin";
+
 vim.notify = require("notify");
 
 vim.notify.setup({
 	background_colour = "#300000", fps = 30,
 	icons = {
-		DEBUG = "",
-		ERROR = "",
-		INFO = "",
+		DEBUG = " ",
+		ERROR = " ",
+		INFO = " ",
 		TRACE = "✎",
-		WARN = ""
+		WARN = " "
 	},
 	level = 2,
-	minimum_width = 50,
+	minimum_width = 10,
+	max_width = 30,
 	render = "default",
 	stages = "fade_in_slide_out",
 	time_formats = {
@@ -23,7 +25,7 @@ vim.notify.setup({
 	top_down = true,
 })
 
-local text = "# something";
+local text = "# Welcome to Neovim!!";
 
 vim.notify(text, "info", {
   title = "My Awesome Plugin",
