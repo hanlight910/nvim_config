@@ -46,24 +46,18 @@ return require('packer').startup(function(use)
 	-- use { "Lokaltog/vim-powerline" }
 	use { "cohama/lexima.vim" }
 	use {
-		'VonHeikemen/fine-cmdline.nvim',
-		requires = {
-			{'MunifTanjim/nui.nvim'}
-		}
-	}
-	use {
 		'nvimdev/dashboard-nvim',
 		event = 'VimEnter',
 		requires = {'nvim-tree/nvim-web-devicons'}
 	}
 	use { 'nvim-lualine/lualine.nvim' }
-	use {
-		'kdheepak/tabline.nvim' ,
-		requires = {
-			{ 'hoob3rt/lualine.nvim', opt=true },
-			{'kyazdani42/nvim-web-devicons', opt = true},
-		}
-	}
+	-- use {
+	-- 	'kdheepak/tabline.nvim' ,
+	-- 	requires = {
+	-- 		{ 'hoob3rt/lualine.nvim', opt = true },
+	-- 		{'kyazdani42/nvim-web-devicons', opt = false},
+	-- 	}
+	-- }
 	use { 'numToStr/Comment.nvim' }
 	use { "mfussenegger/nvim-dap" }
 	use { "mfussenegger/nvim-dap-python" }
@@ -97,7 +91,7 @@ return require('packer').startup(function(use)
 	use({
 		'MeanderingProgrammer/render-markdown.nvim',
 		after = { 'nvim-treesitter' },
-		reqquires = { 'echasnovski/mini.nvim', opt = true }, -- if you use the mini.nvim suite
+		-- requires = { 'echasnovski/mini.nvim', opt = true }, -- if you use the mini.nvim suite
 		-- requires = { 'echasnovski/mini.icons', opt = true }, -- if you use standalone mini plugins
 		requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- if you prefer nvim-web-devicons
 		config = function()
@@ -105,4 +99,14 @@ return require('packer').startup(function(use)
 		end,
 	})
 	use{"folke/tokyonight.nvim"}
+	use {"folke/noice.nvim"}
+	use {"MunifTanjim/nui.nvim"}
+	use {
+    'nvim-flutter/flutter-tools.nvim',
+    requires = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+	use {"robitx/gp.nvim"},
+}
 end)
