@@ -14,7 +14,7 @@ vim.notify.setup({
 	},
 	level = 2,
 	minimum_width = 10,
-	max_width = 30,
+	max_width = 100,
 	render = "default",
 	stages = "fade_in_slide_out",
 	time_formats = {
@@ -35,3 +35,4 @@ vim.notify(text, "info", {
   end,
 })
 
+vim.keymap.set("n", "<A-h>", "<cmd>Telescope notify<CR>");
