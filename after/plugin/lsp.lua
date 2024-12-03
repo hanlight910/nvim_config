@@ -21,7 +21,8 @@ require('mason-lspconfig').setup({
 		'cssls',
 		'emmet_language_server',
 		'texlab',
-		'ts_ls'
+		'ts_ls',
+		'jdtls'
 	},
 	automatic_installation = true,
 	handlers = {

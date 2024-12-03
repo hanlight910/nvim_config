@@ -21,7 +21,7 @@ vim.notify.setup({
 		notification = "%T",
 		notification_history = "%FT%T"
 	},
-	timeout = 5000,
+	timeout = 2000,
 	top_down = true,
 })
 

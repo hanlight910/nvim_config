@@ -1,27 +1,34 @@
 local gp = require("gp");
 
 local config = {
-	openai_api_key = os.getenv("OPEN_AI_API"),
+	providers = {
+		openai = {
+			endpoint = "https://api.openai.com/v1/chat/completions",
+			secret = os.getenv("OPEN_AI_API"),
+		}
+
+	},
 	agent = {
 		{
- 			name = "ChatGPT4o",
- 			chat = true,
- 			command = false,
- 			-- string with model name or table with model name and parameters 
- 			model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
- 			-- system prompt (use this to specify the persona/role of the AI) 
- 			system_prompt = require("gp.defaults").chat_system_prompt,
- 		},
+			name = "ChatGPT4o",
+			chat = true,
+			command = false,
+			disable = false,
+			-- string with model name or table with model name and parameters 
+			model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+			-- system prompt (use this to specify the persona/role of the AI) 
+			system_prompt = require("gp.defaults").chat_system_prompt,
+		},
 	},
 }
 gp.setup(config);
 local function keymapOptions(desc)
-    return {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        desc = "GPT prompt " .. desc,
-    }
+	return {
+		noremap = true,
+		silent = true,
+		nowait = true,
+		desc = "GPT prompt " .. desc,
+	}
 end
 
 -- Chat commands
