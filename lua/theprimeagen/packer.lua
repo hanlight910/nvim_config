@@ -102,11 +102,25 @@ return require('packer').startup(function(use)
 	use {"folke/noice.nvim"}
 	use {"MunifTanjim/nui.nvim"}
 	use {
-    'nvim-flutter/flutter-tools.nvim',
-    requires = {
-        'nvim-lua/plenary.nvim',
-        'stevearc/dressing.nvim', -- optional for vim.ui.select
-    },
-	use {"robitx/gp.nvim"},
-}
+		'nvim-flutter/flutter-tools.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'stevearc/dressing.nvim', -- optional for vim.ui.select
+		},
+	}
+	use {"robitx/gp.nvim"}
+	use {
+		"folke/which-key.nvim",
+		optsl = function()
+			return {
+				triggers = {
+					{ "<leader>", mode = "n" }
+				}
+			}
+		end
+
+	}
+	use {"marcussimonsen/let-it-snow.nvim"}
+	use {'krivahtoo/silicon.nvim', run = './install.sh'}
 end)
+

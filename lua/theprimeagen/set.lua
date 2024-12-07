@@ -59,3 +59,6 @@ vim.api.nvim_set_keymap('n', '<Down>', msg, { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<Left>', msg, { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<Right>', msg, { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<BS>', msg, { noremap = true, silent = false })
+
+
+vim.o.cursorline  = true;

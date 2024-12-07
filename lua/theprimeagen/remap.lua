@@ -21,6 +21,7 @@ local move_to_terminal_window = fn.move_to_terminal_window;
 local move_to_next_normal_buffer = fn.move_to_next_normal_buffer;
 local move_to_prev_normal_buffer = fn.move_to_prev_normal_buffer;
 local delete_normal_buffer = fn.delete_normal_buffer;
+local create_project = fn.create_project;
 
 
 -- === Insert mode === 
@@ -31,17 +32,19 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode === 
+vim.keymap.set("n", "<leader>anp", create_project);
+vim.keymap.set("n", "<C-l>", move_workspace);
 vim.keymap.set("n", "<A-q>", open_bash_config);
 vim.keymap.set("n", "<leader>pp", "\"0p")
 vim.keymap.set("n", "<leader>yy", "\"0y")
 vim.keymap.set("n", "<A-b>",  move_to_prev_normal_buffer);
 vim.keymap.set("n", "<A-y>", "\"+y");
 
-vim.keymap.set("n", "<C-l>", move_to_terminal_window);
+vim.keymap.set("n", "<A-.>", move_to_terminal_window);
 
 vim.keymap.set("n", "<A-n>", move_to_next_normal_buffer);
 
-vim.keymap.set("n", "<leader>xdg", "<cmd>!xdg-open %<CR>");
+vim.keymap.set("n", "<leader>xdg", "<cmd>!xdg-open \"%\"<CR>");
 vim.keymap.set("n", "<leader>d", "vbd");
 vim.keymap.set("n", "<leader>co", create_algorithm_path)
 vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
@@ -61,8 +64,10 @@ vim.keymap.set("n", "<leader>tt", open_terminal);
 
 vim.keymap.set("n", "<A-=>", "<cmd>resize +5<CR>");
 vim.keymap.set("n", "<A-->", "<cmd>resize -5<CR>");
+vim.keymap.set("n", "<A-(>", "<cmd>vertical resize +10<CR>");
+vim.keymap.set("n", "<A-)>", "<cmd>vertical resize -10<CR>");
 
-vim.keymap.set("n", "<leader>w", "<C-w>w");
+vim.keymap.set("n", "<leader>w", "<C-w>");
 vim.keymap.set("n", "<A-w>", "<cmd>w<Cr>");
 vim.keymap.set("n", "<leader>nv", "<cmd>ex /home/light/archive/05-FLEETING/nvim_setting.md<CR>");
 vim.keymap.set("n", "<A-s>", "<cmd>ex /home/light/.config/nvim/lua/theprimeagen/remap.lua<CR>");

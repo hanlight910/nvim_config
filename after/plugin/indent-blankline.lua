@@ -49,7 +49,8 @@ ibl.setup({
 			"Whitespace",
 		},
 		remove_blankline_trail = false,
-	}
+	},
+
 });
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark);
 

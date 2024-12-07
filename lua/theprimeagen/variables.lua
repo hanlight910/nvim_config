@@ -1,5 +1,6 @@
 vim.g.archive = "/home/light/archive";
 vim.g.areas = vim.g.archive .. "/02-AREAS";
+vim.g.projects = vim.g.archive .. "/01-PROJECTS/";
 
 vim.g.algorithm = vim.g.areas .. "/algorithm";
 vim.g.baekjoon = vim.g.algorithm .. "/baekjoon";

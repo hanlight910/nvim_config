@@ -10,20 +10,20 @@ end
 
 --- ==== window navigation ====
 functions.move_workspace = function()
-	local windows = vim.api.nvim_list_wins();
-
+	local windows = vim.api.nvim_list_wins()
+	
 	for _, win in ipairs(windows) do
-		local buf = vim.api.nvim_win_get_buf(win);
-		local buftype = vim.api.nvim_buf_get_option(buf, "buftype");
+	    local buf = vim.api.nvim_win_get_buf(win)
+	    local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+	    local buflisted = vim.api.nvim_buf_get_option(buf, "buflisted")
+	    local bufname = vim.api.nvim_buf_get_name(buf)
 
-		if buftype == "" then
-			vim.api.nvim_set_current_win(win);
-			print("Moved to normal window");
-			return;
-		end
-
+	    if buftype == "" and (buflisted or vim.api.nvim_buf_is_valid(buf) and bufname ~= "") then
+	        vim.api.nvim_set_current_win(win)
+	        print("Moved to active or listed window")
+	        return
+	    end
 	end
-
 end
 
 functions.move_to_terminal_window = function()
@@ -163,6 +163,15 @@ functions.create_algorithm_path = function()
 	return 0;
 end
 
+functions.create_project = function()
+	local input = vim.fn.input("Enter project name: ");
+	local dir = vim.g.projects;
+	local dir_path = dir .. input;
+	vim.cmd("!mkdir " .. dir_path);
+	vim.cmd("e " .. dir_path);
+	return 0;
+end
+
 --- compile
 functions.compile_c = function()
 	local file_name = vim.fn.expand("%");
@@ -191,7 +200,7 @@ functions.compile_cpp = function()
 	local file_name = vim.fn.expand("%");
 	functions.open_terminal();
 	vim.api.nvim_input("g++ " .. file_name .. " `pkg-config --cflags --libs opencv4` -g<cr>");
-	vim.api.nvim_input("gdb " .. "./a.out<CR>");
+	vim.api.nvim_input("gdb " .. "./a.out<CR><CR><CR>r<CR>");
 	-- vim.defer_fn(function ()
 	-- 	vim.api.nvim_input("./a.out<CR>");
 	-- end, 2000);
@@ -199,8 +208,29 @@ end;
 
 functions.run_py = function()
 	local file_name = vim.fn.expand("%");
-	functions.open_terminal();
-	vim.api.nvim_input("python3 " .. file_name .. "<CR>");
+	print(file_name);
+	local buffers = vim.api.nvim_list_bufs();
+	local found_terminal = false;	
+	local terminal_buf;
+	for i, buf in ipairs(buffers) do
+		local buftype = vim.api.nvim_buf_get_option(buf, "buftype");
+		if buftype == "terminal" then
+			found_terminal = true;
+			terminal_buf = buf;
+		end
+	end
+	if found_terminal then
+		vim.api.nvim_buf_delete(terminal_buf, { force = true });
+		functions.open_terminal();
+	else
+		functions.open_terminal();
+	end
+	vim.api.nvim_input("cd ../<CR>");
+	-- vim.api.nvim_input(". .run<CR>");
+	
+	vim.api.nvim_input(". ./venv/bin/activate<CR>");
+	vim.api.nvim_input(". .run" .. "<CR>");
+	return 0;
 end
 
 functions.run_c = function()
@@ -254,3 +284,4 @@ end
 functions.open_terminal = open_terminal;
 
 return functions;
+
