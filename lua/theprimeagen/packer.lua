@@ -122,5 +122,6 @@ return require('packer').startup(function(use)
 	}
 	use {"marcussimonsen/let-it-snow.nvim"}
 	use {'krivahtoo/silicon.nvim', run = './install.sh'}
+	use { "folke/snacks.nvim" }
 end)
 

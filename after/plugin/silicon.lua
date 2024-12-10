@@ -1,3 +1,3 @@
 require('silicon').setup({
-  theme = 'Monokai Extended',
+	font = "Ubuntu Mono",
 })

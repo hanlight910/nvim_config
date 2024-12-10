@@ -281,6 +281,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/silicon.nvim",
     url = "https://github.com/krivahtoo/silicon.nvim"
   },
+  ["snacks.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/snacks.nvim",
+    url = "https://github.com/folke/snacks.nvim"
+  },
   tagbar = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/tagbar",

@@ -84,6 +84,7 @@ vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
 vim.keymap.set("v", "<C-c>", "\"+y");
+vim.keymap.set("v", "<leader>c", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
 
 -- === Terminal mode ===
 vim.keymap.set("t", "<A-=>", "<cmd>resize +5<CR>");
