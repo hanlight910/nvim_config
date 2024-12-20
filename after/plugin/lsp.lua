@@ -22,7 +22,7 @@ require('mason-lspconfig').setup({
 		'emmet_language_server',
 		'texlab',
 		'ts_ls',
-		'jdtls'
+		"jdtls"
 	},
 	automatic_installation = true,
 	handlers = {
