@@ -225,11 +225,11 @@ functions.run_py = function()
 	else
 		functions.open_terminal();
 	end
-	vim.api.nvim_input("cd ../<CR>");
 	-- vim.api.nvim_input(". .run<CR>");
-	
-	vim.api.nvim_input(". ./venv/bin/activate<CR>");
-	vim.api.nvim_input(". .run" .. "<CR>");
+	vim.api.nvim_input(". ../venv/bin/activate<CR>");
+	-- vim.api.nvim_input(". .run" .. "<CR>");
+	-- vim.api.nvim_input(". ./")
+	vim.api.nvim_input("python3 " .. file_name .. "<CR>");
 	return 0;
 end
 

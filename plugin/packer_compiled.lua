@@ -141,6 +141,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
+  ["jupynium.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/jupynium.nvim",
+    url = "https://github.com/kiyoon/jupynium.nvim"
+  },
   ["let-it-snow.nvim"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/let-it-snow.nvim",

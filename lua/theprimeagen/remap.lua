@@ -31,7 +31,8 @@ vim.keymap.set("i", "<Tab>", "<Tab>");
 vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
--- === normal mode === 
+-- === normal mode ===
+vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
 vim.keymap.set("n", "<C-l>", move_workspace);
 vim.keymap.set("n", "<A-q>", open_bash_config);
@@ -92,3 +93,4 @@ vim.keymap.set("t", "<A-->", "<cmd>resize -5<CR>");
 vim.keymap.set("t", "<A-q>", "<C-\\><C-n><cmd>bd!<Cr>");
 vim.keymap.set("t", "kj", "<C-\\><C-n>");
 vim.keymap.set("t", "<C-l>", move_workspace);
+

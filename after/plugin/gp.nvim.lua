@@ -5,7 +5,11 @@ local config = {
 		openai = {
 			endpoint = "https://api.openai.com/v1/chat/completions",
 			secret = os.getenv("OPEN_AI_API"),
-		}
+		},
+		googleai = {
+			endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
+			secret = os.getenv("GOOGLEAI_API_KEY"),
+		},
 
 	},
 	agent = {
@@ -13,12 +17,22 @@ local config = {
 			name = "ChatGPT4o",
 			chat = true,
 			command = false,
-			disable = false,
+			disable = true,
 			-- string with model name or table with model name and parameters 
 			model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
 			-- system prompt (use this to specify the persona/role of the AI) 
-			system_prompt = require("gp.defaults").chat_system_prompt,
+			system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.", 
 		},
+		{
+ 			provider = "googleai",
+ 			name = "ChatGemini",
+ 			chat = true,
+ 			command = false,
+ 			-- string with model name or table with model name and parameters 
+ 			model = { model = "gemini-pro", temperature = 1.1, top_p = 1 },
+ 			-- system prompt (use this to specify the persona/role of the AI) 
+ 			system_prompt = "Always response within 5 sentences with example."
+ 		},
 	},
 }
 gp.setup(config);
