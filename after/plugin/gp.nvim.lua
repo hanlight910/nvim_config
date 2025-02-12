@@ -3,6 +3,7 @@ local gp = require("gp");
 local config = {
 	providers = {
 		openai = {
+			disable = true,
 			endpoint = "https://api.openai.com/v1/chat/completions",
 			secret = os.getenv("OPEN_AI_API"),
 		},
@@ -12,27 +13,35 @@ local config = {
 		},
 
 	},
-	agent = {
+
+	default_command_agent = "CustomAgent",
+	default_chat_agent = "CustomAgent",
+	agents = {
+		-- {
+		-- 	name = "ChatGemini",
+		-- 	disable = true,
+		--
+		-- },
+		-- {
+		-- 	name = "ChatGPT4o",
+		-- 	chat = true,
+		-- 	command = false,
+		-- 	disable = true,
+		-- 	-- string with model name or table with model name and parameters 
+		-- 	model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+		-- 	-- system prompt (use this to specify the persona/role of the AI) 
+		-- 	system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.",
+		-- },
 		{
-			name = "ChatGPT4o",
+			name = "CustomAgent",
+			provider = "googleai",
 			chat = true,
-			command = false,
-			disable = true,
+			command = true,
 			-- string with model name or table with model name and parameters 
-			model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+			model = { model = "gemini-1.5-flash", temperature = 1.1, top_p = 1 },
 			-- system prompt (use this to specify the persona/role of the AI) 
-			system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.", 
+			system_prompt = "Okay, I understand. I will strive to answer your questions clearly and concisely within 10 sentences. I will also correct any grammatical errors or suggest more appropriate terminology, providing examples when necessary to ensure clarity. I am ready to assist you!",
 		},
-		{
- 			provider = "googleai",
- 			name = "ChatGemini",
- 			chat = true,
- 			command = false,
- 			-- string with model name or table with model name and parameters 
- 			model = { model = "gemini-pro", temperature = 1.1, top_p = 1 },
- 			-- system prompt (use this to specify the persona/role of the AI) 
- 			system_prompt = "Always response within 5 sentences with example."
- 		},
 	},
 }
 gp.setup(config);

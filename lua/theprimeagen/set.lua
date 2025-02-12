@@ -42,7 +42,7 @@ vim.cmd [[
 	augroup END
 ]]
 vim.opt.conceallevel = 2;
-vim.cmd("syntax on")
+vim.cmd("syntax")
 
 local msg = [[<cmd>echohl Error | echo "KEY DISABLED" | echohl None<CR>]]
 print("hardmode enabled");

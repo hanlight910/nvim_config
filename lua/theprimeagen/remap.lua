@@ -1,4 +1,4 @@
---" === variables ===
+-- === variables ===
 local opt = { silent = true }
 
 -- === modules ===
@@ -23,7 +23,6 @@ local move_to_prev_normal_buffer = fn.move_to_prev_normal_buffer;
 local delete_normal_buffer = fn.delete_normal_buffer;
 local create_project = fn.create_project;
 
-
 -- === Insert mode === 
 vim.keymap.set("i", "jk", "<Esc>");
 vim.keymap.set("i", "kj", "<Esc>");
@@ -32,18 +31,23 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>so", "<cmd>so " .. vim.g.config .. "/init.lua<CR>");
+vim.keymap.set("n", "<leader>ca", "ggVG");
+vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
 vim.keymap.set("n", "<C-l>", move_workspace);
 vim.keymap.set("n", "<A-q>", open_bash_config);
 vim.keymap.set("n", "<leader>pp", "\"0p")
 vim.keymap.set("n", "<leader>yy", "\"0y")
-vim.keymap.set("n", "<A-b>",  move_to_prev_normal_buffer);
 vim.keymap.set("n", "<A-y>", "\"+y");
 
 vim.keymap.set("n", "<A-.>", move_to_terminal_window);
-
-vim.keymap.set("n", "<A-n>", move_to_next_normal_buffer);
+vim.keymap.set("n", "<C-j>", function ()
+	print("Prev");
+	move_to_prev_normal_buffer();
+end);
+vim.keymap.set("n", "<C-k>", move_to_next_normal_buffer);
 
 vim.keymap.set("n", "<leader>xdg", "<cmd>!xdg-open \"%\"<CR>");
 vim.keymap.set("n", "<leader>d", "vbd");

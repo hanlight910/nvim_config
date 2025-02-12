@@ -283,5 +283,7 @@ end
 
 functions.open_terminal = open_terminal;
 
+vim.g.open_terminal = open_terminal;
+vim.g.move_workspace = functions.move_workspace;
 return functions;
 

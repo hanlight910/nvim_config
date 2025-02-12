@@ -35,4 +35,5 @@ vim.notify(text, "info", {
   end,
 })
 
-vim.keymap.set("n", "<A-h>", "<cmd>Telescope notify<CR>");
+vim.keymap.set("n", "<C-h>", "<cmd>Telescope notify<CR>");
+

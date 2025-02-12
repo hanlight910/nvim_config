@@ -17,7 +17,8 @@ local keymaps = {
     end},
     {'n', '<leader>pa', function() find_files_with_cwd(vim.g.archive, "< ARCHIVE >") end},
     {'n', '<leader>paa', function() find_files_with_cwd(vim.g.areas, "< 02-AREAS >") end},
-    {'n', '<leader>pap', function() find_files_with_cwd(vim.g.projects, "< 03-PROJECTS >") end}
+    {'n', '<leader>pap', function() find_files_with_cwd(vim.g.projects, "< 03-PROJECTS >") end},
+    {'n', '<A-s>', function() find_files_with_cwd(vim.g.config, "< 03-PROJECTS >") end}
 }
 
 for _, map in ipairs(keymaps) do

@@ -1,4 +1,7 @@
-return require('packer').startup(function(use)
+local status, packer = pcall(require, "packer");
+
+if status then
+	return packer.startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	use {
@@ -48,6 +51,11 @@ return require('packer').startup(function(use)
 	use {
 		'nvimdev/dashboard-nvim',
 		event = 'VimEnter',
+		config = function()
+			require('dashboard').setup {
+				-- config
+			}
+		end,
 		requires = {'nvim-tree/nvim-web-devicons'}
 	}
 	use { 'nvim-lualine/lualine.nvim' }
@@ -129,3 +137,6 @@ return require('packer').startup(function(use)
 	-- use { "nvim-java/nvim-java" }
 end)
 
+else
+	print("Packer is not installed");
+end

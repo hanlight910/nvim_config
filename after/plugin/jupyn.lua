@@ -3,8 +3,8 @@ require("jupynium").setup({
 	-- python_host ={ "conda", "run", "--no-capture-output", "-n", "jupynium", "python" },
 
 	default_notebook_URL = "localhost:8888/nbclassic",
-	python_host = { "conda", "run", "--no-capture-output", "-n", "base", "python" },
-	jupyter_command = { "conda", "run", "--no-capture-output", "-n", "base", "jupyter" },
+	python_host = "conda",
+	jupyter_command = "conda",
 
 	-- Write jupyter command but without "notebook"
 	-- When you call :JupyniumStartAndAttachToServer and no notebook is open,
@@ -30,7 +30,7 @@ require("jupynium").setup({
 	-- which means that it will open the Selenium browser when you open this file.
 	-- Related command :JupyniumStartAndAttachToServer
 	auto_start_server = {
-		enable = false,
+		enable = true,
 		file_pattern = { "*.ju.*" },
 	},
 
@@ -54,7 +54,7 @@ require("jupynium").setup({
 	-- by downloading from the Jupyter Notebook server.
 	-- WARNING: this will overwrite the file without asking
 	-- Related command :JupyniumDownloadIpynb
-	auto_download_ipynb = true,
+	auto_download_ipynb = false,
 
 	-- Automatically close tab that is in sync when you close buffer in vim.
 	auto_close_tab = true,
@@ -124,5 +124,46 @@ hi! link JupyniumMarkdownCellContent CursorLine
 hi! link JupyniumMagicCommand Keyword
 ]]
 
--- Please share your favourite settings on other colour schemes, so I can add defaults.
--- Currently, tokyonight is supported.
+
+function startJupyter ()
+	local nvim_server_name = vim.v.servername;
+	
+	vim.g.open_terminal();
+	vim.api.nvim_input("cd ..<CR>");
+	vim.api.nvim_input(". ./venv/bin/activate<CR>");
+	vim.api.nvim_input("jupynium --nvim_listen_addr " .. nvim_server_name .. "<CR>");
+	local timer = vim.uv.new_timer();
+	
+	-- after the above lines executed then move to other window
+	timer:start(5000, 0, function ()
+		vim.schedule(
+			function ()
+				vim.g.move_workspace();
+				-- vim.api.nvim_input(":JupyniumStartSync<CR>");
+				vim.cmd("JupyniumStartSync");
+			end
+		)
+		print("passed");
+	end)
+end
+
+function executeAllCell()
+	local current_buf = vim.api.nvim_get_current_buf();
+	local file_name = vim.api.nvim_buf_get_name(current_buf);
+
+	if not file_name:match("%.ju%.py$") then
+		print("Is not `*.ju.py` format.");
+		return nil;
+	end
+	vim.api.nvim_input("ggVG");
+	vim.api.nvim_input("<cmd>JupyniumExecuteSelectedCells<CR>");
+	vim.api.nvim_input("<Esc>");
+	print("All cell executed.");
+end
+vim.keymap.set("n", "<leader>jn", startJupyter) -- Please share your favourite settings on other colour schemes, so I can add defaults. Currently, tokyonight is supported.
+vim.keymap.set("n", "<leader>ja", executeAllCell);
+
+function test()
+	vim.api.nvim_input("ggVG");
+end
+-- vim.keymap.set({"n", "i"}, "test", test);

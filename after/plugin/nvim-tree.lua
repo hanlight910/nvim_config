@@ -283,3 +283,4 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 
 
 vim.keymap.set('n', '<leader>nt', "<cmd>NvimTreeOpen<cr>");
+vim.keymap.set('n', '<leader>no', "<cmd>NvimTreeFocus<cr>")

@@ -1,5 +1,3 @@
-
-
 require('render-markdown').setup({
 	bullet = {
 		-- Turn on / off list bullet rendering

@@ -1,1 +1,1 @@
-require('theprimeagen.init');
+require("theprimeagen.init");
