@@ -1,6 +1,13 @@
 -- plugins
-local plugin = "This is sample plugin";
+local util = require('theprimeagen.utils');
 
+local notify = util.safe_require("notify");
+
+if not notify then
+	return nil;
+end
+
+local plugin = "This is sample plugin";
 vim.notify = require("notify");
 
 vim.notify.setup({

@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("let-it-snow");
+
+if not stat then
+	return nil;
+end
+
 require('let-it-snow').setup({
 	{
 		---@type integer Delay between updates

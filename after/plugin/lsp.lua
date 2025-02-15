@@ -1,5 +1,13 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim
 
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("lsp-zero");
+
+if not stat then
+	return nil;
+end
+
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)

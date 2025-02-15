@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("ibl");
+
+if not stat then
+	return nil;
+end
+
 -- https://github.com/lukas-reineke/indent-blankline.nvim/blob/master/doc/indent_blankline.txt local ibl = require("ibl");
 -- highlights
 local highlight = {

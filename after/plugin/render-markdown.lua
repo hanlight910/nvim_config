@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("render-markdown");
+
+if not stat then
+	return nil;
+end
+
 require('render-markdown').setup({
 	bullet = {
 		-- Turn on / off list bullet rendering

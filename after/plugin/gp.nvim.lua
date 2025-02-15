@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("gp");
+
+if not stat then
+	return nil;
+end
+
 local gp = require("gp");
 
 local config = {

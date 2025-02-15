@@ -1,4 +1,12 @@
-require("jupynium").setup({
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("jupynium");
+
+if not stat then
+	return nil;
+end
+
+stat.setup({
 	--- For Conda environment named "jupynium",
 	-- python_host ={ "conda", "run", "--no-capture-output", "-n", "jupynium", "python" },
 
@@ -127,13 +135,13 @@ hi! link JupyniumMagicCommand Keyword
 
 function startJupyter ()
 	local nvim_server_name = vim.v.servername;
-	
+
 	vim.g.open_terminal();
 	vim.api.nvim_input("cd ..<CR>");
 	vim.api.nvim_input(". ./venv/bin/activate<CR>");
 	vim.api.nvim_input("jupynium --nvim_listen_addr " .. nvim_server_name .. "<CR>");
 	local timer = vim.uv.new_timer();
-	
+
 	-- after the above lines executed then move to other window
 	timer:start(5000, 0, function ()
 		vim.schedule(

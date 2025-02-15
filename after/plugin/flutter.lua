@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("flutter-tools");
+
+if not stat then
+	return nil;
+end
+
 require("flutter-tools").setup {
 	-- Other configuration options...
 	dev_log = {

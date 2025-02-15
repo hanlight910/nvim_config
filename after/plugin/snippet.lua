@@ -1,3 +1,12 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("luasnip");
+
+if not stat then
+	return nil;
+end
+
+
 local ls = require("luasnip");
 local s = ls.snippet;
 local t = ls.text_node;

@@ -1,3 +1,12 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("icon-picker");
+
+if not stat then
+	return nil;
+end
+
+
 local opts = { noremap = true, silent = true }
 
 local icon = require("icon-picker");

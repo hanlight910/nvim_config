@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("cmp");
+
+if not stat then
+	return nil;
+end
+
 local cmp = require'cmp'
 local compare = cmp.config.compare;
 

@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("obsidian");
+
+if not stat then
+	return nil;
+end
+
 local obsidian = require("obsidian");
 local ROOTH_PATH = "archive";
 local TEMPLATES_PATH = ROOTH_PATH .. "/03-RESOURCES/templates/";

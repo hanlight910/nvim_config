@@ -1,3 +1,12 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("lualine");
+
+if not stat then
+	return nil;
+end
+
+
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir

@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("pomo");
+
+if not stat then
+	return nil;
+end
+
 vim.keymap.set('n', '<leader>im', '<Cmd>TimerStart 30m<CR>');
 vim.keymap.set('n', '<leader>is', '<Cmd>TimerStop<CR>');
 vim.keymap.set('n', '<leader>ih', '<Cmd>TimerHide<CR>');

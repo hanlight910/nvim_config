@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("telescope");
+
+if not stat then
+	return nil;
+end
+
 local ts = require("telescope")
 local tb = require('telescope.builtin')
 

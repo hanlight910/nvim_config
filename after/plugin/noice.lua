@@ -1,3 +1,11 @@
+local util = require('theprimeagen.utils');
+
+local stat = util.safe_require("noice");
+
+if not stat then
+	return nil;
+end
+
 require("noice").setup({
 	cmdline = {
 		enabled = true, -- enables the Noice cmdline UI
