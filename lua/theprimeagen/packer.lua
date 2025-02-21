@@ -3,17 +3,42 @@ local status, packer = pcall(require, "packer");
 if status then
 	return packer.startup(function(use)
 	use 'wbthomason/packer.nvim'
+	use 'nvim-tree/nvim-web-devicons'
+	use { "folke/snacks.nvim",
+			opt = true,  -- Make snacks.nvim optional
+			config = function()
+				-- Inside the config, set up the plugin with your options
+				require("snacks").setup({
+					bigfile = { enabled = true },
+					explorer = { enabled = true },
+					indent = { enabled = true },
+					input = { enabled = true },
+					picker = { enabled = true },
+					notifier = { enabled = true },
+					quickfile = { enabled = true },
+					scope = { enabled = true },
+					scroll = { enabled = true },
+					statuscolumn = { enabled = true },
+					words = { enabled = true },
+					image = {}
+				})
+			end,
+
+		}
 
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.6',
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+	use { "nvim-telescope/telescope-file-browser.nvim",
+			requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
+		}
 
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-	use { 'ThePrimeagen/harpoon' }
 	use { 'mbbill/undotree' }
 	use { 'tpope/vim-fugitive' }
+	use { 'folke/neodev.nvim' }
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v3.x',
@@ -27,13 +52,6 @@ if status then
 	}
 	use { 'nvim-tree/nvim-tree.lua', }
 
-	use {
-		"epwalsh/pomo.nvim",
-		tag = "*",
-		requires = {
-			"rcarriga/nvim-notify",
-		},
-	}
 	use({
 		"iamcco/markdown-preview.nvim",
 		run = "cd app && npm install",
@@ -43,35 +61,16 @@ if status then
 		ft = { "markdown" },
 	})
 
-	-- use { "vim-airline/vim-airline" }
-	-- use { "vim-airline/vim-airline-themes" }
-	use { "preservim/tagbar" }
-	-- use { "Lokaltog/vim-powerline" }
-	use { "cohama/lexima.vim" }
-	use {
-		'nvimdev/dashboard-nvim',
-		event = 'VimEnter',
-		config = function()
-			require('dashboard').setup {
-				-- config
-			}
-		end,
-		requires = {'nvim-tree/nvim-web-devicons'}
-	}
-	use { 'nvim-lualine/lualine.nvim' }
-	-- use {
-	-- 	'kdheepak/tabline.nvim' ,
-	-- 	requires = {
-	-- 		{ 'hoob3rt/lualine.nvim', opt = true },
-	-- 		{'kyazdani42/nvim-web-devicons', opt = false},
-	-- 	}
-	-- }
 	use { 'numToStr/Comment.nvim' }
-	use { "mfussenegger/nvim-dap" }
-	use { "mfussenegger/nvim-dap-python" }
-	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+	use { "cohama/lexima.vim" }
+	use { 'nvim-lualine/lualine.nvim' }
 	use { "stevearc/dressing.nvim" }
 	use { "ziontee113/icon-picker.nvim"}
+	use{ 'hrsh7th/cmp-nvim-lsp' }
+	use{ 'hrsh7th/cmp-buffer' }
+	use{ 'hrsh7th/cmp-path' }
+	use{ 'hrsh7th/cmp-cmdline' }
+	use{ 'hrsh7th/nvim-cmp'   }
 	use({
 		"epwalsh/obsidian.nvim",
 		tag = "*",  -- recommended, use latest release instead of latest commit
@@ -80,11 +79,6 @@ if status then
 		},
 	})
 	use{ 'neovim/nvim-lspconfig' }
-	use{ 'hrsh7th/cmp-nvim-lsp' }
-	use{ 'hrsh7th/cmp-buffer' }
-	use{ 'hrsh7th/cmp-path' }
-	use{ 'hrsh7th/cmp-cmdline' }
-	use{ 'hrsh7th/nvim-cmp'   }
 	use { 'BurntSushi/ripgrep' }
 	use { 'jpmcb/nvim-llama' }
 	use({
@@ -130,11 +124,17 @@ if status then
 	}
 	use {"marcussimonsen/let-it-snow.nvim"}
 	use {'krivahtoo/silicon.nvim', run = './install.sh'}
-	use { "folke/snacks.nvim" }
-	use { "kiyoon/jupynium.nvim", run = "conda run --no-capture-output -n jupynium pip install ." }
+	use { "kiyoon/jupynium.nvim", run = "run = pip install --user .", }
 
 	-- use { "nvim-java/nvim-java" }
 	-- use { "nvim-java/nvim-java" }
+	use {
+		"epwalsh/pomo.nvim",
+		tag = "*",
+		requires = {
+			"rcarriga/nvim-notify",
+		},
+	}
 end)
 
 else

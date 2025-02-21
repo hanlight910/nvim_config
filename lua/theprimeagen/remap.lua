@@ -32,17 +32,17 @@ vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
 vim.keymap.set("n", "<leader>so", "<cmd>so " .. vim.g.config .. "/init.lua<CR>");
+vim.keymap.set("n", "<leader>ss", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
 vim.keymap.set("n", "<C-l>", move_workspace);
-vim.keymap.set("n", "<A-q>", open_bash_config);
 vim.keymap.set("n", "<leader>pp", "\"0p")
 vim.keymap.set("n", "<leader>yy", "\"0y")
 vim.keymap.set("n", "<A-y>", "\"+y");
 
-vim.keymap.set("n", "<A-.>", move_to_terminal_window);
+vim.keymap.set("n", "<C-l>", move_to_terminal_window);
 vim.keymap.set("n", "<C-j>", function ()
 	print("Prev");
 	move_to_prev_normal_buffer();
@@ -63,14 +63,14 @@ vim.keymap.set("n", "<leader>cp", "<Cmd>!xclip -sel clip < %<CR>");
 vim.keymap.set("n", "<leader>cl", "<Cmd>%d<CR>");
 vim.keymap.set("n", "<leader>q", "<cmd>q!<CR>");
 
-vim.keymap.set("n", "<leader>bd", delete_normal_buffer);
+vim.keymap.set("n", "<A-x>", delete_normal_buffer);
 
 vim.keymap.set("n", "<leader>tt", open_terminal);
 
-vim.keymap.set("n", "<A-=>", "<cmd>resize +5<CR>");
-vim.keymap.set("n", "<A-->", "<cmd>resize -5<CR>");
-vim.keymap.set("n", "<A-(>", "<cmd>vertical resize +10<CR>");
-vim.keymap.set("n", "<A-)>", "<cmd>vertical resize -10<CR>");
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +5<CR>");
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -5<CR>");
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<CR>");
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<CR>");
 
 vim.keymap.set("n", "<leader>w", "<C-w>");
 vim.keymap.set("n", "<A-w>", "<cmd>w<Cr>");

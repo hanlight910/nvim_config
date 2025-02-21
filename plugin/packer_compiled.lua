@@ -104,14 +104,6 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
-  ["dashboard-nvim"] = {
-    config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14dashboard\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/light/.local/share/nvim/site/pack/packer/opt/dashboard-nvim",
-    url = "https://github.com/nvimdev/dashboard-nvim"
-  },
   ["dressing.nvim"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/dressing.nvim",
@@ -126,11 +118,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/gp.nvim",
     url = "https://github.com/robitx/gp.nvim"
-  },
-  harpoon = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/harpoon",
-    url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["icon-picker.nvim"] = {
     loaded = true,
@@ -184,6 +171,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["neodev.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/neodev.nvim",
+    url = "https://github.com/folke/neodev.nvim"
+  },
   ["noice.nvim"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/noice.nvim",
@@ -199,21 +191,6 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
-  ["nvim-dap"] = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-dap",
-    url = "https://github.com/mfussenegger/nvim-dap"
-  },
-  ["nvim-dap-python"] = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-dap-python",
-    url = "https://github.com/mfussenegger/nvim-dap-python"
-  },
-  ["nvim-dap-ui"] = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
-    url = "https://github.com/rcarriga/nvim-dap-ui"
-  },
   ["nvim-llama"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-llama",
@@ -223,11 +200,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
-  },
-  ["nvim-nio"] = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-nio",
-    url = "https://github.com/nvim-neotest/nvim-nio"
   },
   ["nvim-notify"] = {
     loaded = true,
@@ -288,14 +260,16 @@ _G.packer_plugins = {
     url = "https://github.com/krivahtoo/silicon.nvim"
   },
   ["snacks.nvim"] = {
-    loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/snacks.nvim",
+    config = { "\27LJ\2\nç\3\0\0\4\0\27\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\0024\3\0\0=\3\26\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\vscroll\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\f\nimage\0\nscope\0\nwords\0\17statuscolumn\0\vscroll\0\14quickfile\0\rnotifier\0\vpicker\0\rexplorer\0\ninput\0\fbigfile\0\vindent\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/light/.local/share/nvim/site/pack/packer/opt/snacks.nvim",
     url = "https://github.com/folke/snacks.nvim"
   },
-  tagbar = {
+  ["telescope-file-browser.nvim"] = {
     loaded = true,
-    path = "/home/light/.local/share/nvim/site/pack/packer/start/tagbar",
-    url = "https://github.com/preservim/tagbar"
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -344,10 +318,6 @@ vim.cmd [[au!]]
 time([[Defining lazy-load filetype autocommands]], true)
 vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'dashboard-nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 
 _G._packer.inside_compile = false

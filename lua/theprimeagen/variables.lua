@@ -9,4 +9,4 @@ vim.g.baekjoon = vim.g.algorithm .. "/baekjoon";
 vim.g.ssu_path = vim.g.areas .. "/ssu/1학년_2학기/courses";
 
 --- bash path
-vim.g.bash_config = vim.g.root .. "/.bash_config/shell";
+vim.g.bash_config = vim.g.root .. "/.my_config";
