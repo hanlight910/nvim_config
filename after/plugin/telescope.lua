@@ -35,10 +35,10 @@ vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require("telescope.builtin"
 vim.api.nvim_set_keymap('n', '<A-o>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-t>', '<cmd>Telescope treesitter<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope treesitter<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<space>pf', '<cmd>Telescope file_browser <CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.config ..  ' select_buffer=true<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true<CR>', { noremap = true, silent = true })
 
 local fb_picker = require("telescope").extensions.file_browser
 
@@ -55,7 +55,6 @@ ts.setup({
 		file_browser = {
 			theme = "ivy",
 			hidden = true,
-			depth = 10,
 			autodepth = true,
 		},
 	},

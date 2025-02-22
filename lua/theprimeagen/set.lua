@@ -63,3 +63,11 @@ vim.api.nvim_set_keymap('n', '<BS>', msg, { noremap = true, silent = false })
 
 
 vim.o.cursorline  = true;
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    pattern = "*",  -- Apply to all file types, or specify file types (e.g., "*.py")
+    callback = function()
+        -- Automatically reload the buffer without prompting the user
+        vim.cmd("e!")
+    end
+})
+

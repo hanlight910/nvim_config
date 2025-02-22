@@ -31,7 +31,6 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
-vim.keymap.set("n", "<leader>so", "<cmd>so " .. vim.g.config .. "/init.lua<CR>");
 vim.keymap.set("n", "<leader>ss", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
@@ -78,8 +77,6 @@ vim.keymap.set("n", "<leader>nv", "<cmd>ex /home/light/archive/05-FLEETING/nvim_
 vim.keymap.set("n", "<A-s>", "<cmd>ex /home/light/.config/nvim/lua/theprimeagen/remap.lua<CR>");
 
 vim.keymap.set("n", "<leader>al", "<cmd>ex /home/light/archive/06-DAILY/TIL/algorithm<CR>");
-vim.keymap.set("n", "<leader>fl", create_fleeting_note, { noremap = true, silent = true })
-
 -- vim.keymap.set("n", "<A-n>", "<cmd>bn<cr>");
 -- vim.keymap.set("n", "<A-b>", "<cmd>bp<CR>");
 
