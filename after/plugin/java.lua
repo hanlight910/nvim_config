@@ -1,0 +1,2 @@
+-- require("java");
+-- print(package.path);
