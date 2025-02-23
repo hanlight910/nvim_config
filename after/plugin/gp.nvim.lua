@@ -13,17 +13,22 @@ local config = {
 		openai = {
 			disable = true,
 			endpoint = "https://api.openai.com/v1/chat/completions",
-			secret = os.getenv("OPEN_AI_API"),
+			secret = os.getenv("OPENAI_API_KEY"),
 		},
 		googleai = {
 			endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
-			secret = os.getenv("GOOGLEAI_API_KEY"),
+			secret = os.getenv("GEMINI_API_KEY"),
 		},
+		ollama = {
+			endpoint = "http://localhost:11434/v1/chat/completions",
+		},
+
+
 
 	},
 
-	default_command_agent = "CustomAgent",
-	default_chat_agent = "CustomAgent",
+	default_command_agent = "llama3.2",
+	default_chat_agent = "llama3.2",
 	agents = {
 		-- {
 		-- 	name = "ChatGemini",
@@ -50,6 +55,22 @@ local config = {
 			-- system prompt (use this to specify the persona/role of the AI) 
 			system_prompt = "Okay, I understand. I will strive to answer your questions clearly and concisely within 10 sentences. I will also correct any grammatical errors or suggest more appropriate terminology, providing examples when necessary to ensure clarity. I am ready to assist you!",
 		},
+		{
+			name = "deepseek-r1",
+			provider = "ollama",
+			chat = true,
+			command = true,
+			model = "deepseek-r1",
+			system_prompt="resposne within 5 sentences"
+		},
+		{
+			name = "llama3.2",
+			provider = "ollama",
+			chat = true,
+			command = true,
+			model = "llama3.2",
+			system_prompt="resposne within 5 sentences"
+		}
 	},
 }
 gp.setup(config);
