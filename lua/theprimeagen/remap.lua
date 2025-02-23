@@ -31,7 +31,7 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
-vim.keymap.set("n", "<leader>ss", "<cmd>so ".. "<CR>");
+vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
