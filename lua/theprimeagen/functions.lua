@@ -1,14 +1,32 @@
 local functions = {};
 
+local f_test = function()
+	functions.copy_code_as_image_to_clipboard()
+end
 --- ==== assist ====
 local function check_file_format()
 	local file_type = vim.bo.filetype;
 	print(file_type);
-
 	return file_type;
 end
 
---- ==== window navigation ====
+functions.copy_code_as_image_to_clipboard = function()
+	local file_format = vim.fn.expand("%:e");
+	local mode_info = vim.api.nvim_get_mode();
+	local current_mode = mode_info.mode;
+	if current_mode == 'v' or current_mode == 'V' then
+		local _, st_lnum, st_col = unpack(vim.fn.getpos("'<"));
+		local _, en_lnum, en_col = unpack(vim.fn.getpos("'>"));
+		local lines = vim.api.nvim_buf_get_lines(0, st_lnum - 1, en_lnum, false);
+		local text = table.concat(lines, '\n');
+		vim.fn.setreg('+', text);
+	else
+		
+	end
+	vim.cmd("!silicon --from-clipboard -l " .. file_format .. " --to-clipboard");
+end
+
+-- ==== window navigation ====
 functions.move_workspace = function()
 	local windows = vim.api.nvim_list_wins()
 	
@@ -283,7 +301,7 @@ end
 
 functions.open_terminal = open_terminal;
 
+vim.keymap.set({ 'n', 't', 'v' }, "<leader>te", f_test);
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;
-

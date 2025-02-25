@@ -31,6 +31,7 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
@@ -80,13 +81,12 @@ vim.keymap.set("n", "<leader>al", "<cmd>ex /home/light/archive/06-DAILY/TIL/algo
 -- vim.keymap.set("n", "<A-n>", "<cmd>bn<cr>");
 -- vim.keymap.set("n", "<A-b>", "<cmd>bp<CR>");
 
-vim.keymap.set("n", "<leader>ssu", "<cmd>ex " .. vim.g.ssu_path .. "<CR>")
 vim.keymap.set("n", "<leader>pw", "<cmd>!pwd | xclip -sel clip<CR>", { silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
 vim.keymap.set("v", "<C-c>", "\"+y");
-vim.keymap.set("v", "<leader>c", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
+-- vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
 
 -- === Terminal mode ===
 vim.keymap.set("t", "<A-=>", "<cmd>resize +5<CR>");

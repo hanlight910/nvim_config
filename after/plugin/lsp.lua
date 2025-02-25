@@ -57,6 +57,7 @@ lspconfig.lua_ls.setup({
 		}
 	}
 })
+
 vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float(0, {scope=\"line\"})<CR>");
 
 lspconfig.emmet_language_server.setup({
