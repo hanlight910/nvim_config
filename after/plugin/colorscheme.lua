@@ -9,8 +9,8 @@ end
 
 --
 -- https://github.com/folke/tokyonight.nvim?tab=readme-ov-file
+vim.cmd("colorscheme lunaperche")
+vim.cmd("colorscheme tokyonight-moon");
+vim.cmd("colorscheme tokyonight-day");
 vim.cmd("colorscheme tokyonight-storm");
 vim.cmd("colorscheme tokyonight-night");
-vim.cmd("colorscheme tokyonight-day");
-vim.cmd("colorscheme tokyonight-moon");
-vim.cmd("colorscheme lunaperche")

@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
+  ["cmp-git"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-git",
+    url = "https://github.com/hrsh7th/cmp-git"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -103,6 +108,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["codecompanion.nvim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18codecompanion\frequire\0" },
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/codecompanion.nvim",
+    url = "https://github.com/olimorris/codecompanion.nvim"
   },
   ["dressing.nvim"] = {
     loaded = true,
@@ -148,6 +164,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
+    url = "https://github.com/ray-x/lsp_signature.nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/nvimdev/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -255,7 +281,7 @@ _G.packer_plugins = {
     url = "https://github.com/BurntSushi/ripgrep"
   },
   ["snacks.nvim"] = {
-    config = { "\27LJ\2\nç\3\0\0\4\0\27\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\0024\3\0\0=\3\26\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\vscroll\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\f\nwords\0\17statuscolumn\0\vscroll\0\14quickfile\0\rnotifier\0\vpicker\0\rexplorer\0\nimage\0\fbigfile\0\nscope\0\ninput\0\vindent\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    config = { "\27LJ\2\nç\3\0\0\4\0\27\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\0024\3\0\0=\3\26\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\vscroll\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\f\vscroll\0\ninput\0\rnotifier\0\vpicker\0\rexplorer\0\14quickfile\0\fbigfile\0\nscope\0\nimage\0\vindent\0\nwords\0\17statuscolumn\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/home/light/.local/share/nvim/site/pack/packer/opt/snacks.nvim",
@@ -275,6 +301,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
+  },
+  ["transparent.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/transparent.nvim",
+    url = "https://github.com/xiyaowong/transparent.nvim"
   },
   undotree = {
     loaded = true,
@@ -298,6 +329,10 @@ time([[Defining packer_plugins]], false)
 time([[Setup for markdown-preview.nvim]], true)
 try_loadstring("\27LJ\2\n=\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\rmarkdown\19mkdp_filetypes\6g\bvim\0", "setup", "markdown-preview.nvim")
 time([[Setup for markdown-preview.nvim]], false)
+-- Config for: codecompanion.nvim
+time([[Config for codecompanion.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18codecompanion\frequire\0", "config", "codecompanion.nvim")
+time([[Config for codecompanion.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]

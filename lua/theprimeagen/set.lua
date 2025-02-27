@@ -71,3 +71,9 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
     end
 })
 
+-- Set a custom background and foreground color for visual selections
+vim.cmd([[highlight Visual cterm=reverse guibg=Grey guifg=White]])
+vim.cmd([[highlight VisualNOS cterm=reverse guibg=Grey guifg=White]])
+
+-- Set a custom background color for visual block selections
+vim.cmd([[highlight VisualMode cterm=reverse guibg=Blue guifg=White]])

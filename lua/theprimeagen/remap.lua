@@ -31,6 +31,10 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
+vim.keymap.set({ "n" }, "<leader>r", "e!", { desc = "Reload" });
+vim.keymap.set({ "n", "v" }, "<leader>ps", "<cmd>PackerSync<CR>", { desc = "Packer Sync" })
+vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number "});
+vim.keymap.set("n", "-", "<C-x>", { desc = "Decrease number "});
 vim.keymap.set("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
@@ -75,7 +79,6 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<CR>");
 vim.keymap.set("n", "<leader>w", "<C-w>");
 vim.keymap.set("n", "<A-w>", "<cmd>w<Cr>");
 vim.keymap.set("n", "<leader>nv", "<cmd>ex /home/light/archive/05-FLEETING/nvim_setting.md<CR>");
-vim.keymap.set("n", "<A-s>", "<cmd>ex /home/light/.config/nvim/lua/theprimeagen/remap.lua<CR>");
 
 vim.keymap.set("n", "<leader>al", "<cmd>ex /home/light/archive/06-DAILY/TIL/algorithm<CR>");
 -- vim.keymap.set("n", "<A-n>", "<cmd>bn<cr>");

@@ -1,5 +1,4 @@
 local util = require('theprimeagen.utils');
-
 local stat = util.safe_require("noice");
 
 if not stat then
@@ -11,7 +10,6 @@ require("noice").setup({
 		enabled = true, -- enables the Noice cmdline UI
 		view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
 		opts = {
-			inser_mode_only = false,
 		}, -- global options for the cmdline. See section on views
 		---@type table<string, CmdlineFormat>
 		format = {
@@ -142,7 +140,7 @@ require("noice").setup({
 			enabled = true,
 			auto_open = {
 				enabled = true,
-				trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+				trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
 				luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
 				throttle = 50, -- Debounce lsp signature help request by 50ms
 			},
@@ -194,15 +192,48 @@ require("noice").setup({
 		command_palette = false, -- position the cmdline and popupmenu together
 		long_message_to_split = false, -- long messages will be sent to a split
 		inc_rename = true, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = false, -- add a border to hover docs and signature help
+		lsp_doc_border = true, -- add a border to hover docs and signature help
 	},
 	throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 	---@type NoiceConfigViews
-	views = {}, ---@see section on views
+	views = {
+		cmdline_popup= {
+			highlights = {
+				background = "#FFFF00"
+
+			},
+			backend = "popup",
+			border = {
+				style = "none",
+				padding = { 2, 3 },
+			},
+			filter_options = {},
+			winhighlight = {
+				Normal = "NoiceCmdlinePopup",
+				FloatTitle = "NoiceCmdlinePopupTitle",
+				FloatBorder = "NoiceCmdlinePopupBorder",
+				IncSearch = "",
+				CurSearch = "",
+				Search = "",
+			},
+			winbar = "",
+			foldenable = false,
+			cursorline = false,
+			win_options = {
+				winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+			},
+		}
+	}, ---@see section on views
 	---@type NoiceRouteConfig[]
-	routes = {}, --- @see section on routes
+	routes = {
+		{
+			view = "notify",
+			filter = {	event = "msg_show" },
+		}
+	}, --- @see section on routes
 	---@type table<string, NoiceFilter>
 	status = {}, --- @see section on statusline components
 	---@type NoiceFormatOptions
 	format = {}, --- @see section on formatting
 })
+vim.keymap.set("i", "<c-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })

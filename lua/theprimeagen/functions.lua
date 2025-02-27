@@ -26,6 +26,34 @@ functions.copy_code_as_image_to_clipboard = function()
 	vim.cmd("!silicon --from-clipboard -l " .. file_format .. " --to-clipboard");
 end
 
+vim.api.nvim_create_user_command('SplitCmd', function(opts)
+	-- Disable Noice temporarily
+	local noice_enabled = vim.g.noice_running
+	if noice_enabled then
+		vim.cmd('Noice disable') -- Turn Noice off
+	end
+
+	-- Create a temporary scratch buffer in a new split
+	vim.cmd('new')
+	local buf = vim.api.nvim_get_current_buf()
+
+	-- Set buffer options to make it temporary
+	vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')   -- Delete buffer on close
+	vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')   -- No associated file
+	vim.api.nvim_buf_set_option(buf, 'swapfile', false)     -- No swap file
+	vim.api.nvim_buf_set_option(buf, 'modifiable', true)    -- Allow editing (if needed)
+
+	-- Run the command and fill the buffer with output
+	local output = vim.fn.execute(opts.args)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, '\n'))
+
+	-- Re-enable Noice
+	if noice_enabled then
+		vim.cmd('Noice enable')
+	end
+end, { nargs = 1, complete = 'command' })
+
+
 -- ==== window navigation ====
 functions.move_workspace = function()
 	local windows = vim.api.nvim_list_wins()

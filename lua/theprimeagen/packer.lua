@@ -3,6 +3,16 @@ local status, packer = pcall(require, "packer");
 if status then
 	return packer.startup(function(use)
 		use 'wbthomason/packer.nvim'
+		use({
+			"olimorris/codecompanion.nvim",
+			config = function()
+				require("codecompanion").setup()
+			end,
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-treesitter/nvim-treesitter",
+			}
+		})
 		use 'nvim-tree/nvim-web-devicons'
 		use { "folke/snacks.nvim",
 			opt = true,  -- Make snacks.nvim optional
@@ -39,13 +49,13 @@ if status then
 		use { 'mbbill/undotree' }
 		use { 'tpope/vim-fugitive' }
 		use { 'folke/neodev.nvim' }
+		use { 'nvimdev/lspsaga.nvim'}
 		use {
 			'VonHeikemen/lsp-zero.nvim',
 			branch = 'v3.x',
 			requires = {
 				{'williamboman/mason.nvim'},
 				{'williamboman/mason-lspconfig.nvim'},
-
 				{'neovim/nvim-lspconfig'},
 				{'L3MON4D3/LuaSnip'},
 			}
@@ -66,11 +76,15 @@ if status then
 		use { 'nvim-lualine/lualine.nvim' }
 		use { "stevearc/dressing.nvim" }
 		use { "ziontee113/icon-picker.nvim"}
+
+		use { "ray-x/lsp_signature.nvim" }
 		use{ 'hrsh7th/cmp-nvim-lsp' }
 		use{ 'hrsh7th/cmp-buffer' }
 		use{ 'hrsh7th/cmp-path' }
 		use{ 'hrsh7th/cmp-cmdline' }
+		use{ 'hrsh7th/cmp-git' }
 		use{ 'hrsh7th/nvim-cmp'   }
+		use 'saadparwaiz1/cmp_luasnip'-- Snippet completion source
 		use({
 			"epwalsh/obsidian.nvim",
 			tag = "*",  -- recommended, use latest release instead of latest commit
@@ -134,6 +148,7 @@ if status then
 				"rcarriga/nvim-notify",
 			},
 		}
+		use { "xiyaowong/transparent.nvim" }
 	end)
 
 else

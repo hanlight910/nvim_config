@@ -1,5 +1,4 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim
-
 local util = require('theprimeagen.utils');
 
 local stat = util.safe_require("lsp-zero");
@@ -8,6 +7,7 @@ if not stat then
 	return nil;
 end
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -15,7 +15,6 @@ lsp_zero.on_attach(function(client, bufnr)
 	-- to learn the available actions
 	lsp_zero.default_keymaps({buffer = bufnr})
 end)
-
 
 require('mason').setup({
 
@@ -39,7 +38,6 @@ require('mason-lspconfig').setup({
 	}
 });
 
--- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({
 	-- add any options here, or leave empty to use the default settings
 })
@@ -49,13 +47,46 @@ local lspconfig = require('lspconfig')
 
 -- example to setup lua_ls and enable call snippets
 lspconfig.lua_ls.setup({
-	settings = {
-		Lua = {
-			completion = {
-				callSnippet = "Replace"
+	require'lspconfig'.lua_ls.setup {
+		settings = {
+			Lua = {
+				runtime = {
+					version = "Lua 5.1"
+				}
 			}
 		}
-	}
+		-- on_init = function(client)
+		-- 	if client.workspace_folders then
+		-- 		local path = client.workspace_folders[1].name
+		-- 		if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc')) then
+		-- 			return
+		-- 		end
+		-- 	end
+		--
+		-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+		-- 		runtime = {
+		-- 			-- Tell the language server which version of Lua you're using
+		-- 			-- (most likely LuaJIT in the case of Neovim)
+		-- 			version = 'LuaJIT'
+		-- 		},
+		-- 		-- Make the server aware of Neovim runtime files
+		-- 		workspace = {
+		-- 			checkThirdParty = false,
+		-- 			library = {
+		-- 				vim.env.VIMRUNTIME
+		-- 				-- Depending on the usage, you might want to add additional paths here.
+		-- 				-- "${3rd}/luv/library"
+		-- 				-- "${3rd}/busted/library",
+		-- 			}
+		-- 			-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+		-- 			-- library = vim.api.nvim_get_runtime_file("", true)
+		-- 		}
+		-- 	})
+		-- end,
+		-- settings = {
+		-- 	Lua = {}
+		-- }
+}
 })
 
 vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float(0, {scope=\"line\"})<CR>");
@@ -85,3 +116,22 @@ lspconfig.emmet_language_server.setup({
     variables = {},
   },
 })
+--
+-- require('lspconfig')["pyright"].setup {
+-- 	capabilities = capabilities
+-- }
+-- vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
+--   config = config or {}
+--   config.focus_id = ctx.method
+--   if not (result and result.contents) then
+--     return
+--   end
+--   local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+--   markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+--   if vim.tbl_isempty(markdown_lines) then
+--     return
+--   end
+--   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
+-- end
+-- vim.lsp.handlers["textDocument/hover"] = function() end
+
