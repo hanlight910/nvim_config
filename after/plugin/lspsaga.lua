@@ -9,5 +9,4 @@ require("lspsaga").setup({
   -- }
 })
 
-
--- vim.cmd("autocmd InsertHold * lua vim.lsp.buf.hover()")
+vim.keymap.set({'n'}, "<leader>lt", "<cmd>Lspsaga outline<CR>", {desc = "Luasaga outline"});

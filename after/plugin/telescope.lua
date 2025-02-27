@@ -53,6 +53,13 @@ ts.setup({
 			autodepth = true,
 		},
 	},
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
 });
 ts.load_extension("file_browser");
 
@@ -60,4 +67,7 @@ vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = tr
 vim.keymap.set({ 'n' }, '<leader>ld', '<cmd>Telescope lsp_definitions<CR>', { desc = "lsp lsp_definitions", silent = true })
 vim.keymap.set({ 'n' }, '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
 vim.keymap.set({ 'n' }, '<leader>lw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
-vim.keymap.set({ 'n' }, '<leader>gg', '<cmd>Telescope live_grep<CR>', { desc = "lsp lsp_definitions", silent = true })
+
+vim.keymap.set({ 'n' }, '<leader>gg', '<cmd>Telescope live_grep<CR>', { desc = "lsp_definitions", silent = true })
+require("telescope").load_extension("emoji");
+require('telescope').load_extension('fzf');

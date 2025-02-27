@@ -44,6 +44,8 @@ if status then
 		use { "nvim-telescope/telescope-file-browser.nvim",
 			requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
 		}
+		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
+		use { "xiyaowong/telescope-emoji.nvim" }
 
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'mbbill/undotree' }
@@ -75,8 +77,6 @@ if status then
 		use { "cohama/lexima.vim" }
 		use { 'nvim-lualine/lualine.nvim' }
 		use { "stevearc/dressing.nvim" }
-		use { "ziontee113/icon-picker.nvim"}
-
 		use { "ray-x/lsp_signature.nvim" }
 		use{ 'hrsh7th/cmp-nvim-lsp' }
 		use{ 'hrsh7th/cmp-buffer' }
