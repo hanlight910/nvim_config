@@ -68,6 +68,6 @@ vim.keymap.set({ 'n' }, '<leader>ld', '<cmd>Telescope lsp_definitions<CR>', { de
 vim.keymap.set({ 'n' }, '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
 vim.keymap.set({ 'n' }, '<leader>lw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
 
-vim.keymap.set({ 'n' }, '<leader>gg', '<cmd>Telescope live_grep<CR>', { desc = "lsp_definitions", silent = true })
+vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
 require("telescope").load_extension("emoji");
 require('telescope').load_extension('fzf');

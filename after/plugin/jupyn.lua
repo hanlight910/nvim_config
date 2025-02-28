@@ -11,8 +11,8 @@ stat.setup({
 	-- python_host ={ "conda", "run", "--no-capture-output", "-n", "jupynium", "python" },
 
 	default_notebook_URL = "localhost:8888/nbclassic",
-	python_host = "conda",
-	jupyter_command = "conda",
+	python_host = ". \"./projects/python-venv/venv/bin/activate\"", -- && ~/projects/python-venv/venv/bin/jupynium",
+	jupyter_command = ". ~/projects/python-venv/venv/bin/activate && ~/projects/python-venv/venv/bin/jupynium",
 
 	-- Write jupyter command but without "notebook"
 	-- When you call :JupyniumStartAndAttachToServer and no notebook is open,

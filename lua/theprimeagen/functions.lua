@@ -45,7 +45,6 @@ vim.api.nvim_create_user_command('SplitCmd', function(opts)
 
 	-- Run the command and fill the buffer with output
 	local output = vim.fn.execute(opts.args)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, '\n'))
 
 	-- Re-enable Noice
 	if noice_enabled then

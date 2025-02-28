@@ -137,7 +137,7 @@ if status then
 
 		}
 		use {"marcussimonsen/let-it-snow.nvim"}
-		use { "kiyoon/jupynium.nvim", run = "run = pip install --user .", }
+		use { "kiyoon/jupynium.nvim", run = "run = . ~/projects/python-venv/venv/bin/activate", }
 
 		-- use { "nvim-java/nvim-java" }
 		-- use { "nvim-java/nvim-java" }

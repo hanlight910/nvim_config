@@ -31,7 +31,13 @@ vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
 
 -- === normal mode ===
-vim.keymap.set({ "n" }, "<leader>r", "e!", { desc = "Reload" });
+vim.keymap.set({ "n" } , "<leader>fx", function ()
+	local filename = vim.fn.expand("%");
+	print(filename)
+	local result = vim.fn.system({"chmod", "+x", filename});
+	print(result)
+end , { desc = "Append permission executable" });
+vim.keymap.set({ "n" }, "<leader>r", "<cmd>e!<cr>", { desc = "Reload" });
 vim.keymap.set({ "n", "v" }, "<leader>ps", "<cmd>PackerSync<CR>", { desc = "Packer Sync" })
 vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number "});
 vim.keymap.set("n", "-", "<C-x>", { desc = "Decrease number "});
@@ -63,7 +69,13 @@ vim.keymap.set("n", "<F9>", ":wq<CR>");
 vim.keymap.set("n", "<leader><leader>", function() 
 	vim.cmd("so");
 end)
-vim.keymap.set("n", "<leader>cp", "<Cmd>!xclip -sel clip < %<CR>");
+vim.keymap.set("n", "<leader>cp", function ()
+	local lin, col = unpack(vim.api.nvim_win_get_cursor(0));
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false);
+	local content = table.concat(lines, '\n');
+	vim.fn.setreg('+', content);
+	vim.api.nvim_win_set_cursor(0, {lin, col})
+end, { desc = "Copy all" });
 vim.keymap.set("n", "<leader>cl", "<Cmd>%d<CR>");
 vim.keymap.set("n", "<leader>q", "<cmd>q!<CR>");
 
@@ -84,7 +96,10 @@ vim.keymap.set("n", "<leader>al", "<cmd>ex /home/light/archive/06-DAILY/TIL/algo
 -- vim.keymap.set("n", "<A-n>", "<cmd>bn<cr>");
 -- vim.keymap.set("n", "<A-b>", "<cmd>bp<CR>");
 
-vim.keymap.set("n", "<leader>pw", "<cmd>!pwd | xclip -sel clip<CR>", { silent = true, noremap = true });
+vim.keymap.set("n", "<leader>pw", function ()
+	local pwd = vim.fn.expand("%:p");
+	vim.fn.setreg("+", pwd);
+end, { desc = "Copy path", silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
