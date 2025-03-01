@@ -4,26 +4,16 @@ if not stat then
 	return nil;
 end
 
+local get_git_top_dir = function ()
+	local top_dir = vim.fn.systemlist("git rev-parse --show-toplevel");
+	print(top_dir[0]);
+	print(top_dir[1]);
+	print(top_dir[2]);
+	return top_dir[1];
+end
 local ts = require("telescope")
 local tb = require('telescope.builtin')
 
-local function find_files_with_cwd(cwd, title)
-    tb.find_files({
-        prompt_title = title,
-        cwd = cwd,
-        hidden = true,
-    })
-end
-local keymaps = {
-    {'n', '<leader>pf', tb.find_files},
-    {'n', '<leader>pb', tb.buffers},
-    {'n', '<C-p>', tb.git_files},
-    {'n', '<leader>paa', function() find_files_with_cwd(vim.g.areas, "< 02-AREAS >") end},
-}
-
-for _, map in ipairs(keymaps) do
-    vim.keymap.set(map[1], map[2], map[3])
-end
 vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-o>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
@@ -35,17 +25,15 @@ vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .
 vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pap', '<cmd>Telescope file_browser path=' .. vim.g.projects ..  ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
 
-local fb_picker = require("telescope").extensions.file_browser
+vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n' }, '<leader>ld', '<cmd>Telescope lsp_definitions<CR>', { desc = "lsp_definitions", silent = true })
+vim.keymap.set({ 'n' }, '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>', { desc = "document symbols", silent = true })
+vim.keymap.set({ 'n' }, '<leader>lw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
 
-local fb_pi = function(path)
-	fb_picker.file_browser({
-	  path = vim.g.config,
-	  grouped = true,
-	depth = 10,
-	})
-end
+vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
 
 ts.setup({
+	theme = "ivy",
 	extensions = {
 		file_browser = {
 			theme = "ivy",
@@ -62,12 +50,5 @@ ts.setup({
     }
 });
 ts.load_extension("file_browser");
-
-vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
-vim.keymap.set({ 'n' }, '<leader>ld', '<cmd>Telescope lsp_definitions<CR>', { desc = "lsp lsp_definitions", silent = true })
-vim.keymap.set({ 'n' }, '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
-vim.keymap.set({ 'n' }, '<leader>lw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "lsp lsp_definitions", silent = true })
-
-vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
-require("telescope").load_extension("emoji");
-require('telescope').load_extension('fzf');
+ts.load_extension("emoji");
+ts.load_extension('fzf');

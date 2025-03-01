@@ -1,8 +1,5 @@
 local functions = {};
 
-local f_test = function()
-	functions.copy_code_as_image_to_clipboard()
-end
 --- ==== assist ====
 local function check_file_format()
 	local file_type = vim.bo.filetype;
@@ -328,7 +325,6 @@ end
 
 functions.open_terminal = open_terminal;
 
-vim.keymap.set({ 'n', 't', 'v' }, "<leader>te", f_test);
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;

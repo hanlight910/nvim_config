@@ -5,8 +5,8 @@ require("transparent").setup({
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
-    'EndOfBuffer',
+    'SignColumn',  'CursorLineNr', 'StatusLine', 'StatusLineNC',
+    'EndOfBuffer', -- Cursoline
   },
   -- table: additional groups that should be cleared
   extra_groups = {

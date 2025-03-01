@@ -14,6 +14,7 @@ if status then
 			}
 		})
 		use 'nvim-tree/nvim-web-devicons'
+		use "norcalli/nvim-colorizer.lua"
 		use { "folke/snacks.nvim",
 			opt = true,  -- Make snacks.nvim optional
 			config = function()
@@ -78,6 +79,7 @@ if status then
 		use { 'nvim-lualine/lualine.nvim' }
 		use { "stevearc/dressing.nvim" }
 		use { "ray-x/lsp_signature.nvim" }
+		use { "onsails/lspkind.nvim" }
 		use{ 'hrsh7th/cmp-nvim-lsp' }
 		use{ 'hrsh7th/cmp-buffer' }
 		use{ 'hrsh7th/cmp-path' }

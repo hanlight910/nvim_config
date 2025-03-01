@@ -39,7 +39,9 @@ require('mason-lspconfig').setup({
 });
 
 require("neodev").setup({
-	-- add any options here, or leave empty to use the default settings
+	library = {
+		plugins = false,
+	}
 })
 
 -- then setup your lsp server as usual
@@ -117,9 +119,12 @@ lspconfig.emmet_language_server.setup({
   },
 })
 --
--- require('lspconfig')["pyright"].setup {
--- 	capabilities = capabilities
--- }
+lspconfig.pyright.setup {
+	capabilities = capabilities,
+	-- on_attach = function ()
+	-- 	    client.resolved_capabilities.textDocument.completion.completionItem.snippetSupport = true
+	-- end
+}
 -- vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
 --   config = config or {}
 --   config.focus_id = ctx.method
@@ -135,3 +140,8 @@ lspconfig.emmet_language_server.setup({
 -- end
 -- vim.lsp.handlers["textDocument/hover"] = function() end
 
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+-- 	callback = function()
+-- 		vim.lsp.buf_clear_references()  -- This prevents hover popups in insert mode
+-- 	end
+-- })
