@@ -37,7 +37,7 @@ cmp.setup({
 	window = {
 		completion = {
 			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu",
-			col_offset = -3,
+			col_offset = 5,
 			border = "rounded",
 			side_padding = 0
 			-- border = cmp.config.window.bordered(),
@@ -88,9 +88,9 @@ cmp.setup({
 		},
 	},
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		fields = {"abbr", "kind", "menu" },
 		format = function(entry, vim_item)
-			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+			local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
 			local strings = vim.split(kind.kind, "%s", { trimempty = true })
 			-- kind.kind = " " .. (strings[1] or strings[2]) .. " "
 			-- kind.kind = " " .. strings[1] .. strings[2] " "
