@@ -3,8 +3,7 @@ vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>")
 vim.keymap.set("n", "<leader>ga", "<cmd>Git add -A<CR>")
 vim.keymap.set('n', '<leader>gp', function ()
 	local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")
-	print(branch[1])
-	local cmd = "<Git push origin " .. branch;
+	local cmd = "Git push origin " .. branch[1];
 	vim.cmd(cmd);
 end)
 vim.keymap.set("n", "<leader>gr", function ()
