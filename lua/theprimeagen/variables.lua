@@ -6,7 +6,8 @@ vim.g.nvim_config = vim.fn.stdpath("config");
 
 vim.g.algorithm = vim.g.areas .. "/algorithm";
 vim.g.baekjoon = vim.g.algorithm .. "/baekjoon";
-vim.g.ssu_path = vim.g.areas .. "/ssu";
+-- vim.g.ssu_path = vim.g.areas .. "/ssu";
+vim.g.project_1 = os.getenv("PROJECT_1");
 
 --- bash path
 vim.g.bash_config = vim.g.root .. "/.my_config";

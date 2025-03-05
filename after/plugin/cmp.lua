@@ -37,7 +37,7 @@ cmp.setup({
 	window = {
 		completion = {
 			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu",
-			col_offset = 5,
+			-- col_offset = 5,
 			border = "rounded",
 			side_padding = 0
 			-- border = cmp.config.window.bordered(),
