@@ -141,8 +141,6 @@ if status then
 		use {"marcussimonsen/let-it-snow.nvim"}
 		use { "kiyoon/jupynium.nvim", run = "run = . ~/projects/python-venv/venv/bin/activate", }
 
-		-- use { "nvim-java/nvim-java" }
-		-- use { "nvim-java/nvim-java" }
 		use {
 			"epwalsh/pomo.nvim",
 			tag = "*",
@@ -151,6 +149,19 @@ if status then
 			},
 		}
 		use { "xiyaowong/transparent.nvim" }
+		use {
+			'nvim-java/nvim-java',
+			requires = {
+				 'nvim-java/lua-async-await',
+				'nvim-java/nvim-java-refactor',
+				'nvim-java/nvim-java-core',
+				'nvim-java/nvim-java-test',
+				'nvim-java/nvim-java-dap',
+				'nvim-java/nvim-java',
+				'JavaHello/spring-boot.nvim',
+			}
+		}
+		use { "mfussenegger/nvim-dap" }
 	end)
 
 else

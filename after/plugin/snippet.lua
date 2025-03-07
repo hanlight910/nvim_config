@@ -34,8 +34,35 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 	end
 end, {silent = true})
 
+ls.add_snippets("all", {
+	s("trig", {
+		t({"Hello, first line", "Another line!!"}),
+		t("is it Third line?"),
+		t("nope it wasn't")
+	}),
+	s("ti", {
+		t({"After expanding, the cursor is here ->"}), i(1),
+		t({"","After jumping forward once, cursor is here ->"}), 
+
+	}),
+
+	s("bmat", {
+		t({"$$\\begin{bmatrix}",""}),
+		i(1),
+		t({"","\\end{bmatrix}$$"})
+	})
+})
+
 ls.add_snippets("python", {
 	s("importdata", {
 		t({"import numpy as np;", "import pandas as pd;", "import sklearn as sk;"});
+	}),
+	s("bmat", {
+		t({"$$\\begin{bmatrix}", i(1), "\\end{bmatrix}$$"})
+	})
+})
+ls.add_snippets("markdown", {
+	s("bmat", {
+		t({"$$\\begin{bmatrix}", i(1), "\\end{bmatrix}$$"})
 	})
 })

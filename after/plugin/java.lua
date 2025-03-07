@@ -1,2 +1,3 @@
--- require("java");
+require("java").setup();
 -- print(package.path);
+

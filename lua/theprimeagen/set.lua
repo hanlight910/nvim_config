@@ -1,9 +1,9 @@
 -- vim.opt.guicursor = 'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor' -- Blinking cursor
+
 vim.g.mapleader = " "
 vim.g.encoding = "utf-8"
 vim.g.fileencode = "utf-8"
 vim.g.termencoding = "utf-8"
-
 vim.opt.nu = true;
 vim.opt.relativenumber = true --현제 줄 기준 위 아래 줄 오름차순으로 자동 바뀜
 
@@ -33,6 +33,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+vim.opt.formatoptions = "lcr"
 
 vim.opt.colorcolumn = "80"
 vim.cmd [[
@@ -126,4 +127,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function ()
+		vim.opt.formatoptions = "lcr"
+	end
+})
 

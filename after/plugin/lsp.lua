@@ -1,6 +1,5 @@
--- https://github.com/VonHeikemen/lsp-zero.nvim
+-- https://github.com/VonHeikemen/lsp-zero.nvim local util = require('theprimeagen.utils');
 local util = require('theprimeagen.utils');
-
 local stat = util.safe_require("lsp-zero");
 
 if not stat then
@@ -15,6 +14,29 @@ lsp_zero.on_attach(function(client, bufnr)
 	-- to learn the available actions
 	lsp_zero.default_keymaps({buffer = bufnr})
 end)
+
+local custom_attach = function(client)
+	print("LSP started.");
+	require'completion'.on_attach(client)
+	require'diagnostic'.on_attach(client)
+
+	map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+	map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+	map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
+	map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+	map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+	map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+	map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+	map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+	map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+	map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+	map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+	map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+	map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+	map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+	map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+end
 
 require('mason').setup({
 
@@ -125,23 +147,4 @@ lspconfig.pyright.setup {
 	-- 	    client.resolved_capabilities.textDocument.completion.completionItem.snippetSupport = true
 	-- end
 }
--- vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
---   config = config or {}
---   config.focus_id = ctx.method
---   if not (result and result.contents) then
---     return
---   end
---   local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
---   markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
---   if vim.tbl_isempty(markdown_lines) then
---     return
---   end
---   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
--- end
--- vim.lsp.handlers["textDocument/hover"] = function() end
-
--- vim.api.nvim_create_autocmd("InsertEnter", {
--- 	callback = function()
--- 		vim.lsp.buf_clear_references()  -- This prevents hover popups in insert mode
--- 	end
--- })
+lspconfig.jdtls.setup({})
