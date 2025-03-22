@@ -5,31 +5,32 @@ if not stat then
 end
 
 local ts = require("telescope")
+local actions = require("telescope.actions")
 local tb = require('telescope.builtin')
 local fb_actions = require('telescope').extensions.file_browser.actions
 
 local function open_file_browser(directory, depth)
-  telescope.extensions.file_browser.file_browser({
-    cwd = directory,
-    depth = depth,
-  })
+	ts.extensions.file_browser.file_browser({
+		cwd = directory,
+		depth = depth,
+	})
 end
 
 local function open_or_expand_dir(prompt_bufnr)
-  local entry = action_state.get_selected_entry()
-  local path = entry and entry.Path and entry.Path:absolute() or nil
+	local entry = action_state.get_selected_entry()
+	local path = entry and entry.Path and entry.Path:absolute() or nil
 
-  if path and vim.fn.isdirectory(path) == 1 then
-    -- Reopen with depth 10 if it's a directory
-    open_file_browser(path, 10)
-  else
-    -- Open the file if selected
-    fb_actions.open(prompt_bufnr)
-  end
+	if path and vim.fn.isdirectory(path) == 1 then
+		-- Reopen with depth 10 if it's a directory
+		open_file_browser(path, 10)
+	else
+		-- Open the file if selected
+		fb_actions.open(prompt_bufnr)
+	end
 end
 
 
-vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>Telescope lsp_type_definitions<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-o>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<A-t>', '<cmd>Telescope treesitter<CR>', { noremap = true, silent = true })
@@ -38,7 +39,6 @@ vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim
 vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pap', '<cmd>Telescope file_browser path=' .. vim.g.projects ..  ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>te', '<cmd>lua open_file_browser(vim.g.project_1, 1)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .. vim.g.project_1 .. ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
@@ -49,6 +49,11 @@ vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symb
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
 
 ts.setup({
+	defaults = {
+		file_ignore_patterns = {
+			".git/*"
+		},  -- Exclude .git directory,
+	},
 	theme = "ivy",
 	extensions = {
 		file_browser = {
@@ -63,19 +68,40 @@ ts.setup({
 				},
 				["n"] = {
 					["-"] = false,          -- Disable '-' (navigate up)
+					["o"] = function(prompt_bufnr)
+						local entry = require("telescope.actions.state").get_selected_entry()
+						local filepath = entry.path
+						vim.fn.jobstart({ "xdg-open", filepath }, { detach = true })
+						actions.close(prompt_bufnr)
+					end,
 					-- ["<CR>"] =open_or_expand_dir,
 				},
 			},
 		},
 	},
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
-    }
+	fzf = {
+		fuzzy = true,                    -- false will only do exact matching
+		override_generic_sorter = true,  -- override the generic sorter
+		override_file_sorter = true,     -- override the file sorter
+		case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+		-- the default case_mode is "smart_case"
+	}
 });
 ts.load_extension("file_browser");
 ts.load_extension("emoji");
 ts.load_extension('fzf');
+
+vim.keymap.set("n", "fl", function ()
+	-- open_file_browser(f)
+	local currentPath = vim.fn.getcwd()
+	-- Find the position of the last "lib" in the path
+	local lib_index = currentPath:reverse():find("bil")  -- Reverse and find "lib" ("/bil")
+	if lib_index then
+		-- Get the position of the last "lib"
+		local final_index = #currentPath - lib_index + 1
+		local truncated_path = currentPath:sub(1, final_index)
+		print("current Path: " .. currentPath)
+		print(truncated_path);
+		open_file_browser(truncated_path, 10)
+	end
+end)

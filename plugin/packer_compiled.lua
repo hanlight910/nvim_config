@@ -120,6 +120,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/codecompanion.nvim",
     url = "https://github.com/olimorris/codecompanion.nvim"
   },
+  ["dart-vim-plugin"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/dart-vim-plugin",
+    url = "https://github.com/dart-lang/dart-vim-plugin"
+  },
   ["dressing.nvim"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/dressing.nvim",
@@ -134,6 +139,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/gp.nvim",
     url = "https://github.com/robitx/gp.nvim"
+  },
+  ["grammar-guard.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/grammar-guard.nvim",
+    url = "https://github.com/brymer-meneses/grammar-guard.nvim"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
@@ -262,6 +272,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-llama",
     url = "https://github.com/jpmcb/nvim-llama"
   },
+  ["nvim-lsp-installer"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
+    url = "https://github.com/williamboman/nvim-lsp-installer"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -321,7 +336,7 @@ _G.packer_plugins = {
     url = "https://github.com/BurntSushi/ripgrep"
   },
   ["snacks.nvim"] = {
-    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\rexplorer\0\ninput\0\fbigfile\0\vindent\0\nimage\0\nscope\0\nwords\0\17statuscolumn\0\14quickfile\0\rnotifier\0\vpicker\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\nimage\0\nwords\0\nscope\0\14quickfile\0\rnotifier\0\vpicker\0\rexplorer\0\17statuscolumn\0\fbigfile\0\ninput\0\vindent\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/home/light/.local/share/nvim/site/pack/packer/opt/snacks.nvim",
@@ -331,6 +346,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/spring-boot.nvim",
     url = "https://github.com/JavaHello/spring-boot.nvim"
+  },
+  ["tabline.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/tabline.nvim",
+    url = "https://github.com/kdheepak/tabline.nvim"
   },
   ["telescope-emoji.nvim"] = {
     loaded = true,

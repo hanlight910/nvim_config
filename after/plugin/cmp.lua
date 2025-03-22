@@ -169,4 +169,3 @@ local entry = cmp.get_selected_entry()
 if entry then
   print("Selected entry: " .. entry:get_completion_item().label)
 end
-

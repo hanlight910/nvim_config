@@ -77,6 +77,7 @@ if status then
 		use { 'numToStr/Comment.nvim' }
 		use { "cohama/lexima.vim" }
 		use { 'nvim-lualine/lualine.nvim' }
+		use { 'kdheepak/tabline.nvim' }
 		use { "stevearc/dressing.nvim" }
 		use { "ray-x/lsp_signature.nvim" }
 		use { "onsails/lspkind.nvim" }
@@ -152,7 +153,7 @@ if status then
 		use {
 			'nvim-java/nvim-java',
 			requires = {
-				 'nvim-java/lua-async-await',
+				'nvim-java/lua-async-await',
 				'nvim-java/nvim-java-refactor',
 				'nvim-java/nvim-java-core',
 				'nvim-java/nvim-java-test',
@@ -162,6 +163,14 @@ if status then
 			}
 		}
 		use { "mfussenegger/nvim-dap" }
+		use {'dart-lang/dart-vim-plugin'}
+		use {
+			"brymer-meneses/grammar-guard.nvim",
+			requires = {
+				"neovim/nvim-lspconfig",
+				"williamboman/nvim-lsp-installer"
+			}
+		}
 	end)
 
 else

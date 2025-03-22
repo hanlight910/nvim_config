@@ -18,4 +18,15 @@ require("flutter-tools").setup {
 		open_cmd = "belowright 10new"
 	}
 }
-
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dart",  -- File extension (e.g., "python" for .py files)
+    callback = function()
+		-- Define the keymap
+		vim.keymap.set("n", "<F5>", function ()
+			vim.cmd("FlutterRun");
+		end, { noremap = true, silent = true })
+		vim.keymap.set("n", "<F4>", function ()
+			vim.cmd("FlutterRestart");
+		end, { noremap = true, silent = true })
+    end,
+})

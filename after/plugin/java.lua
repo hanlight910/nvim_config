@@ -1,3 +1,3 @@
-require("java").setup();
--- print(package.path);
+-- require("java").setup();
+-- -- print(package.path);
 

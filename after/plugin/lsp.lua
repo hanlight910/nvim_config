@@ -148,3 +148,4 @@ lspconfig.pyright.setup {
 	-- end
 }
 lspconfig.jdtls.setup({})
+lspconfig.bashls.setup({})

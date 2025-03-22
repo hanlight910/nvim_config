@@ -1,11 +1,3 @@
-local util = require('theprimeagen.utils');
-
-local stat = util.safe_require("lualine");
-
-if not stat then
-	return nil;
-end
-
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -51,7 +43,7 @@ local config = {
 			-- We are going to use lualine_c an lualine_x as left and
 			-- right section. Both are highlighted by c theme .  So we
 			-- are just setting default looks o statusline
-			normal = { c = { fg = colors.fg, bg = colors.bg } },
+			normal = { c = { fg = colors.fg, bg = colors.bg }, a = { fg = colors.red, bg = colors.cyan }  },
 			inactive = { c = { fg = colors.fg, bg = colors.bg } },
 		},
 	},
@@ -63,13 +55,7 @@ local config = {
 		lualine_z = {},
 		-- These will be filled later
 		lualine_c = {},
-		lualine_x = {
-			{
-				require("noice").api.statusline.mode.get,
-				cond = require("noice").api.statusline.mode.has,
-				color = { fg = "#ff9e64" },
-			}
-		},
+		lualine_x = {},
 	},
 	inactive_sections = {
 		-- these are to remove the defaults
@@ -80,11 +66,6 @@ local config = {
 		lualine_c = {},
 		lualine_x = {},
 	},
-	tabline = {
-		lualine_a = {
-				"buffers",
-		}
-	}
 }
 
 -- Inserts a component in lualine_c at left section
@@ -116,13 +97,13 @@ ins_left {
 			n = colors.red,
 			i = colors.green,
 			v = colors.blue,
-			['␖'] = colors.blue,
+			[''] = colors.blue,
 			V = colors.blue,
 			c = colors.magenta,
 			no = colors.red,
 			s = colors.orange,
 			S = colors.orange,
-			['␓'] = colors.orange,
+			[''] = colors.orange,
 			ic = colors.yellow,
 			R = colors.violet,
 			Rv = colors.violet,
@@ -237,4 +218,4 @@ ins_right {
 }
 
 -- Now don't forget to initialize lualine
-lualine.setup(config);
+lualine.setup(config)

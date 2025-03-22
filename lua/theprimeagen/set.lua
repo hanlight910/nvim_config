@@ -1,11 +1,9 @@
 -- vim.opt.guicursor = 'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor' -- Blinking cursor
-
 vim.g.mapleader = " "
-vim.g.encoding = "utf-8"
-vim.g.fileencode = "utf-8"
+vim.g.encoding = "utf-8" vim.g.fileencode = "utf-8"
 vim.g.termencoding = "utf-8"
 vim.opt.nu = true;
-vim.opt.relativenumber = true --현제 줄 기준 위 아래 줄 오름차순으로 자동 바뀜
+vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -14,7 +12,7 @@ vim.opt.expandtab = false;
 
 vim.opt.smartindent = true
 vim.opt.autoindent = true
-vim.opt.autoread = true --vim 외부에서 파일이 변경될 경우 자동으로 다시 읽어드립니다.
+vim.opt.autoread = true
 
 vim.opt.wrap = false
 
@@ -78,13 +76,15 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
-		vim.api.nvim_set_hl(0, "Visual", { bg = "Grey", fg = "White" })
-		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#242544", })
+		vim.api.nvim_set_hl(0, "Visual", { bg = "#008888", fg = "#00FFFF" })
+		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#222222", })
 		vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#89b4fa", bold = true })
 
 		-- Customization for Pmenu
 		vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#FFFFFF", fg = "#000000" })
 		vim.api.nvim_set_hl(0, "Pmenu", { fg = "#C5CDD9", bg = "#22252A" })
+		vim.api.nvim_set_hl(0, "TabLine", { fg = "#C3E88D", bg = "#B5585F" })
+		vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#C3E88D", bg = "#B5585F" })
 
 		-- vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#7E8294", bg = "NONE", strikethrough = true })
 		-- vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#82AAFF", bg = "NONE", bold = true })
@@ -123,6 +123,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		-- vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = "#D8EEEB", bg = "#58B5A8" })
 		-- vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = "#D8EEEB", bg = "#58B5A8" })
 		-- vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = "#D8EEEB", bg = "#58B5A8" })
+
+	vim.opt.termguicolors = true
 
     end,
 })

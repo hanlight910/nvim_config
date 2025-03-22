@@ -11,6 +11,7 @@ if not ok then
 	return 1;
 end
 
+local run = fn.run;
 local move_workspace = fn.move_workspace;
 local create_fleeting_note = fn.create_fleeting_note;
 local create_algorithm_path = fn.create_algorithm_path;
@@ -43,7 +44,7 @@ vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number "});
 vim.keymap.set("n", "-", "<C-x>", { desc = "Decrease number "});
 vim.keymap.set("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
-vim.keymap.set("n", "<leader>ca", "ggVG");
+vim.keymap.set("n", "<leader>ca", "ggVG=<C-O>");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
@@ -54,7 +55,6 @@ vim.keymap.set("n", "<A-y>", "\"+y");
 
 vim.keymap.set("n", "<C-l>", move_to_terminal_window);
 vim.keymap.set("n", "<C-j>", function ()
-	print("Prev");
 	move_to_prev_normal_buffer();
 end);
 vim.keymap.set("n", "<C-k>", move_to_next_normal_buffer);
@@ -63,7 +63,7 @@ vim.keymap.set("n", "<leader>xdg", "<cmd>!xdg-open \"%\"<CR>");
 vim.keymap.set("n", "<leader>d", "vbd");
 vim.keymap.set("n", "<leader>co", create_algorithm_path)
 vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
-vim.keymap.set("n", "<F5>", run_c);
+vim.keymap.set("n", "<F5>", run);
 
 vim.keymap.set("n", "<F9>", ":wq<CR>");
 vim.keymap.set("n", "<leader><leader>", function() 
@@ -112,4 +112,3 @@ vim.keymap.set("t", "<A-->", "<cmd>resize -5<CR>");
 vim.keymap.set("t", "<A-q>", "<C-\\><C-n><cmd>bd!<Cr>");
 vim.keymap.set("t", "kj", "<C-\\><C-n>");
 vim.keymap.set("t", "<C-l>", move_workspace);
-

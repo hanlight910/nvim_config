@@ -5,7 +5,7 @@ require("transparent").setup({
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn',  'CursorLineNr', 'StatusLine', 'StatusLineNC',
+    'SignColumn',  'CursorLineNr',
     'EndOfBuffer', -- Cursoline
   },
   -- table: additional groups that should be cleared
@@ -14,9 +14,11 @@ require("transparent").setup({
     "NvimTreeNormal" -- NvimTree
 	 },
   -- table: groups you don't want to clear
-  exclude_groups = {},
+  exclude_groups = {
+		 'StatusLine', 'StatusLineNC', 'CursorLine'
+	 },
   -- function: code to be executed after highlight groups are cleared
   -- Also the user event "TransparentClear" will be triggered
   on_clear = function() end,
 })
-require('transparent').clear_prefix('lualine')
+-- require('transparent').clear_prefix('lualine')

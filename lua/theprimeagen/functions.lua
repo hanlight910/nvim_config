@@ -248,6 +248,53 @@ functions.compile_cpp = function()
 	-- end, 2000);
 end;
 
+-- run 
+functions.run_shell = function()
+	local file_name = vim.fn.expand("%");
+	vim.fn.system({"chmod", "+x", file_name});
+	functions.open_terminal();
+	local run = "./"  .. file_name .. "<CR>";
+	-- This function will be executed after 1 second (1000ms)
+	vim.defer_fn(function()
+		vim.api.nvim_input(run);
+	end, 300)
+
+end
+functions.run_java = function ()
+	local file_name = vim.fn.expand("%");
+	functions.open_terminal();
+	local name_without_extension = string.match(file_name, "^(.-)%.%w+$");
+
+	vim.defer_fn(function()
+		vim.api.nvim_input("javac " .. file_name  .. "<CR>");
+	end, 300)
+	vim.defer_fn(function()
+		vim.api.nvim_input("java " .. name_without_extension  .. "<CR>");
+	end, 600)
+	vim.defer_fn(function ()
+		print("name name_without_extension: " .. name_without_extension .. ".class");
+		print("current path: " .. vim.fn.getcwd())
+		for _, file in ipairs(vim.fn.glob("*.class", true, true)) do
+			vim.fn.delete(file)
+		end
+	end, 900)
+end
+
+functions.run = function ()
+	local filename = vim.fn.expand("%");
+	local file_extension = vim.fn.fnamemodify(filename, ":e");
+	print(file_extension);
+	if file_extension == "py" then
+		functions.run_py();
+	elseif file_extension == "java" then
+		functions.run_java();
+	elseif file_extension == "c" then
+		functions.run_c();
+	elseif file_extension == "sh" or file_extension == "" then
+		functions.run_shell();
+	end
+end
+
 functions.run_py = function()
 	local file_name = vim.fn.expand("%");
 	print(file_name);
@@ -325,6 +372,7 @@ end
 
 functions.open_terminal = open_terminal;
 
+-- vim.keymap.set({"n", "i"}, "<leader>te", functions.run_java);
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;
