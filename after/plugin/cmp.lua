@@ -11,7 +11,7 @@ local lspkind = require("lspkind");
 local compare = cmp.config.compare;
 
 cmp.setup({
-	preselect = cmp.PreselectMode.Item,
+	preselect = cmp.PreselectMode.None,
 	completion = {
 		autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }, -- Trigger on text change
 		completeopt = 'menu,menuone,noinsert,noselect',  -- Control popup behavior
@@ -81,9 +81,12 @@ cmp.setup({
 	sorting = {
 		priority_weight = 1.0,
 		comparators = {
-			compare.score,            -- Jupyter kernel completion shows prior to LSP
-			compare.recently_used,
-			compare.locality,
+            compare.exact,
+            compare.score,
+            compare.kind,
+            compare.sort_text,
+            compare.length,
+            compare.order
 			-- ...
 		},
 	},

@@ -136,9 +136,26 @@ hi! link JupyniumMagicCommand Keyword
 function startJupyter ()
 	local nvim_server_name = vim.v.servername;
 
+	local uv = vim.loop
+	local current_path = uv.cwd();
+	local max_depth = 3
+	
+	local venv_path = ""
+	for _ = 1, max_depth do
+		venv_path = current_path .. "/venv"
+		local stat = uv.fs_stat(venv_path)
+		if stat and stat.type == "directory" then
+			break
+		end
+		local parent_path = current_path:match("(.+)/[^/]+$")
+		if not parent_path then break end
+		current_path = parent_path
+	end
+	print(venv_path)
+	
+	venv_path = venv_path .. "/bin/activate"
 	vim.g.open_terminal();
-	vim.api.nvim_input("cd ..<CR>");
-	vim.api.nvim_input(". ./venv/bin/activate<CR>");
+	vim.api.nvim_input(". " .. venv_path .. "<CR>");
 	vim.api.nvim_input("jupynium --nvim_listen_addr " .. nvim_server_name .. "<CR>");
 	local timer = vim.uv.new_timer();
 

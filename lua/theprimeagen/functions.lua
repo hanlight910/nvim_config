@@ -292,6 +292,8 @@ functions.run = function ()
 		functions.run_c();
 	elseif file_extension == "sh" or file_extension == "" then
 		functions.run_shell();
+	elseif file_extension == "cpp" then
+		functions.compile_cpp();
 	end
 end
 
@@ -299,7 +301,7 @@ functions.run_py = function()
 	local file_name = vim.fn.expand("%");
 	print(file_name);
 	local buffers = vim.api.nvim_list_bufs();
-	local found_terminal = false;	
+	local found_terminal = false;
 	local terminal_buf;
 	for i, buf in ipairs(buffers) do
 		local buftype = vim.api.nvim_buf_get_option(buf, "buftype");
@@ -315,7 +317,26 @@ functions.run_py = function()
 		functions.open_terminal();
 	end
 	-- vim.api.nvim_input(". .run<CR>");
-	vim.api.nvim_input(". ../venv/bin/activate<CR>");
+
+	local uv = vim.loop
+	local current_path = uv.cwd();
+	local max_depth = 3
+	
+	local venv_path = ""
+	for _ = 1, max_depth do
+		venv_path = current_path .. "/venv"
+		local stat = uv.fs_stat(venv_path)
+		if stat and stat.type == "directory" then
+			break
+		end
+		local parent_path = current_path:match("(.+)/[^/]+$")
+		if not parent_path then break end
+		current_path = parent_path
+	end
+	print(venv_path)
+	
+	venv_path = venv_path .. "/bin/activate"
+	vim.api.nvim_input(". " .. venv_path .. "<CR>");
 	-- vim.api.nvim_input(". .run" .. "<CR>");
 	-- vim.api.nvim_input(". ./")
 	vim.api.nvim_input("python3 " .. file_name .. "<CR>");
@@ -332,12 +353,6 @@ functions.run_c = function()
 		print("hello, cpp");
 		functions.compile_cpp();
 	end
-
-	if file_type == "python" then
-		print("hello py");
-		functions.run_py();
-	end
-
 end
 
 -- terminal
