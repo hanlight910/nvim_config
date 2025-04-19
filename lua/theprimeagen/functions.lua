@@ -18,7 +18,7 @@ functions.copy_code_as_image_to_clipboard = function()
 		local text = table.concat(lines, '\n');
 		vim.fn.setreg('+', text);
 	else
-		
+
 	end
 	vim.cmd("!silicon --from-clipboard -l " .. file_format .. " --to-clipboard");
 end
@@ -53,136 +53,136 @@ end, { nargs = 1, complete = 'command' })
 -- ==== window navigation ====
 functions.move_workspace = function()
 	local windows = vim.api.nvim_list_wins()
-	
-	for _, win in ipairs(windows) do
-	    local buf = vim.api.nvim_win_get_buf(win)
-	    local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-	    local buflisted = vim.api.nvim_buf_get_option(buf, "buflisted")
-	    local bufname = vim.api.nvim_buf_get_name(buf)
 
-	    if buftype == "" and (buflisted or vim.api.nvim_buf_is_valid(buf) and bufname ~= "") then
-	        vim.api.nvim_set_current_win(win)
-	        print("Moved to active or listed window")
-	        return
-	    end
+	for _, win in ipairs(windows) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+		local buflisted = vim.api.nvim_buf_get_option(buf, "buflisted")
+		local bufname = vim.api.nvim_buf_get_name(buf)
+
+		if buftype == "" and (buflisted or vim.api.nvim_buf_is_valid(buf) and bufname ~= "") then
+			vim.api.nvim_set_current_win(win)
+			print("Moved to active or listed window")
+			return
+		end
 	end
 end
 
 functions.move_to_terminal_window = function()
-    print("Moving to terminal window...")
+	print("Moving to terminal window...")
 
-    -- Get the list of all open windows
-    local windows = vim.api.nvim_list_wins()
+	-- Get the list of all open windows
+	local windows = vim.api.nvim_list_wins()
 
-    -- Iterate over all windows
-    for _, win in ipairs(windows) do
-        -- Get the buffer associated with the current window
-        local buf = vim.api.nvim_win_get_buf(win)
+	-- Iterate over all windows
+	for _, win in ipairs(windows) do
+		-- Get the buffer associated with the current window
+		local buf = vim.api.nvim_win_get_buf(win)
 
-        -- Check if the buffer is a terminal
-        local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-        if buftype == "terminal" then
-            -- Move the cursor to the window displaying the terminal
-            vim.api.nvim_set_current_win(win)
-            print("Moved to terminal window")
+		-- Check if the buffer is a terminal
+		local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+		if buftype == "terminal" then
+			-- Move the cursor to the window displaying the terminal
+			vim.api.nvim_set_current_win(win)
+			print("Moved to terminal window")
 			vim.cmd("startinsert");
-            return
-        end
-    end
+			return
+		end
+	end
 
-    print("No terminal window found")
+	print("No terminal window found")
 end
 
 --- moving buffer
 functions.move_to_next_normal_buffer = function()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local buffers = vim.api.nvim_list_bufs()
-  local found = false
-  
-  for i, buf in ipairs(buffers) do
-    if buf == current_buf then
-      found = true -- Found the current buffer, start checking next
-    elseif found and vim.api.nvim_buf_is_loaded(buf) then
-      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-      local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+	local current_buf = vim.api.nvim_get_current_buf()
+	local buffers = vim.api.nvim_list_bufs()
+	local found = false
 
-      if buftype == "" and filetype ~= "terminal" then
-        -- Switch to the buffer
-        vim.api.nvim_set_current_buf(buf);
-        return
-      end
-    end
-  end
+	for i, buf in ipairs(buffers) do
+		if buf == current_buf then
+			found = true -- Found the current buffer, start checking next
+		elseif found and vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
 
-  for _, buf in ipairs(buffers) do
-    if vim.api.nvim_buf_is_loaded(buf) then
-      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-      local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+			if buftype == "" and filetype ~= "terminal" then
+				-- Switch to the buffer
+				vim.api.nvim_set_current_buf(buf);
+				return
+			end
+		end
+	end
 
-      if buftype == "" and filetype ~= "terminal" then
-        vim.api.nvim_set_current_buf(buf)
-        return
-      end
-    end
-  end
+	for _, buf in ipairs(buffers) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+
+			if buftype == "" and filetype ~= "terminal" then
+				vim.api.nvim_set_current_buf(buf)
+				return
+			end
+		end
+	end
 end
 
 functions.delete_normal_buffer = function()
-    local current_buf = vim.api.nvim_get_current_buf()
-    -- local buffers = vim.api.nvim_list_bufs()
-    -- local normal_buffer = nil
+	local current_buf = vim.api.nvim_get_current_buf()
+	-- local buffers = vim.api.nvim_list_bufs()
+	-- local normal_buffer = nil
 
-    -- for _, buf in ipairs(buffers) do
-    --     local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-    --     if buftype == "" and buf ~= current_buf then
-    --         normal_buffer = buf
-    --         break
-    --     end
-    -- end
+	-- for _, buf in ipairs(buffers) do
+	--     local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+	--     if buftype == "" and buf ~= current_buf then
+	--         normal_buffer = buf
+	--         break
+	--     end
+	-- end
 
 	functions.move_to_next_normal_buffer();
 	vim.api.nvim_buf_delete(current_buf, { force = true })
 end
 
 functions.move_to_prev_normal_buffer = function()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local buffers = vim.api.nvim_list_bufs()
-  local found = false
+	local current_buf = vim.api.nvim_get_current_buf()
+	local buffers = vim.api.nvim_list_bufs()
+	local found = false
 
-  -- Start from the current buffer and move backwards
-  for i = #buffers, 1, -1 do
-    local buf = buffers[i]
-    if buf == current_buf then
-      found = true  -- Start checking the previous buffer
-    elseif found and vim.api.nvim_buf_is_loaded(buf) then
-      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-      local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+	-- Start from the current buffer and move backwards
+	for i = #buffers, 1, -1 do
+		local buf = buffers[i]
+		if buf == current_buf then
+			found = true  -- Start checking the previous buffer
+		elseif found and vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
 
-      -- Check if it's not a terminal and is a normal file
-      if buftype == "" and filetype ~= "terminal" then
-        -- Switch to the buffer
-        vim.api.nvim_set_current_buf(buf)
-        return
-      end
-    end
-  end
+			-- Check if it's not a terminal and is a normal file
+			if buftype == "" and filetype ~= "terminal" then
+				-- Switch to the buffer
+				vim.api.nvim_set_current_buf(buf)
+				return
+			end
+		end
+	end
 
-  -- If no normal file buffer is found, wrap around to the end
-  for i = #buffers, 1, -1 do
-    local buf = buffers[i]
-    if vim.api.nvim_buf_is_loaded(buf) then
-      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-      local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+	-- If no normal file buffer is found, wrap around to the end
+	for i = #buffers, 1, -1 do
+		local buf = buffers[i]
+		if vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
 
-      -- Check if it's not a terminal and is a normal file
-      if buftype == "" and filetype ~= "terminal" then
-        vim.api.nvim_set_current_buf(buf)
-        return
-      end
-    end
-  end
+			-- Check if it's not a terminal and is a normal file
+			if buftype == "" and filetype ~= "terminal" then
+				vim.api.nvim_set_current_buf(buf)
+				return
+			end
+		end
+	end
 
-  print("No suitable normal file buffer found")
+	print("No suitable normal file buffer found")
 end
 
 
@@ -274,10 +274,22 @@ functions.run_java = function ()
 	vim.defer_fn(function ()
 		print("name name_without_extension: " .. name_without_extension .. ".class");
 		print("current path: " .. vim.fn.getcwd())
-		for _, file in ipairs(vim.fn.glob("*.class", true, true)) do
-			vim.fn.delete(file)
+		for _, file in ipairs(vim.fn.glob("*.class", false, true)) do
+			filepath = vim.fn.getcwd() .. "/" .. file
+			print("filepath of class: " .. filepath)
+			vim.fn.delete(filepath)
 		end
-	end, 900)
+	end, 2000)
+end
+
+functions.run_nodejs = function ()
+	local file_name = vim.fn.expand("%");
+	functions.open_terminal();
+	local run = "node "  .. file_name .. "<CR>";
+	-- This function will be executed after 1 second (1000ms)
+	vim.defer_fn(function()
+		vim.api.nvim_input(run);
+	end, 300)
 end
 
 functions.run = function ()
@@ -294,6 +306,8 @@ functions.run = function ()
 		functions.run_shell();
 	elseif file_extension == "cpp" then
 		functions.compile_cpp();
+	elseif file_extension == "js" then
+		functions.run_nodejs();
 	end
 end
 
@@ -321,7 +335,7 @@ functions.run_py = function()
 	local uv = vim.loop
 	local current_path = uv.cwd();
 	local max_depth = 3
-	
+
 	local venv_path = ""
 	for _ = 1, max_depth do
 		venv_path = current_path .. "/venv"
@@ -334,7 +348,7 @@ functions.run_py = function()
 		current_path = parent_path
 	end
 	print(venv_path)
-	
+
 	venv_path = venv_path .. "/bin/activate"
 	vim.api.nvim_input(". " .. venv_path .. "<CR>");
 	-- vim.api.nvim_input(". .run" .. "<CR>");

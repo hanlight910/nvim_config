@@ -53,14 +53,6 @@ vim.api.nvim_set_keymap('i', '<Right>', '<C-o>' .. msg, { noremap = true, silent
 vim.api.nvim_set_keymap('i', '<Del>', '<C-o>' .. msg, { noremap = true, silent = false })
 vim.keymap.set('i', '<Bs>', '<C-o>' .. msg)
 
--- Disable arrow keys in normal mode with a styled message
-vim.api.nvim_set_keymap('n', '<Up>', msg, { noremap = true, silent = false })
-vim.api.nvim_set_keymap('n', '<Down>', msg, { noremap = true, silent = false })
-vim.api.nvim_set_keymap('n', '<Left>', msg, { noremap = true, silent = false })
-vim.api.nvim_set_keymap('n', '<Right>', msg, { noremap = true, silent = false })
-vim.api.nvim_set_keymap('n', '<BS>', msg, { noremap = true, silent = false })
-
-
 vim.o.cursorline  = true;
 -- vim.o.cursorword  = false;
 vim.o.cursorcolumn = false;
@@ -77,7 +69,7 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.api.nvim_set_hl(0, "Visual", { bg = "#008888", fg = "#00FFFF" })
-		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#222222", })
+		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#224477", })
 		vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#89b4fa", bold = true })
 
 		-- Customization for Pmenu

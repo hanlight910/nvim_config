@@ -30,8 +30,15 @@ vim.keymap.set("i", "kj", "<Esc>");
 vim.keymap.set("i", "<Tab>", "<Tab>");
 vim.keymap.set("i", "<A-d>", "bdw");
 vim.keymap.set("i", "<A-w>", "<cmd>w<CR>");
+vim.keymap.set("i", "<C-v>", function ()
+	return "![]" .. "(" .. vim.fn.getreg("+") .. ")";
+end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set({"n"}, "<Up>", "<C-w>k");
+vim.keymap.set({"n"}, "<Down>", "<C-w>j");
+vim.keymap.set({"n"}, "<Left>", "<C-w>j");
+vim.keymap.set({"n"}, "<Right>", "<C-w>l");
 vim.keymap.set({ "n" } , "<leader>fx", function ()
 	local filename = vim.fn.expand("%");
 	print(filename)
@@ -104,7 +111,17 @@ vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
 vim.keymap.set("v", "<C-c>", "\"+y");
--- vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
+vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
+vim.keymap.set("v", "<leader>si", function ()
+	local filename = vim.api.nvim_buf_get_name(0)
+	local extension = filename:match("^.+%.(.+)$")
+	vim.cmd("normal! \"+y")
+	if extension ~= nil then
+		vim.fn.system("customsilicon.sh " .. extension)
+	else
+		vim.fn.system("customsilicon.sh sh")
+	end
+end)
 
 -- === Terminal mode ===
 vim.keymap.set("t", "<A-=>", "<cmd>resize +5<CR>");

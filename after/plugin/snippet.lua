@@ -46,11 +46,6 @@ ls.add_snippets("all", {
 
 	}),
 
-	s("bmat", {
-		t({"$$\\begin{bmatrix}",""}),
-		i(1),
-		t({"","\\end{bmatrix}$$"})
-	})
 })
 
 ls.add_snippets("python", {
@@ -67,15 +62,33 @@ ls.add_snippets("markdown", {
 		i(1),
 		t({"","\\end{bmatrix}"})
 	}),
+	s("pmat", {
+		t({"\\begin{pmatrix}",""}),
+		i(1),
+		t({"","\\end{pmatrix}"})
+	}),
 	s("fr", {
 		t("\\frac"),t("{"), i(1), t("}"), t("{"), i(2), t("}")
 	}),
 	s("sum", {
-		t("\\sum^n_{i=0}")
+		t("\\sum^n_{i=1}")
+	}),
+	s("prd", {
+		t("\\prod^n_{i=1}")
 	}),
 	s("$$", {
-		t({"$$"}),i(1),t({"$$"})
-	})
+		t({"$$", ""}),i(1),t({"", "$$"})
+	}),
+	s("pi", {
+		t("![]("),
+		f(function()
+			local hel =  vim.fn.getreg("+");
+			return hel;
+		end, {}),
+		t(")")
+	}),
+	s("al", t("\\alpha")),
+	s("be", t("\\beta")),
 })
 
 ls.add_snippets("all", {
@@ -108,3 +121,22 @@ ls.add_snippets("all", {
 		t({"			return "}), i(2, "Scaffold()"), t({";", " "}), t({"	}", "}"}),
 	})
 })
+
+ls.add_snippets("java", {
+	s("pr", {
+		t("System.out.printf(\""), i(1), t("\");");
+	})
+})
+
+ls.add_snippets("cpp", {
+	s("pr", {
+		t("cout << "), i(1), t(" << endl;");
+	})
+})
+
+ls.add_snippets("javascript", {
+	s("pr", {
+		t("console.log("), i(1), t(");");
+	})
+})
+

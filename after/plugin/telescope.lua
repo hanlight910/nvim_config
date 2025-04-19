@@ -28,13 +28,32 @@ local function open_or_expand_dir(prompt_bufnr)
 		fb_actions.open(prompt_bufnr)
 	end
 end
+local function find_git_dir()
+  local path = vim.fn.expand('%:p:h')  -- current file's directory
+  for _ = 1, 10 do
+    local git_path = path .. '/.git'
+    if vim.fn.isdirectory(git_path) == 1 then
+      return path
+    end
+    path = vim.fn.fnamemodify(path, ':h')  -- go up one level
+  end
+  return nil  -- not found
+end
 
+local function file_browse_git()
+	local git_dir = find_git_dir()
+	if git_dir ~= nil then
+		print(git_dir)
+		open_file_browser(git_dir, 10)
+	end
+end
 
 vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>Telescope lsp_type_definitions<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-o>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<A-t>', '<cmd>Telescope treesitter<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>pf', '<cmd>Telescope file_browser <CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<space>pf', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>pg', file_browse_git, { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.nvim_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
@@ -47,6 +66,7 @@ vim.keymap.set({ 'n' }, '<A-t>', '<cmd>Telescope lsp_document_symbols<CR>', { de
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
+vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope buffers<CR>', { desc = "telescope live grep", silent = true })
 
 ts.setup({
 	defaults = {

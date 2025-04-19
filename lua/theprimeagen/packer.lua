@@ -1,4 +1,5 @@
 local status, packer = pcall(require, "packer");
+local func           = require("vim.func")
 
 if status then
 	return packer.startup(function(use)
@@ -34,6 +35,7 @@ if status then
 					image = {}
 				})
 			end,
+
 
 		}
 
@@ -160,10 +162,7 @@ if status then
 				'nvim-java/nvim-java-dap',
 				'nvim-java/nvim-java',
 				'JavaHello/spring-boot.nvim',
-			}
-		}
-		use { "mfussenegger/nvim-dap" }
-		use {'dart-lang/dart-vim-plugin'}
+			} } use { "mfussenegger/nvim-dap" } use {'dart-lang/dart-vim-plugin'}
 		use {
 			"brymer-meneses/grammar-guard.nvim",
 			requires = {
@@ -171,6 +170,32 @@ if status then
 				"williamboman/nvim-lsp-installer"
 			}
 		}
+		use {
+			'SCJangra/table-nvim',
+			ft = 'markdown',
+			config = function()
+				require('table-nvim').setup({
+					padd_column_separators = true,
+					disable_defaults = true, -- ✅ disables default mappings
+					mappings = {
+						next = '<TAB>',
+						prev = '<S-TAB>',
+						insert_row_up = '<A-k>',
+						insert_row_down = '<A-j>',
+						move_row_up = '<A-S-k>',
+						move_row_down = '<A-S-j>',
+						insert_column_left = '<A-h>',
+						insert_column_right = '<A-l>',
+						move_column_left = '<A-S-h>',
+						move_column_right = '<A-S-l>',
+						insert_table = '<A-t>',
+						insert_table_alt = '<A-S-t>',
+						delete_column = '<A-d>',
+					}
+				})
+			end
+		}
+
 	end)
 
 else
