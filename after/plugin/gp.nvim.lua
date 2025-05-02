@@ -11,7 +11,6 @@ local gp = require("gp");
 local config = {
 	providers = {
 		openai = {
-			disable = true,
 			endpoint = "https://api.openai.com/v1/chat/completions",
 			secret = os.getenv("OPENAI_API_KEY"),
 		},
@@ -22,29 +21,26 @@ local config = {
 		ollama = {
 			endpoint = "http://localhost:11434/v1/chat/completions",
 		},
-
-
-
 	},
 
-	default_command_agent = "llama3.2",
-	default_chat_agent = "llama3.2",
+	default_command_agent = "ChatGPT4o",
+	default_chat_agent = "ChatGPT4o",
 	agents = {
-		-- {
-		-- 	name = "ChatGemini",
-		-- 	disable = true,
-		--
-		-- },
-		-- {
-		-- 	name = "ChatGPT4o",
-		-- 	chat = true,
-		-- 	command = false,
-		-- 	disable = true,
-		-- 	-- string with model name or table with model name and parameters 
-		-- 	model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
-		-- 	-- system prompt (use this to specify the persona/role of the AI) 
-		-- 	system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.",
-		-- },
+		{
+			name = "ChatGemini",
+			disable = true,
+
+		},
+		{
+			name = "ChatGPT4o",
+			chat = true,
+			command = false,
+			disable = true,
+			-- string with model name or table with model name and parameters 
+			model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+			-- system prompt (use this to specify the persona/role of the AI) 
+			system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.",
+		},
 		{
 			name = "CustomAgent",
 			provider = "googleai",

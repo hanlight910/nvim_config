@@ -32,11 +32,12 @@ require("noice").setup({
 		-- NOTE: If you enable messages, then the cmdline is enabled automatically.
 		-- This is a current Neovim limitation.
 		enabled = true, -- enables the Noice messages UI
-		view = "notify", -- default view for messages
-		view_error = "notify", -- view for errors
-		view_warn = "notify", -- view for warnings
+		view = "mini",
+		view_error = "notify",
+		view_warn = "notify",
 		view_history = "messages", -- view for :messages
 		view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+		history = true,
 	},
 	popupmenu = {
 		enabled = true, -- enables the Noice popupmenu UI
@@ -58,14 +59,14 @@ require("noice").setup({
 	commands = {
 		history = {
 			-- options for the message history that you get with `:Noice`
-			view = "split",
+			view = "notify",
 			opts = { enter = true, format = "details" },
 			filter = {
 				any = {
 					{ event = "notify" },
 					{ error = true },
 					{ warning = true },
-					{ event = "msg_show", kind = { "" } },
+					{ event = "msg_show" },
 					{ event = "lsp", kind = "message" },
 				},
 			},
@@ -123,11 +124,11 @@ require("noice").setup({
 		},
 		override = {
 			-- override the default lsp markdown formatter with Noice
-			["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			-- override the lsp markdown formatter with Noice
-			["vim.lsp.util.stylize_markdown"] = false,
+			["vim.lsp.util.stylize_markdown"] = true,
 			-- override cmp documentation with Noice (needs the other options to work)
-			["cmp.entry.get_documentation"] = false,
+			["cmp.entry.get_documentation"] = true,
 		},
 		hover = {
 			enabled = true,
@@ -228,8 +229,10 @@ require("noice").setup({
 	routes = {
 		{
 			view = "notify",
-			filter = {	event = "msg_show" },
-		}
+			filter = {	event = "notify", kind = "" },
+			opts = { skip = false }
+		},
+
 	}, --- @see section on routes
 	---@type table<string, NoiceFilter>
 	status = {}, --- @see section on statusline components

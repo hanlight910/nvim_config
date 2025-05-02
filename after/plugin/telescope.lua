@@ -125,3 +125,36 @@ vim.keymap.set("n", "fl", function ()
 		open_file_browser(truncated_path, 10)
 	end
 end)
+
+vim.keymap.set("n", "dl", function ()
+    local uv = vim.loop
+    local sep = package.config:sub(1,1)
+    local path = vim.fn.expand("%:p")  -- Current file path
+
+    -- Traverse up to find "course"
+	print(path)
+    while path and path ~= sep do
+        local name = path:match("[^" .. sep .. "]+$")  -- Last part of the path
+        if name == "courses" or name == "course" then
+            -- Get parent of 'course'
+            local parent_path = path:match("^(.*)" .. sep .. "course$")
+			print(sep)
+            if parent_path then
+                local doc_path = parent_path .. sep .. "doc"
+                if uv.fs_stat(doc_path) then
+                    print("Found doc folder: " .. doc_path)
+                    open_file_browser(doc_path, 10)
+                    return
+                else
+                    print("'doc' folder not found at same level as 'course'")
+                    return
+                end
+            end
+        end
+        -- Go one level up
+        path = path:match("^(.*)" .. sep .. "[^" .. sep .. "]+$")
+    end
+
+    print("'course' folder not found in path hierarchy")
+end)
+

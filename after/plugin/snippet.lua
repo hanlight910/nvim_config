@@ -57,17 +57,57 @@ ls.add_snippets("python", {
 })
 
 ls.add_snippets("markdown", {
+	s({trig="rh", wordTrig=false}, {
+		t("\\rightarrow")
+	}),
+	s({trig="sr", wordTrig=false}, {
+		t("\\sqrt{"), i(1), t("}")
+	}),
+	s({trig="mu", wordTrig=false}, {
+		t("\\mu")
+	}),
+	s({trig="si", wordTrig=false}, {
+		t("\\sigma")
+	}),
+	s({trig="pi", wordTrig=false}, {
+		t("\\pi")
+	}),
+	s({trig="(", wordTrig=false}, {
+		t({"\\left("}), i(1), t({"\\right"})
+	}),
+	s({trig="{", wordTrig=false}, {
+		t({"\\left\\{", ""}), i(1), t({"", "\\right\\"})
+	}),
+	s({trig="`", wordTrig=false}, {
+		t("```"), i(1), t("``")
+	}),
+	s({trig="ca", wordTrig=false}, {
+		t({"\\begin{cases}", ""}),
+		i(1), t({"", "\\end{cases}"})
+	}),
+	s({trig="|", wordTrig=false}, {
+		t("&|&")
+	}),
+	s({trig="m", wordTrig=false}, {
+		t("^{-1}")
+	}),
 	s("bmat", {
 		t({"\\begin{bmatrix}",""}),
 		i(1),
 		t({"","\\end{bmatrix}"})
 	}),
-	s("pmat", {
+	s({trig="pmat", wordTrig=false}, {
 		t({"\\begin{pmatrix}",""}),
 		i(1),
 		t({"","\\end{pmatrix}"})
 	}),
-	s("fr", {
+	s("mat", {
+		i(1), t("="),
+		t({"\\begin{pmatrix}",""}),
+		i(2),
+		t({"","\\end{pmatrix}"})
+	}),
+	s({trig="fr", wordTrig=false}, {
 		t("\\frac"),t("{"), i(1), t("}"), t("{"), i(2), t("}")
 	}),
 	s("sum", {
@@ -77,7 +117,10 @@ ls.add_snippets("markdown", {
 		t("\\prod^n_{i=1}")
 	}),
 	s("$$", {
-		t({"$$", ""}),i(1),t({"", "$$"})
+		c(1, {
+			sn(nil, { t({"$$", ""}), i(1), t({"", "$$"}) }),
+			sn(nil, { t("$$"), i(1), t("$$") }),
+		}),
 	}),
 	s("pi", {
 		t("![]("),
@@ -131,6 +174,10 @@ ls.add_snippets("java", {
 ls.add_snippets("cpp", {
 	s("pr", {
 		t("cout << "), i(1), t(" << endl;");
+	}),
+	s("ma", {
+		t({"#include <iostream>", "", "using namespace std;", "", ""}),
+		t({"int main(void) {",  "	"}), i(1), t({"", "	return 0;", "}"})
 	})
 })
 

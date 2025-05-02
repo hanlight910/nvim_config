@@ -1,3 +1,4 @@
+-- https://github.com/SCJangra/table-nvim
 vim.g.table_mode_disable_mappings = 1
 
 vim.g.table_mode_always_active = 1

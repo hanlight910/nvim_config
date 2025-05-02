@@ -34,7 +34,37 @@ vim.keymap.set("i", "<C-v>", function ()
 	return "![]" .. "(" .. vim.fn.getreg("+") .. ")";
 end, { expr = true });
 
+
+vim.keymap.set({"i"}, "\\", function ()
+	if fn.in_matrix() then
+		print("yes")
+		return "\\\\<CR>"
+	else
+		print("not")
+		return "\\"
+	end
+end, { expr = true });
+
 -- === normal mode ===
+-- vim.keymap.set({"n"}, "<A-e>", ":ex " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t"), {desc="create new file"})
+vim.keymap.set({"n"}, "<A-e>", ":ex " .. vim.api.nvim_buf_get_name(0), {desc="create new file"})
+vim.keymap.set({"n"}, "<leader>cc", function ()
+	local line = vim.api.nvim_get_current_line()
+	-- Extract the path inside parentheses ()
+	local path = string.match(line, "%(([^)]+)%)")
+	if path == nil then
+		vim.notify("No path found under cursor", vim.log.levels.ERROR)
+		return
+	end
+
+	-- Run xclip command to copy the file content
+	local cmd = string.format("xclip -selection clipboard -t image/png -i '%s'", path)
+	vim.fn.jobstart(cmd, { detach = true })
+end)
+vim.keymap.set({"n"}, "<leader>dd", "/\\d<CR>")
+vim.keymap.set({"n"}, "<leader>{", "V{\"+y}")
+vim.keymap.set({"n"}, "<leader>}", "V}\"+y")
+vim.keymap.set({"n"}, "<A-k>", "ex " .. vim.g.vim_note .. "<CR>")
 vim.keymap.set({"n"}, "<Up>", "<C-w>k");
 vim.keymap.set({"n"}, "<Down>", "<C-w>j");
 vim.keymap.set({"n"}, "<Left>", "<C-w>j");
@@ -51,7 +81,8 @@ vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number "});
 vim.keymap.set("n", "-", "<C-x>", { desc = "Decrease number "});
 vim.keymap.set("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
-vim.keymap.set("n", "<leader>ca", "ggVG=<C-O>");
+vim.keymap.set("n", "<leader>ca", "ggVG");
+vim.keymap.set("n", "<leader>ci", "ggVG=<C-O>");
 vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
@@ -66,8 +97,7 @@ vim.keymap.set("n", "<C-j>", function ()
 end);
 vim.keymap.set("n", "<C-k>", move_to_next_normal_buffer);
 
-vim.keymap.set("n", "<leader>xdg", "<cmd>!xdg-open \"%\"<CR>");
-vim.keymap.set("n", "<leader>d", "vbd");
+vim.keymap.set("n", "<leader>oo", "<cmd>!open \"%\"<CR>");
 vim.keymap.set("n", "<leader>co", create_algorithm_path)
 vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
 vim.keymap.set("n", "<F5>", run);
@@ -110,18 +140,44 @@ end, { desc = "Copy path", silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
-vim.keymap.set("v", "<C-c>", "\"+y");
-vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --build-cache --from-clipboard -l c --to-clipboard<CR>");
-vim.keymap.set("v", "<leader>si", function ()
-	local filename = vim.api.nvim_buf_get_name(0)
-	local extension = filename:match("^.+%.(.+)$")
-	vim.cmd("normal! \"+y")
-	if extension ~= nil then
-		vim.fn.system("customsilicon.sh " .. extension)
-	else
-		vim.fn.system("customsilicon.sh sh")
+vim.keymap.set('v', '<leader>h', function()
+	-- Get the start and end of the visual selection
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
 	end
-end)
+
+	-- Build the pattern
+	local pattern = ""
+	for line = start_line, end_line do
+		pattern = pattern .. "\\%" .. line .. "l.*\\|"
+	end
+	-- Remove the last '\|' (extra OR)
+	pattern = pattern:sub(1, -3)
+
+	-- Apply match
+	vim.cmd('match Search /' .. pattern .. '/')
+
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), 'n', false)
+end, { desc = "Highlight Visual Lines" })
+
+vim.keymap.set("v", "<C-c>", "\"+y");
+
+-- vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --from-clipboard -l c --to-clipboard<CR>");
+vim.keymap.set("v", "<leader>si", function()
+	vim.cmd('normal! "+y')
+	local filename = vim.api.nvim_buf_get_name(0)
+	local extension = filename:match("^.+%.([^.]+)$")
+
+	print("File extension:", extension)
+
+
+	print("File extension:", extension)
+	vim.fn.system('customsilicon.sh ' .. extension)
+
+end, { desc = "Save selection as image and copy path", silent = true })
+
 
 -- === Terminal mode ===
 vim.keymap.set("t", "<A-=>", "<cmd>resize +5<CR>");

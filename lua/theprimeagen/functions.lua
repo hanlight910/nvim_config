@@ -401,6 +401,23 @@ end
 
 functions.open_terminal = open_terminal;
 
+-- utils function to check if inside matrix environment
+functions.in_matrix = function()
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local lines = vim.api.nvim_buf_get_lines(0, 0, row, false)
+
+	-- search backwards to find the last \begin
+	for i = row - 1, 1, -1 do
+		local line = lines[i]
+		if line:match("\\begin{pmatrix}") or line:match("\\begin{bmatrix}") or line:match("\\begin{matrix}") then
+			return true
+		elseif line:match("\\end{") then
+			return false
+		end
+	end
+	return false
+end
+
 -- vim.keymap.set({"n", "i"}, "<leader>te", functions.run_java);
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
