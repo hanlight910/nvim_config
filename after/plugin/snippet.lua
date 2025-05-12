@@ -57,9 +57,13 @@ ls.add_snippets("python", {
 })
 
 ls.add_snippets("markdown", {
-	s({trig="rh", wordTrig=false}, {
-		t("\\rightarrow")
+	s({trig="fs", wordTrig=false}, {
+		t("T:"),i(1),t("\\rightarrow{"),i(2),t("}"),i(0)
 	}),
+	s({trig="nt", wordTrig=false}, {t("\\textnormal{"),i(1),t("}")}),
+	s({trig="ti", wordTrig=false}, {t("\\times{"),i(1),t("}")}),
+	s({trig="lr", wordTrig=false}, {t("\\leftrightarrow{"),i(1),t("}")}),
+	s({trig="rh", wordTrig=false}, {t("\\rightarrow{"),i(1),t("}"),i(0)}),
 	s({trig="sr", wordTrig=false}, {
 		t("\\sqrt{"), i(1), t("}")
 	}),
@@ -73,10 +77,10 @@ ls.add_snippets("markdown", {
 		t("\\pi")
 	}),
 	s({trig="(", wordTrig=false}, {
-		t({"\\left("}), i(1), t({"\\right"})
+		t({"\\left("}), i(1), t({"\\right"}),i(0)
 	}),
 	s({trig="{", wordTrig=false}, {
-		t({"\\left\\{", ""}), i(1), t({"", "\\right\\"})
+		t({"\\left\\{"}), i(1), t({"\\right\\"}), i(0)
 	}),
 	s({trig="`", wordTrig=false}, {
 		t("```"), i(1), t("``")
@@ -88,7 +92,7 @@ ls.add_snippets("markdown", {
 	s({trig="|", wordTrig=false}, {
 		t("&|&")
 	}),
-	s({trig="m", wordTrig=false}, {
+	s({trig="in", wordTrig=false}, {
 		t("^{-1}")
 	}),
 	s("bmat", {
@@ -96,7 +100,7 @@ ls.add_snippets("markdown", {
 		i(1),
 		t({"","\\end{bmatrix}"})
 	}),
-	s({trig="pmat", wordTrig=false}, {
+	s({trig="pm", wordTrig=false}, {
 		t({"\\begin{pmatrix}",""}),
 		i(1),
 		t({"","\\end{pmatrix}"})
@@ -118,17 +122,9 @@ ls.add_snippets("markdown", {
 	}),
 	s("$$", {
 		c(1, {
-			sn(nil, { t({"$$", ""}), i(1), t({"", "$$"}) }),
 			sn(nil, { t("$$"), i(1), t("$$") }),
+			sn(nil, { t({"$$", ""}), i(1), t({"", "$$"}) }),
 		}),
-	}),
-	s("pi", {
-		t("![]("),
-		f(function()
-			local hel =  vim.fn.getreg("+");
-			return hel;
-		end, {}),
-		t(")")
 	}),
 	s("al", t("\\alpha")),
 	s("be", t("\\beta")),

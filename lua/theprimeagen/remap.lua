@@ -4,8 +4,8 @@ local opt = { silent = true }
 -- === modules ===
 local c = require("templates.c");
 local ok, fn = pcall(require, 'theprimeagen.functions');
--- === functions ===
 
+-- === functions ===
 if not ok then
 	print("Function module is not loaded.");
 	return 1;
@@ -13,11 +13,8 @@ end
 
 local run = fn.run;
 local move_workspace = fn.move_workspace;
-local create_fleeting_note = fn.create_fleeting_note;
 local create_algorithm_path = fn.create_algorithm_path;
 local open_terminal = fn.open_terminal;
-local open_bash_config = fn.open_bash_config;
-local run_c = fn.run_c;
 local move_to_terminal_window = fn.move_to_terminal_window;
 local move_to_next_normal_buffer = fn.move_to_next_normal_buffer;
 local move_to_prev_normal_buffer = fn.move_to_prev_normal_buffer;
@@ -25,6 +22,13 @@ local delete_normal_buffer = fn.delete_normal_buffer;
 local create_project = fn.create_project;
 
 -- === Insert mode === 
+vim.keymap.set({"i"}, "|", function ()
+	if fn.in_matrix() then
+		return "&|&"
+	else
+		return "|"
+	end
+end, { expr = true });
 vim.keymap.set("i", "jk", "<Esc>");
 vim.keymap.set("i", "kj", "<Esc>");
 vim.keymap.set("i", "<Tab>", "<Tab>");
@@ -34,20 +38,26 @@ vim.keymap.set("i", "<C-v>", function ()
 	return "![]" .. "(" .. vim.fn.getreg("+") .. ")";
 end, { expr = true });
 
-
 vim.keymap.set({"i"}, "\\", function ()
 	if fn.in_matrix() then
-		print("yes")
-		return "\\\\<CR>"
+		return "\\\\"
 	else
-		print("not")
 		return "\\"
 	end
 end, { expr = true });
 
 -- === normal mode ===
--- vim.keymap.set({"n"}, "<A-e>", ":ex " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t"), {desc="create new file"})
-vim.keymap.set({"n"}, "<A-e>", ":ex " .. vim.api.nvim_buf_get_name(0), {desc="create new file"})
+vim.keymap.set({"n"}, "<leader>y", "Vy")
+vim.keymap.set({"n"}, "<leader>pp", "\"+p")
+vim.keymap.set({"n"}, "<leader>*", "ciw**<Esc>pa**<Esc>", { desc="wrap with **" })
+vim.keymap.set({"n"}, "<A-e>", function ()
+	print("hello")
+	-- local filepath = vim.api.nvim_buf_get_name(0)
+	-- local cmd = ":ex " .. filepath
+	local cmd = ":ex "
+	print(filepath)
+	vim.api.nvim_input(cmd)
+end, {desc="create new file"})
 vim.keymap.set({"n"}, "<leader>cc", function ()
 	local line = vim.api.nvim_get_current_line()
 	-- Extract the path inside parentheses ()
@@ -67,7 +77,7 @@ vim.keymap.set({"n"}, "<leader>}", "V}\"+y")
 vim.keymap.set({"n"}, "<A-k>", "ex " .. vim.g.vim_note .. "<CR>")
 vim.keymap.set({"n"}, "<Up>", "<C-w>k");
 vim.keymap.set({"n"}, "<Down>", "<C-w>j");
-vim.keymap.set({"n"}, "<Left>", "<C-w>j");
+vim.keymap.set({"n"}, "<Left>", "<C-w>h");
 vim.keymap.set({"n"}, "<Right>", "<C-w>l");
 vim.keymap.set({ "n" } , "<leader>fx", function ()
 	local filename = vim.fn.expand("%");
@@ -87,8 +97,6 @@ vim.keymap.set("n", "qq", function() vim.cmd("qa!") end);
 vim.keymap.set("n", "<leader>io", "i{<Esc>ea}a");
 vim.keymap.set("n", "<leader>anp", create_project);
 vim.keymap.set("n", "<C-l>", move_workspace);
-vim.keymap.set("n", "<leader>pp", "\"0p")
-vim.keymap.set("n", "<leader>yy", "\"0y")
 vim.keymap.set("n", "<A-y>", "\"+y");
 
 vim.keymap.set("n", "<C-l>", move_to_terminal_window);
@@ -172,8 +180,10 @@ vim.keymap.set("v", "<leader>si", function()
 
 	print("File extension:", extension)
 
+	if extension == nil then
+		extension = "sh"
+	end
 
-	print("File extension:", extension)
 	vim.fn.system('customsilicon.sh ' .. extension)
 
 end, { desc = "Save selection as image and copy path", silent = true })

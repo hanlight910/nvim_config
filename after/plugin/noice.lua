@@ -229,8 +229,12 @@ require("noice").setup({
 	routes = {
 		{
 			view = "notify",
-			filter = {	event = "notify", kind = "" },
-			opts = { skip = false }
+			filter = {	
+				-- event = "notify", 
+				event = "lsp", 
+				kind = "progress" 
+			},
+			opts = { skip = true }
 		},
 
 	}, --- @see section on routes

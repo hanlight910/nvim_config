@@ -57,6 +57,7 @@ vim.keymap.set('n', '<space>pg', file_browse_git, { noremap = true, silent = tru
 vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.nvim_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-a>', '<cmd>Telescope file_browser path=' .. vim.g.archive ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pap', '<cmd>Telescope file_browser path=' .. vim.g.projects ..  ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .. vim.g.project_1 .. ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 
@@ -66,6 +67,12 @@ vim.keymap.set({ 'n' }, '<A-t>', '<cmd>Telescope lsp_document_symbols<CR>', { de
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
+vim.keymap.set({ 'n' }, '<leader>tf', function()
+  require('telescope.builtin').live_grep({
+    search_dirs = { vim.g.archive },
+  })
+end, { desc = "telescope live grep in specific dir", silent = true })
+
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope buffers<CR>', { desc = "telescope live grep", silent = true })
 
 ts.setup({
@@ -111,7 +118,7 @@ ts.load_extension("file_browser");
 ts.load_extension("emoji");
 ts.load_extension('fzf');
 
-vim.keymap.set("n", "fl", function ()
+vim.keymap.set("n", "<leader>fl", function ()
 	-- open_file_browser(f)
 	local currentPath = vim.fn.getcwd()
 	-- Find the position of the last "lib" in the path
@@ -126,7 +133,7 @@ vim.keymap.set("n", "fl", function ()
 	end
 end)
 
-vim.keymap.set("n", "dl", function ()
+vim.keymap.set("n", "<leader>dl", function ()
     local uv = vim.loop
     local sep = package.config:sub(1,1)
     local path = vim.fn.expand("%:p")  -- Current file path
@@ -135,7 +142,7 @@ vim.keymap.set("n", "dl", function ()
 	print(path)
     while path and path ~= sep do
         local name = path:match("[^" .. sep .. "]+$")  -- Last part of the path
-        if name == "courses" or name == "course" then
+        if name == "courses" or name == "course" or name == "notes" then
             -- Get parent of 'course'
             local parent_path = path:match("^(.*)" .. sep .. "course$")
 			print(sep)

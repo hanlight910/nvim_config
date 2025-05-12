@@ -1,4 +1,4 @@
-local functions = {};
+local functions = {}
 
 --- ==== assist ====
 local function check_file_format()
@@ -407,7 +407,7 @@ functions.in_matrix = function()
 	local lines = vim.api.nvim_buf_get_lines(0, 0, row, false)
 
 	-- search backwards to find the last \begin
-	for i = row - 1, 1, -1 do
+	for i = row, 1, -1 do
 		local line = lines[i]
 		if line:match("\\begin{pmatrix}") or line:match("\\begin{bmatrix}") or line:match("\\begin{matrix}") then
 			return true
