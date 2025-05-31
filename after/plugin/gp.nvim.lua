@@ -23,14 +23,9 @@ local config = {
 		},
 	},
 
-	default_command_agent = "ChatGPT4o",
-	default_chat_agent = "ChatGPT4o",
+	default_command_agent = "Gemini-default",
+	default_chat_agent = "Gemini-default",
 	agents = {
-		{
-			name = "ChatGemini",
-			disable = true,
-
-		},
 		{
 			name = "ChatGPT4o",
 			chat = true,
@@ -42,7 +37,7 @@ local config = {
 			system_prompt = "Response within 5 sentences, if the code is required, try to make efficiently.",
 		},
 		{
-			name = "CustomAgent",
+			name = "Gemini-default",
 			provider = "googleai",
 			chat = true,
 			command = true,

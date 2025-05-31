@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
+  ["cmp-env"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-env",
+    url = "https://github.com/bydlw98/cmp-env"
+  },
   ["cmp-git"] = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/cmp-git",
@@ -119,6 +124,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/light/.local/share/nvim/site/pack/packer/start/codecompanion.nvim",
     url = "https://github.com/olimorris/codecompanion.nvim"
+  },
+  ["csvview.nvim"] = {
+    loaded = true,
+    path = "/home/light/.local/share/nvim/site/pack/packer/start/csvview.nvim",
+    url = "https://github.com/hat0uma/csvview.nvim"
   },
   ["dart-vim-plugin"] = {
     loaded = true,
@@ -336,7 +346,7 @@ _G.packer_plugins = {
     url = "https://github.com/BurntSushi/ripgrep"
   },
   ["snacks.nvim"] = {
-    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\nwords\0\vindent\0\nimage\0\ninput\0\17statuscolumn\0\14quickfile\0\rnotifier\0\vpicker\0\rexplorer\0\nscope\0\fbigfile\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\rexplorer\0\14quickfile\0\fbigfile\0\nscope\0\nimage\0\vindent\0\nwords\0\17statuscolumn\0\ninput\0\rnotifier\0\vpicker\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/home/light/.local/share/nvim/site/pack/packer/opt/snacks.nvim",
@@ -348,7 +358,7 @@ _G.packer_plugins = {
     url = "https://github.com/JavaHello/spring-boot.nvim"
   },
   ["table-nvim"] = {
-    config = { "\27LJ\2\n™\3\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\rmappings\1\0\r\tnext\n<TAB>\18insert_row_up\n<A-k>\tprev\f<S-TAB>\22move_column_right\f<A-S-l>\21move_column_left\f<A-S-h>\17insert_table\n<A-t>\24insert_column_right\n<A-l>\21insert_table_alt\f<A-S-t>\23insert_column_left\n<A-h>\18delete_column\n<A-d>\18move_row_down\f<A-S-j>\16move_row_up\f<A-S-k>\20insert_row_down\n<A-j>\1\0\3\rmappings\0\21disable_defaults\2\27padd_column_separators\2\nsetup\15table-nvim\frequire\0" },
+    config = { "\27LJ\2\n™\3\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\rmappings\1\0\r\22move_column_right\f<A-S-l>\16move_row_up\f<A-S-k>\17insert_table\n<A-t>\20insert_row_down\n<A-j>\21insert_table_alt\f<A-S-t>\18insert_row_up\n<A-k>\18delete_column\n<A-d>\tprev\f<S-TAB>\tnext\n<TAB>\21move_column_left\f<A-S-h>\24insert_column_right\n<A-l>\23insert_column_left\n<A-h>\18move_row_down\f<A-S-j>\1\0\3\rmappings\0\21disable_defaults\2\27padd_column_separators\2\nsetup\15table-nvim\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

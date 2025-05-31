@@ -77,6 +77,7 @@ cmp.setup({
 		{ name = 'luasnip' }, -- For luasnip users.
 		{ name = "jupynium", priority_weight = 2000},
 		{ name = 'buffer' },
+		{ name = 'env' },
 	}),
 	sorting = {
 		priority_weight = 1.0,

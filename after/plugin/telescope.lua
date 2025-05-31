@@ -29,15 +29,15 @@ local function open_or_expand_dir(prompt_bufnr)
 	end
 end
 local function find_git_dir()
-  local path = vim.fn.expand('%:p:h')  -- current file's directory
-  for _ = 1, 10 do
-    local git_path = path .. '/.git'
-    if vim.fn.isdirectory(git_path) == 1 then
-      return path
-    end
-    path = vim.fn.fnamemodify(path, ':h')  -- go up one level
-  end
-  return nil  -- not found
+	local path = vim.fn.expand('%:p:h')  -- current file's directory
+	for _ = 1, 10 do
+		local git_path = path .. '/.git'
+		if vim.fn.isdirectory(git_path) == 1 then
+			return path
+		end
+		path = vim.fn.fnamemodify(path, ':h')  -- go up one level
+	end
+	return nil  -- not found
 end
 
 local function file_browse_git()
@@ -67,10 +67,12 @@ vim.keymap.set({ 'n' }, '<A-t>', '<cmd>Telescope lsp_document_symbols<CR>', { de
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
+vim.keymap.set({ 'n','i' }, '<A-i>', '<cmd>Telescope emoji<CR>', { desc = "telescope emoji", silent = true })
+
 vim.keymap.set({ 'n' }, '<leader>tf', function()
-  require('telescope.builtin').live_grep({
-    search_dirs = { vim.g.archive },
-  })
+	require('telescope.builtin').live_grep({
+		search_dirs = { vim.g.archive },
+	})
 end, { desc = "telescope live grep in specific dir", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope buffers<CR>', { desc = "telescope live grep", silent = true })
@@ -134,34 +136,26 @@ vim.keymap.set("n", "<leader>fl", function ()
 end)
 
 vim.keymap.set("n", "<leader>dl", function ()
-    local uv = vim.loop
-    local sep = package.config:sub(1,1)
-    local path = vim.fn.expand("%:p")  -- Current file path
+	local uv = vim.loop
+	local sep = package.config:sub(1, 1)
+	local path = vim.fn.expand("%:p")
+	local depth = 0
+	local max_depth = 5
 
-    -- Traverse up to find "course"
-	print(path)
-    while path and path ~= sep do
-        local name = path:match("[^" .. sep .. "]+$")  -- Last part of the path
-        if name == "courses" or name == "course" or name == "notes" then
-            -- Get parent of 'course'
-            local parent_path = path:match("^(.*)" .. sep .. "course$")
-			print(sep)
-            if parent_path then
-                local doc_path = parent_path .. sep .. "doc"
-                if uv.fs_stat(doc_path) then
-                    print("Found doc folder: " .. doc_path)
-                    open_file_browser(doc_path, 10)
-                    return
-                else
-                    print("'doc' folder not found at same level as 'course'")
-                    return
-                end
-            end
-        end
-        -- Go one level up
-        path = path:match("^(.*)" .. sep .. "[^" .. sep .. "]+$")
-    end
+	while path and path ~= sep and depth < max_depth do
+		local parent_doc = path .. sep .. "doc"
+		if uv.fs_stat(parent_doc) and uv.fs_stat(parent_doc).type == "directory" then
+			print("Found 'doc' directory at: " .. parent_doc)
+			open_file_browser(parent_doc, 10)
+			return
+		end
+		-- Move one level up
+		path = path:match("^(.*)" .. sep .. "[^" .. sep .. "]+$")
+		depth = depth + 1
+	end
 
-    print("'course' folder not found in path hierarchy")
+	print("'doc' directory not found in parent hierarchy (up to 3 levels)")
+
+
 end)
 

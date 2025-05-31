@@ -18,15 +18,16 @@ local rep = require("luasnip.extras").rep;
 
 ls.config.set_config({
 	history = true,
-	updateevents = "TextChanged, TextChangedI",
+	-- updateevents = "TextChanged, TextChangedI",
+	updateevents = "TextChanged",
 
 	-- Auto snippets
-	enable_autosnippets = true,
+	enable_autosnippets = false,
 })
 
-vim.keymap.set({"i"}, "<C-k>", function() ls.expand() end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-l>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-j>", function() ls.jump(-1) end, {silent = true})
+vim.keymap.set({"i"}, "<A-k>", function() ls.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<A-l>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<A-j>", function() ls.jump(-1) end, {silent = true})
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
 	if ls.choice_active() then
@@ -57,11 +58,57 @@ ls.add_snippets("python", {
 })
 
 ls.add_snippets("markdown", {
+	s("form", {
+		i(1, "exp1"), t("+"),
+		d(2, function(args)
+			local input = args[1]
+			local nodes = {}
+
+			local parts = {}
+
+			for index, value in ipairs(input) do
+				if value == '1' then
+					print(1)
+					table.insert(nodes, '2')
+				else
+					-- table.insert(nodes, value)
+				end
+			end
+			return sn(nil, nodes)
+		end, {1}) -- Trigger function for 2nd node
+	}),
+	s({trig="lm", wordTrig=false},{
+		t("\\lambda{"),t("}"),i(1)
+	}),
+	s({trig="<", wordTrig=false},{
+		t("\\left<"),i(1),t("\\right>"),i(0)
+	}),
+	s({trig="gt", wordTrig=false},{
+		t("\\geq{}"),i(1)
+	}),
+	s({trig="lt", wordTrig=false},{
+		t("\\leq{}"),i(1)
+	}),
+	s({trig="pt", wordTrig=false},{
+		t("\\partial{"),t("}"),i(1)
+	}),
+	s({trig="in", wordTrig=false},{
+		t("\\in{"),i(1),t("}"),i(0)
+	}),
+	s({trig="sub", wordTrig=false},{
+		t("\\underset{"),i(2),t("}{"),i(1),t("}"),i(0)
+	}),
+	s({trig="cd", wordTrig=false},{
+		t("\\cdots{"),i(1),t("}")
+	}),
+	s({trig="b", wordTrig=false},{
+		t("\\beta{"),t("}"),i(1)
+	}),
 	s({trig="fs", wordTrig=false}, {
 		t("T:"),i(1),t("\\rightarrow{"),i(2),t("}"),i(0)
 	}),
-	s({trig="nt", wordTrig=false}, {t("\\textnormal{"),i(1),t("}")}),
-	s({trig="ti", wordTrig=false}, {t("\\times{"),i(1),t("}")}),
+	s({trig="tn", wordTrig=false}, {t("\\text{"),i(1),t("}"),i(0)}),
+	s({trig="ti", wordTrig=false}, {t("\\times{"),i(1),t("}"),i(0)}),
 	s({trig="lr", wordTrig=false}, {t("\\leftrightarrow{"),i(1),t("}")}),
 	s({trig="rh", wordTrig=false}, {t("\\rightarrow{"),i(1),t("}"),i(0)}),
 	s({trig="sr", wordTrig=false}, {
@@ -79,6 +126,9 @@ ls.add_snippets("markdown", {
 	s({trig="(", wordTrig=false}, {
 		t({"\\left("}), i(1), t({"\\right"}),i(0)
 	}),
+	s({trig="[", wordTrig=false}, {
+		t({"\\left["}), i(1), t({"\\right"}),i(0)
+	}),
 	s({trig="{", wordTrig=false}, {
 		t({"\\left\\{"}), i(1), t({"\\right\\"}), i(0)
 	}),
@@ -92,7 +142,7 @@ ls.add_snippets("markdown", {
 	s({trig="|", wordTrig=false}, {
 		t("&|&")
 	}),
-	s({trig="in", wordTrig=false}, {
+	s({trig="i", wordTrig=false}, {
 		t("^{-1}")
 	}),
 	s("bmat", {
@@ -114,13 +164,13 @@ ls.add_snippets("markdown", {
 	s({trig="fr", wordTrig=false}, {
 		t("\\frac"),t("{"), i(1), t("}"), t("{"), i(2), t("}")
 	}),
-	s("sum", {
+	s({trig="sum", wordTrig=false}, {
 		t("\\sum^n_{i=1}")
 	}),
 	s("prd", {
 		t("\\prod^n_{i=1}")
 	}),
-	s("$$", {
+	s("$", {
 		c(1, {
 			sn(nil, { t("$$"), i(1), t("$$") }),
 			sn(nil, { t({"$$", ""}), i(1), t({"", "$$"}) }),

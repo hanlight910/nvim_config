@@ -260,6 +260,16 @@ functions.run_shell = function()
 	end, 300)
 
 end
+
+functions.run_sql = function ()
+	local filename = vim.fn.expand("%")
+	functions.open_terminal();
+	local run = "mysql -B  <LT> " .. filename .. " | column -t<CR>";
+	vim.defer_fn(function()
+		vim.api.nvim_input(run);
+	end, 300)
+end
+
 functions.run_java = function ()
 	local file_name = vim.fn.expand("%");
 	functions.open_terminal();
@@ -308,6 +318,8 @@ functions.run = function ()
 		functions.compile_cpp();
 	elseif file_extension == "js" then
 		functions.run_nodejs();
+	elseif file_extension == "sql" then
+		functions.run_sql();
 	end
 end
 
@@ -418,7 +430,70 @@ functions.in_matrix = function()
 	return false
 end
 
--- vim.keymap.set({"n", "i"}, "<leader>te", functions.run_java);
+-- Navigating specific directory
+
+functions.get_latest_download = function ()
+	local files = vim.fn.globpath(vim.fn.expand("~/Downloads"), "*", false, true)
+	if #files == 0 then return nil end
+
+	table.sort(files, function(a, b)
+		return vim.fn.getftime(a) > vim.fn.getftime(b)
+	end)
+
+	return files[1]
+end
+
+
+functions.find_doc_dir_up = function (start_dir, max_depth)
+	local function is_doc_dir(path)
+		local uv = vim.loop
+		local stat = uv.fs_stat(path)
+		return stat and stat.type == "directory"
+	end
+
+	local dir = start_dir
+	for _ = 1, max_depth do
+		local doc_path = dir .. "/doc"
+		if is_doc_dir(doc_path) then
+			return doc_path
+		end
+		-- Move one level up
+		dir = vim.fn.fnamemodify(dir, ":h")
+	end
+	return nil
+end
+
+functions.move_new_file_to_doc = function ()
+	local cwd = vim.fn.getcwd()
+	local doc_dir = functions.find_doc_dir_up(cwd, 3)
+	if not doc_dir then
+		print("No doc directory found up to 3 levels.")
+		return
+	end
+
+	local latest_file = functions.get_latest_download()
+	if not latest_file then
+		print("No files found in Downloads.")
+		return
+	end
+
+	local target = doc_dir .. "/" .. vim.fn.fnamemodify(latest_file, ":t")
+	local ok, err = os.rename(latest_file, target)
+
+	if ok then
+		print("Moved " .. latest_file .. " to " .. target)
+
+		vim.fn.jobstart({ "xdg-open", target }, {
+			detach = true,
+			on_exit = function() print("Opened: " .. target) end
+		})
+
+	else
+		print("Failed to move file: " .. err)
+	end
+end
+
+vim.keymap.set({"n"}, "<leader>aa", functions.move_new_file_to_doc, {desc="test function"});
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;

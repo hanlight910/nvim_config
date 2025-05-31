@@ -3,6 +3,7 @@ local func           = require("vim.func")
 
 if status then
 	return packer.startup(function(use)
+		use "hat0uma/csvview.nvim"
 		use 'wbthomason/packer.nvim'
 		use({
 			"olimorris/codecompanion.nvim",
@@ -83,6 +84,7 @@ if status then
 		use { "stevearc/dressing.nvim" }
 		use { "ray-x/lsp_signature.nvim" }
 		use { "onsails/lspkind.nvim" }
+
 		use{ 'hrsh7th/cmp-nvim-lsp' }
 		use{ 'hrsh7th/cmp-buffer' }
 		use{ 'hrsh7th/cmp-path' }
@@ -90,6 +92,7 @@ if status then
 		use{ 'hrsh7th/cmp-git' }
 		use{ 'hrsh7th/nvim-cmp'   }
 		use 'saadparwaiz1/cmp_luasnip'-- Snippet completion source
+		use{'bydlw98/cmp-env'}
 		use({
 			"epwalsh/obsidian.nvim",
 			tag = "*",  -- recommended, use latest release instead of latest commit

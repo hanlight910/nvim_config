@@ -22,6 +22,8 @@ local delete_normal_buffer = fn.delete_normal_buffer;
 local create_project = fn.create_project;
 
 -- === Insert mode === 
+-- vim.keymap.set("i", "<S-CR>","<Esc>0yt<leader>jp+i.");
+vim.keymap.set("i", "<C-l>","<C-o>cw");
 vim.keymap.set({"i"}, "|", function ()
 	if fn.in_matrix() then
 		return "&|&"
@@ -47,6 +49,12 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set({"n"}, "<leader>cc", ":r " .. vim.g.fleeting .. "/template/Cornell.md<CR>A", {desc="Template Cornell"})
+vim.keymap.set({"n"}, "<leader>dd", "/^\\d*\\.<CR>")
+vim.keymap.set('n', '<A-c>', [[:lua vim.fn.setreg("+", vim.fn.getreg('"'))<CR>]], { noremap = true, silent = true })
+vim.keymap.set({"n"}, "<A-b>", ":vertical new | vertical resize 30<CR>i")
+vim.keymap.set({"n"}, "<leader>ta", fn.move_new_file_to_doc)
+vim.keymap.set({"n"}, "<leader>`", "i`<Esc>ea`")
 vim.keymap.set({"n"}, "<leader>y", "Vy")
 vim.keymap.set({"n"}, "<leader>pp", "\"+p")
 vim.keymap.set({"n"}, "<leader>*", "ciw**<Esc>pa**<Esc>", { desc="wrap with **" })
@@ -58,20 +66,6 @@ vim.keymap.set({"n"}, "<A-e>", function ()
 	print(filepath)
 	vim.api.nvim_input(cmd)
 end, {desc="create new file"})
-vim.keymap.set({"n"}, "<leader>cc", function ()
-	local line = vim.api.nvim_get_current_line()
-	-- Extract the path inside parentheses ()
-	local path = string.match(line, "%(([^)]+)%)")
-	if path == nil then
-		vim.notify("No path found under cursor", vim.log.levels.ERROR)
-		return
-	end
-
-	-- Run xclip command to copy the file content
-	local cmd = string.format("xclip -selection clipboard -t image/png -i '%s'", path)
-	vim.fn.jobstart(cmd, { detach = true })
-end)
-vim.keymap.set({"n"}, "<leader>dd", "/\\d<CR>")
 vim.keymap.set({"n"}, "<leader>{", "V{\"+y}")
 vim.keymap.set({"n"}, "<leader>}", "V}\"+y")
 vim.keymap.set({"n"}, "<A-k>", "ex " .. vim.g.vim_note .. "<CR>")
@@ -90,6 +84,7 @@ vim.keymap.set({ "n", "v" }, "<leader>ps", "<cmd>PackerSync<CR>", { desc = "Pack
 vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number "});
 vim.keymap.set("n", "-", "<C-x>", { desc = "Decrease number "});
 vim.keymap.set("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
+vim.keymap.set("n", "<leader>sl", ":s/\\<<C-r><C-w>\\>//g<Left><Left>")
 vim.keymap.set("n", "<leader>so", "<cmd>so ".. "<CR>");
 vim.keymap.set("n", "<leader>ca", "ggVG");
 vim.keymap.set("n", "<leader>ci", "ggVG=<C-O>");
