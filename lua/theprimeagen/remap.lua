@@ -22,7 +22,6 @@ local delete_normal_buffer = fn.delete_normal_buffer;
 local create_project = fn.create_project;
 
 -- === Insert mode === 
--- vim.keymap.set("i", "<S-CR>","<Esc>0yt<leader>jp+i.");
 vim.keymap.set("i", "<C-l>","<C-o>cw");
 vim.keymap.set({"i"}, "|", function ()
 	if fn.in_matrix() then
@@ -49,10 +48,52 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>op", fn.md_conv_pptx_open, { desc = "Open md to pptx" });
+vim.keymap.set("n", "<leader>tn", fn.replace_old_window_terminal_with_new_terminal, { desc = "Replace old window terminal with new terminal" })
+vim.keymap.set("n", "<A-o>", ":ex " .. vim.g.todo_list .. "<CR>");
+vim.keymap.set("n", "<leader>ts", function()
+	if vim.g.time_tracker then
+		fn.time_tracker_stop()
+	else
+		fn.time_tracker_start()
+	end
+end, { desc = "Time tracker" })
+vim.keymap.set("n", "<leader>wv", "<C-w>v<C-w>l", { desc = "Split window vertically and move to right" })
+vim.keymap.set("n", "<leader>ws", "<C-w>s<C-w>j", { desc = "Split window horizontally and move down" })
 vim.keymap.set({"n"}, "<leader>cc", ":r " .. vim.g.fleeting .. "/template/Cornell.md<CR>A", {desc="Template Cornell"})
-vim.keymap.set({"n"}, "<leader>dd", "/^\\d*\\.<CR>")
-vim.keymap.set('n', '<A-c>', [[:lua vim.fn.setreg("+", vim.fn.getreg('"'))<CR>]], { noremap = true, silent = true })
-vim.keymap.set({"n"}, "<A-b>", ":vertical new | vertical resize 30<CR>i")
+vim.keymap.set({ "n" }, "<A-b>", function()
+	local bufname = "temp"
+	local buf = nil
+
+	-- Try to find an existing buffer with the name 'temp'
+	for _, b in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_get_name(b):match(bufname .. "$") then
+			buf = b
+			break
+		end
+	end
+
+	-- Create new buffer if not found
+	if not buf then
+		vim.cmd("new " .. bufname)
+		buf = vim.api.nvim_get_current_buf()
+		vim.cmd("resize 15")
+	else
+		vim.cmd("sbuffer " .. buf)  -- open buffer in current window
+	end
+
+	-- Set buffer options
+	vim.bo[buf].buftype = "nofile"
+	vim.bo[buf].bufhidden = "hide"
+	vim.bo[buf].swapfile = false
+	vim.bo[buf].modifiable = true
+	vim.bo[buf].filetype = "markdown"
+
+	-- Enter insert mode
+	vim.cmd("startinsert")
+
+end)
+
 vim.keymap.set({"n"}, "<leader>ta", fn.move_new_file_to_doc)
 vim.keymap.set({"n"}, "<leader>`", "i`<Esc>ea`")
 vim.keymap.set({"n"}, "<leader>y", "Vy")
@@ -100,8 +141,7 @@ vim.keymap.set("n", "<C-j>", function ()
 end);
 vim.keymap.set("n", "<C-k>", move_to_next_normal_buffer);
 
-vim.keymap.set("n", "<leader>oo", "<cmd>!open \"%\"<CR>");
-vim.keymap.set("n", "<leader>co", create_algorithm_path)
+vim.keymap.set("n", "<leader>co", create_algorithm_path, { desc = "Create algorithm path" });
 vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
 vim.keymap.set("n", "<F5>", run);
 
@@ -130,11 +170,11 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<CR>");
 
 vim.keymap.set("n", "<leader>w", "<C-w>");
 vim.keymap.set("n", "<A-w>", "<cmd>w<Cr>");
-vim.keymap.set("n", "<leader>nv", "<cmd>ex /home/light/archive/05-FLEETING/nvim_setting.md<CR>");
 
-vim.keymap.set("n", "<leader>al", "<cmd>ex /home/light/archive/06-DAILY/TIL/algorithm<CR>");
--- vim.keymap.set("n", "<A-n>", "<cmd>bn<cr>");
--- vim.keymap.set("n", "<A-b>", "<cmd>bp<CR>");
+vim.keymap.set("n", "<leader>al", function()
+	fn.time_tracker_start();
+	vim.api.nvim_input(":ex " .. vim.g.algorithm_notes .. "/");
+end, { desc = "Create algorithm path" });
 
 vim.keymap.set("n", "<leader>pw", function ()
 	local pwd = vim.fn.expand("%:p");
@@ -190,3 +230,4 @@ vim.keymap.set("t", "<A-->", "<cmd>resize -5<CR>");
 vim.keymap.set("t", "<A-q>", "<C-\\><C-n><cmd>bd!<Cr>");
 vim.keymap.set("t", "kj", "<C-\\><C-n>");
 vim.keymap.set("t", "<C-l>", move_workspace);
+vim.keymap.set("t", "<C-k>", fn.cycle_hidden_terminal_to_window, { desc = "Cycle hidden terminal to window" });

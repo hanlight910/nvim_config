@@ -4,6 +4,7 @@ vim.g.encoding = "utf-8" vim.g.fileencode = "utf-8"
 vim.g.termencoding = "utf-8"
 vim.opt.nu = true;
 vim.opt.relativenumber = true
+vim.opt.wrap = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -13,8 +14,6 @@ vim.opt.expandtab = false;
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.autoread = true
-
-vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false

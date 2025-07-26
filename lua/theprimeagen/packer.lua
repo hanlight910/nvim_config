@@ -3,6 +3,8 @@ local func           = require("vim.func")
 
 if status then
 	return packer.startup(function(use)
+		use { "zbirenbaum/copilot.lua" }
+		-- use "github/copilot.vim"
 		use "hat0uma/csvview.nvim"
 		use 'wbthomason/packer.nvim'
 		use({
@@ -41,7 +43,7 @@ if status then
 		}
 
 		use {
-			'nvim-telescope/telescope.nvim', tag = '0.1.6',
+			'nvim-telescope/telescope.nvim', 
 			-- or                            , branch = '0.1.x',
 			requires = { {'nvim-lua/plenary.nvim'} }
 		}

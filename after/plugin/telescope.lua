@@ -6,6 +6,7 @@ end
 
 local ts = require("telescope")
 local actions = require("telescope.actions")
+
 local tb = require('telescope.builtin')
 local fb_actions = require('telescope').extensions.file_browser.actions
 
@@ -43,27 +44,28 @@ end
 local function file_browse_git()
 	local git_dir = find_git_dir()
 	if git_dir ~= nil then
-		print(git_dir)
-		open_file_browser(git_dir, 10)
+		vim.cmd("Telescope git_files")
+	else
+
+		vim.cmd("Telescope file_browser depth=10")
 	end
 end
 
 vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>Telescope lsp_type_definitions<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-o>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-c>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<A-t>', '<cmd>Telescope treesitter<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>pf', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>pg', file_browse_git, { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<A-f>', file_browse_git, { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.nvim_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-z>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-a>', '<cmd>Telescope file_browser path=' .. vim.g.archive ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-r>', '<cmd>Telescope file_browser path=' .. vim.g.areas ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pap', '<cmd>Telescope file_browser path=' .. vim.g.projects ..  ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .. vim.g.project_1 .. ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
 vim.keymap.set({ 'n' }, '<leader>td', '<cmd>Telescope lsp_definitions<CR>', { desc = "lsp_definitions", silent = true })
-vim.keymap.set({ 'n' }, '<A-t>', '<cmd>Telescope lsp_document_symbols<CR>', { desc = "document symbols", silent = true })
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
@@ -80,7 +82,9 @@ vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope buffers<CR>', { desc = "te
 ts.setup({
 	defaults = {
 		file_ignore_patterns = {
-			".git/*"
+			".git/*",
+			"venv",
+			"node_modules",
 		},  -- Exclude .git directory,
 	},
 	theme = "ivy",

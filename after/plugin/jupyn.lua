@@ -39,7 +39,7 @@ stat.setup({
 	-- Related command :JupyniumStartAndAttachToServer
 	auto_start_server = {
 		enable = true,
-		file_pattern = { "*.ju.*" },
+		file_pattern = { "*.py" },
 	},
 
 	-- Attach current nvim to the Jupynium server
@@ -138,7 +138,7 @@ function startJupyter ()
 
 	local uv = vim.loop
 	local current_path = uv.cwd();
-	local max_depth = 3
+	local max_depth = 5
 	
 	local venv_path = ""
 	for _ = 1, max_depth do
@@ -176,8 +176,8 @@ function executeAllCell()
 	local current_buf = vim.api.nvim_get_current_buf();
 	local file_name = vim.api.nvim_buf_get_name(current_buf);
 
-	if not file_name:match("%.ju%.py$") then
-		print("Is not `*.ju.py` format.");
+	if not file_name:match("%.py$") then
+		print("Is not `*.py` format.");
 		return nil;
 	end
 	vim.api.nvim_input("ggVG");
@@ -191,4 +191,4 @@ vim.keymap.set("n", "<leader>ja", executeAllCell);
 function test()
 	vim.api.nvim_input("ggVG");
 end
--- vim.keymap.set({"n", "i"}, "test", test);
+vim.keymap.set({"n"}, "<leader>x", "<cmd>JupyniumExecuteSelectedCells<CR>");

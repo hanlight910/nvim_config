@@ -185,6 +185,9 @@ functions.move_to_prev_normal_buffer = function()
 	print("No suitable normal file buffer found")
 end
 
+local current_terminal_index = 0
+
+local current_terminal_index = 0
 
 
 --- creating files
@@ -261,6 +264,16 @@ functions.run_shell = function()
 
 end
 
+functions.run_rust = function ()
+	local file_name = vim.fn.expand("%");
+	functions.open_terminal();
+	local run = "cargo run<CR>";
+	-- This function will be executed after 1 second (1000ms)
+	vim.defer_fn(function()
+		vim.api.nvim_input(run);
+	end, 300)
+end
+
 functions.run_sql = function ()
 	local filename = vim.fn.expand("%")
 	functions.open_terminal();
@@ -302,6 +315,18 @@ functions.run_nodejs = function ()
 	end, 300)
 end
 
+functions.run_default = function ()
+	local found_run = functions.find_file_up_down_with_depth(vim.fn.getcwd(), 5, "run");
+	if found_run then
+		print("Found run file: " .. found_run);
+		functions.open_terminal();
+		vim.api.nvim_input("cd " .. vim.fn.fnamemodify(found_run, ":h") .. "<CR>");
+		vim.api.nvim_input("./run<CR>");
+	else
+		print("No run file found in current directory or parent directories.");
+	end
+end
+
 functions.run = function ()
 	local filename = vim.fn.expand("%");
 	local file_extension = vim.fn.fnamemodify(filename, ":e");
@@ -320,6 +345,8 @@ functions.run = function ()
 		functions.run_nodejs();
 	elseif file_extension == "sql" then
 		functions.run_sql();
+	elseif file_extension == "rs" then
+		functions.run_rust();
 	end
 end
 
@@ -346,7 +373,7 @@ functions.run_py = function()
 
 	local uv = vim.loop
 	local current_path = uv.cwd();
-	local max_depth = 3
+	local max_depth = 8
 
 	local venv_path = ""
 	for _ = 1, max_depth do
@@ -463,9 +490,70 @@ functions.find_doc_dir_up = function (start_dir, max_depth)
 	return nil
 end
 
+functions.find_dir_up_down_with_depth = function(start_dir, max_depth, target_dir)
+	local function is_target_dir(path)
+		local uv = vim.loop
+		local stat = uv.fs_stat(path)
+		return stat and stat.type == "directory" and vim.fn.fnamemodify(path, ":t") == target_dir
+	end
+
+	local dir = start_dir
+	for _ = 1, max_depth do
+		if is_target_dir(dir) then
+			print("Found " .. target_dir .. " in current directory: " .. dir)
+			return dir
+		end
+		-- Move one level up
+		dir = vim.fn.fnamemodify(dir, ":h")
+	end
+	-- Search Parent
+	local parent_dir = vim.fn.fnamemodify(start_dir, ":h")
+	for _ = 1, max_depth do
+		if is_target_dir(parent_dir) then
+			print ("Found " .. target_dir .. " in parent directory: " .. parent_dir)
+			return parent_dir
+		end
+		-- Move one level up
+		parent_dir = vim.fn.fnamemodify(parent_dir, ":h")
+	end
+	return nil
+end
+
+functions.find_file_up_down_with_depth = function(start_dir, max_depth, target_file)
+	local function is_target_file(path)
+		local uv = vim.loop
+		local stat = uv.fs_stat(path)
+		return stat and stat.type == "file" and vim.fn.fnamemodify(path, ":t") == target_file
+	end
+
+	local dir = start_dir
+	for _ = 1, max_depth do
+		if is_target_file(dir .. "/" .. target_file) then
+			print("Found " .. target_file .. " in current directory: " .. dir)
+			return dir .. "/" .. target_file
+		end
+		-- Move one level up
+		dir = vim.fn.fnamemodify(dir, ":h")
+	end
+
+	-- Search Parent
+	local parent_dir = vim.fn.fnamemodify(start_dir, ":h")
+	for _ = 1, max_depth do
+		if is_target_file(parent_dir .. "/" .. target_file) then
+			print("Found " .. target_file .. " in parent directory: " .. parent_dir)
+			return parent_dir .. "/" .. target_file
+		end
+		-- Move one level up
+		parent_dir = vim.fn.fnamemodify(parent_dir, ":h")
+	end
+	print("No " .. target_file .. " found up to " .. max_depth .. " levels.")
+	-- If not found, return nil
+	return nil
+end
+
 functions.move_new_file_to_doc = function ()
 	local cwd = vim.fn.getcwd()
-	local doc_dir = functions.find_doc_dir_up(cwd, 3)
+	local doc_dir = functions.find_doc_dir_up(cwd, 5)
 	if not doc_dir then
 		print("No doc directory found up to 3 levels.")
 		return
@@ -479,7 +567,6 @@ functions.move_new_file_to_doc = function ()
 
 	local target = doc_dir .. "/" .. vim.fn.fnamemodify(latest_file, ":t")
 	local ok, err = os.rename(latest_file, target)
-
 	if ok then
 		print("Moved " .. latest_file .. " to " .. target)
 
@@ -493,7 +580,116 @@ functions.move_new_file_to_doc = function ()
 	end
 end
 
-vim.keymap.set({"n"}, "<leader>aa", functions.move_new_file_to_doc, {desc="test function"});
+functions.time_tracker_start = function()
+	vim.g.time_tracker = os.time()
+	require("noice").notify("Time tracker started at: " .. os.date("%H:%M:%S", vim.g.time_tracker), {
+		title = "Time Tracker",
+		level = "info",
+		timeout = 5000,
+	})
+end
+
+functions.time_tracker_stop = function()
+	if not vim.g.time_tracker then
+		print("Time tracker is not running.")
+		return
+	end
+
+	local elapsed = os.time() - vim.g.time_tracker
+	local hours = math.floor(elapsed / 3600)
+	local minutes = math.floor((elapsed % 3600) / 60)
+	local seconds = elapsed % 60
+
+	local output = string.format("%02d:%02d:%02d", hours, minutes, seconds)
+
+	require("noice").notify("Time tracker stopped. Elapsed time: " .. output, {
+		title = "Time Tracker",
+		level = "info",
+		timeout = 5000,
+	})
+	vim.fn.setreg('"', output)
+	vim.fn.setreg('+', output)
+	print(output)
+	vim.g.time_tracker = nil
+
+	vim.g.time_tracker = nil
+
+end
+
+functions.replace_old_window_terminal_with_new_terminal = function()
+	-- Iterate over all windows
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		local buf_type = vim.api.nvim_buf_get_option(buf, "buftype")
+
+		-- Check if buffer is a terminal
+		if buf_type == "terminal" then
+			-- Close the old terminal window
+			vim.api.nvim_win_close(win, true)
+
+			-- Open a new split with a terminal
+			vim.cmd("botright new")
+			vim.opt.number = false;
+			vim.opt.relativenumber = false;
+			vim.cmd("edit term://bash");
+			vim.cmd("resize 10");
+			vim.opt.winfixheight = true;
+			vim.api.nvim_input('i');
+
+			return -- Exit after replacing first terminal found
+		end
+	end
+
+	-- If no terminal window found, just open a new terminal split
+	vim.cmd("botright new")
+	vim.opt.number = false;
+	vim.opt.relativenumber = false;
+	vim.cmd("edit term://bash");
+	vim.cmd("resize 10");
+	vim.opt.winfixheight = true;
+	vim.api.nvim_input('i');
+
+end
+
+functions.cycle_hidden_terminal_to_window = function()
+	local term_bufs = {}
+	local visible_bufs = {}
+
+	-- Get all windows and their buffers (visible buffers)
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		visible_bufs[buf] = true
+	end
+
+	-- Find all loaded terminal buffers
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			if buftype == "terminal" and not visible_bufs[buf] then
+				table.insert(term_bufs, buf) -- hidden terminal buffer
+			end
+		end
+	end
+
+	if #term_bufs == 0 then
+		-- No hidden terminal buffer: open a new terminal split
+		vim.cmd("split")
+		vim.cmd("terminal")
+	else
+		-- Cycle to the first hidden terminal buffer
+		local buf_to_show = term_bufs[1]
+		vim.api.nvim_win_set_buf(0, buf_to_show) -- show terminal buffer in new window
+	end
+end
+
+functions.md_conv_pptx_open = function()
+	local file_name = vim.fn.expand("%:t:r");
+	print("hello" .. file_name);
+	local command = "openpptx.sh " .. file_name ..".md" .. " 2> ~/Downloads/log"
+	vim.fn.system(command);
+end
+
+vim.keymap.set({"n"}, "<leader>aa", functions.run_default, {desc="test function"});
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;

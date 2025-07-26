@@ -58,6 +58,9 @@ ls.add_snippets("python", {
 })
 
 ls.add_snippets("markdown", {
+	s("der", {
+		t("\\frac{\\partial"),i(1),t("}{\\partial"),i(2),t("}"),
+	}),
 	s("form", {
 		i(1, "exp1"), t("+"),
 		d(2, function(args)
@@ -79,6 +82,9 @@ ls.add_snippets("markdown", {
 	}),
 	s({trig="lm", wordTrig=false},{
 		t("\\lambda{"),t("}"),i(1)
+	}),
+	s({trig="c", wordTrig=false},{
+		t("^\\circ{"),t("}"),i(1)
 	}),
 	s({trig="<", wordTrig=false},{
 		t("\\left<"),i(1),t("\\right>"),i(0)
