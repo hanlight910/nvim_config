@@ -66,8 +66,6 @@ vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .
 
 vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
 vim.keymap.set({ 'n' }, '<leader>td', '<cmd>Telescope lsp_definitions<CR>', { desc = "lsp_definitions", silent = true })
-vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = "dyanmic workspace symbols", silent = true })
-
 vim.keymap.set({ 'n' }, '<leader>tl', '<cmd>Telescope live_grep<CR>', { desc = "telescope live grep", silent = true })
 vim.keymap.set({ 'n','i' }, '<A-i>', '<cmd>Telescope emoji<CR>', { desc = "telescope emoji", silent = true })
 
@@ -85,6 +83,8 @@ ts.setup({
 			".git/*",
 			"venv",
 			"node_modules",
+			"__pycache__",
+			".pytest_cache",
 		},  -- Exclude .git directory,
 	},
 	theme = "ivy",
@@ -159,7 +159,26 @@ vim.keymap.set("n", "<leader>dl", function ()
 	end
 
 	print("'doc' directory not found in parent hierarchy (up to 3 levels)")
-
-
 end)
+
+
+vim.keymap.set("n", "<leader>fd", function()
+	local sep = package.config:sub(1, 1)
+	local path = vim.fn.expand("%:p:h")
+	local depth = 2
+
+	-- Traverse 5 levels up
+	for _ = 1, depth do
+		local parent = path:match("^(.*)" .. sep .. "[^" .. sep .. "]+$")
+		if not parent or parent == "" then break end
+		path = parent
+		print("Current path: " .. path)
+	end
+
+	-- Now open file browser from that path with depth=5
+	require("telescope").extensions.file_browser.file_browser({
+		cwd = path,
+		depth = depth,
+	})
+end, { desc = "Browse from 5-level-up parent (depth=5)", silent = true })
 

@@ -183,6 +183,7 @@ end, { desc = "Copy path", silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
+vim.keymap.set('v', '<CR>', "\"+y")
 vim.keymap.set('v', '<leader>h', function()
 	-- Get the start and end of the visual selection
 	local start_line = vim.fn.line("v")

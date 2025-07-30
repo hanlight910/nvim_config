@@ -1,3 +1,4 @@
+
 local functions = {}
 
 --- ==== assist ====
@@ -378,9 +379,16 @@ functions.run_py = function()
 	local venv_path = ""
 	for _ = 1, max_depth do
 		venv_path = current_path .. "/venv"
+		venv_path1 = current_path .. "/.venv"
 		local stat = uv.fs_stat(venv_path)
-		if stat and stat.type == "directory" then
-			break
+		local stat1 = uv.fs_stat(venv_path1)
+		if stat or stat1 then
+			if stat then
+				venv_path = venv_path;
+			else
+				venv_path = venv_path1;
+			end
+			break;
 		end
 		local parent_path = current_path:match("(.+)/[^/]+$")
 		if not parent_path then break end
