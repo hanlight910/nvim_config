@@ -4,6 +4,7 @@ local opt = { silent = true }
 -- === modules ===
 local c = require("templates.c");
 local ok, fn = pcall(require, 'theprimeagen.functions');
+local ok2, ut = pcall(require, 'theprimeagen.my_utils');
 
 -- === functions ===
 if not ok then
@@ -61,38 +62,7 @@ end, { desc = "Time tracker" })
 vim.keymap.set("n", "<leader>wv", "<C-w>v<C-w>l", { desc = "Split window vertically and move to right" })
 vim.keymap.set("n", "<leader>ws", "<C-w>s<C-w>j", { desc = "Split window horizontally and move down" })
 vim.keymap.set({"n"}, "<leader>cc", ":r " .. vim.g.fleeting .. "/template/Cornell.md<CR>A", {desc="Template Cornell"})
-vim.keymap.set({ "n" }, "<A-b>", function()
-	local bufname = "temp"
-	local buf = nil
-
-	-- Try to find an existing buffer with the name 'temp'
-	for _, b in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_get_name(b):match(bufname .. "$") then
-			buf = b
-			break
-		end
-	end
-
-	-- Create new buffer if not found
-	if not buf then
-		vim.cmd("new " .. bufname)
-		buf = vim.api.nvim_get_current_buf()
-		vim.cmd("resize 15")
-	else
-		vim.cmd("sbuffer " .. buf)  -- open buffer in current window
-	end
-
-	-- Set buffer options
-	vim.bo[buf].buftype = "nofile"
-	vim.bo[buf].bufhidden = "hide"
-	vim.bo[buf].swapfile = false
-	vim.bo[buf].modifiable = true
-	vim.bo[buf].filetype = "markdown"
-
-	-- Enter insert mode
-	vim.cmd("startinsert")
-
-end)
+vim.keymap.set({ "n" }, "<A-b>", ut.temp_note.temp_note, { desc = "Open temp note" });
 
 vim.keymap.set({"n"}, "<leader>ta", fn.move_new_file_to_doc)
 vim.keymap.set({"n"}, "<leader>`", "i`<Esc>ea`")
@@ -183,6 +153,8 @@ end, { desc = "Copy path", silent = true, noremap = true });
 vim.keymap.set("n", "<A-r>", "<C-r>");
 
 -- === visual mode === 
+vim.keymap.set('v', '<Right>', '$\"+y', { desc = "Yank to end of line" });
+vim.keymap.set('v', '<Left>', '0\"+y', { desc = "Yank to start of line" });
 vim.keymap.set('v', '<CR>', "\"+y")
 vim.keymap.set('v', '<leader>h', function()
 	-- Get the start and end of the visual selection
