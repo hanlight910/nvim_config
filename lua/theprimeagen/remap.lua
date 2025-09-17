@@ -49,6 +49,9 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>os", "<cmd>!xdg-open " ..  vim.fn.expand("%") .. "<CR>"
+	, {desc = "Open file path"})
+
 vim.keymap.set("n", "<leader>op", fn.md_conv_pptx_open, { desc = "Open md to pptx" });
 vim.keymap.set("n", "<leader>tn", fn.replace_old_window_terminal_with_new_terminal, { desc = "Replace old window terminal with new terminal" })
 vim.keymap.set("n", "<A-o>", ":ex " .. vim.g.todo_list .. "<CR>");

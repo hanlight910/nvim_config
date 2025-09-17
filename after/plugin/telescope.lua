@@ -76,11 +76,12 @@ vim.keymap.set({ 'n' }, '<leader>tf', function()
 end, { desc = "telescope live grep in specific dir", silent = true })
 
 vim.keymap.set({ 'n' }, '<leader>tw', '<cmd>Telescope buffers<CR>', { desc = "telescope live grep", silent = true })
+vim.keymap.set({ 'n' }, '<leader>th', '<cmd>Telescope git_branches<CR>', { desc = "telescope git branches", silent = true })
 
 ts.setup({
 	defaults = {
 		file_ignore_patterns = {
-			".git/*",
+			"%.git/*",
 			"venv",
 			"node_modules",
 			"__pycache__",

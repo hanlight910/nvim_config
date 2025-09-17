@@ -351,7 +351,7 @@ _G.packer_plugins = {
     url = "https://github.com/BurntSushi/ripgrep"
   },
   ["snacks.nvim"] = {
-    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\14quickfile\0\nimage\0\nwords\0\17statuscolumn\0\ninput\0\rnotifier\0\nscope\0\rexplorer\0\vpicker\0\fbigfile\0\vindent\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    config = { "\27LJ\2\nÄ\3\0\0\4\0\25\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0024\3\0\0=\3\24\2B\0\2\1K\0\1\0\nimage\nwords\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\nscope\1\0\1\fenabled\2\14quickfile\1\0\1\fenabled\2\rnotifier\1\0\1\fenabled\2\vpicker\1\0\1\fenabled\2\ninput\1\0\1\fenabled\2\vindent\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\fbigfile\1\0\v\nwords\0\17statuscolumn\0\14quickfile\0\nscope\0\vindent\0\rexplorer\0\vpicker\0\fbigfile\0\rnotifier\0\ninput\0\nimage\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/home/light/.local/share/nvim/site/pack/packer/opt/snacks.nvim",
@@ -363,7 +363,7 @@ _G.packer_plugins = {
     url = "https://github.com/JavaHello/spring-boot.nvim"
   },
   ["table-nvim"] = {
-    config = { "\27LJ\2\n™\3\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\rmappings\1\0\r\20insert_row_down\n<A-j>\22move_column_right\f<A-S-l>\18insert_row_up\n<A-k>\17insert_table\n<A-t>\tprev\f<S-TAB>\21insert_table_alt\f<A-S-t>\21move_column_left\f<A-S-h>\18delete_column\n<A-d>\24insert_column_right\n<A-l>\23insert_column_left\n<A-h>\tnext\n<TAB>\18move_row_down\f<A-S-j>\16move_row_up\f<A-S-k>\1\0\3\27padd_column_separators\2\rmappings\0\21disable_defaults\2\nsetup\15table-nvim\frequire\0" },
+    config = { "\27LJ\2\n™\3\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\rmappings\1\0\r\16move_row_up\f<A-S-k>\21move_column_left\f<A-S-h>\20insert_row_down\n<A-j>\22move_column_right\f<A-S-l>\18insert_row_up\n<A-k>\17insert_table\n<A-t>\tprev\f<S-TAB>\21insert_table_alt\f<A-S-t>\tnext\n<TAB>\18delete_column\n<A-d>\24insert_column_right\n<A-l>\23insert_column_left\n<A-h>\18move_row_down\f<A-S-j>\1\0\3\rmappings\0\21disable_defaults\2\27padd_column_separators\2\nsetup\15table-nvim\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

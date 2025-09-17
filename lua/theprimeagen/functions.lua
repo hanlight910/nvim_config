@@ -323,15 +323,19 @@ functions.run_default = function ()
 		functions.open_terminal();
 		vim.api.nvim_input("cd " .. vim.fn.fnamemodify(found_run, ":h") .. "<CR>");
 		vim.api.nvim_input("./run<CR>");
+		return true
 	else
 		print("No run file found in current directory or parent directories.");
+		return false
 	end
 end
 
 functions.run = function ()
 	local filename = vim.fn.expand("%");
 	local file_extension = vim.fn.fnamemodify(filename, ":e");
-	print(file_extension);
+	if (functions.run_default()) then
+		return 0;
+	end
 	if file_extension == "py" then
 		functions.run_py();
 	elseif file_extension == "java" then
@@ -416,6 +420,18 @@ functions.run_c = function()
 	end
 end
 
+functions.open_ssh = function()
+	local home = os.getenv("HOME")
+	local ssh_dir = os.getenv("SSH_DIR")
+	local cwd = io.popen("pwd"):read("*l")  -- get current directory
+
+	if cwd:match(home .. "/" .. ssh_dir) then
+		return 1
+	else 
+		return 0
+	end
+end
+
 -- terminal
 local open_terminal = function()
 	local buffers = vim.api.nvim_list_bufs();
@@ -438,6 +454,32 @@ local open_terminal = function()
 	vim.cmd("resize 10");
 	vim.opt.winfixheight = true;
 	vim.api.nvim_input('i');
+
+	if functions.open_ssh() == 1 then
+		-- remove $HOME
+		local home = os.getenv("HOME")
+		local ssh_dir = os.getenv("SSH_DIR")
+		local cwd = vim.fn.getcwd()
+
+		-- get parent directory
+		local parent_dir = cwd
+
+		-- remove $HOME prefix
+		if parent_dir:sub(1, #home) == home then
+			parent_dir = parent_dir:sub(#home + 2)  -- +2 to remove "/"
+		end
+
+		-- remove $SSH_DIR prefix if present
+		if parent_dir:sub(1, #ssh_dir) == ssh_dir then
+			parent_dir = parent_dir:sub(#ssh_dir + 2)  -- +2 to remove "/"
+		end
+
+		print(parent_dir)
+
+		vim.api.nvim_input("bash sshcd.sh<CR>");
+
+		vim.api.nvim_input("cd " .. parent_dir .. "<CR>");
+	end
 end
 
 -- === bash ===

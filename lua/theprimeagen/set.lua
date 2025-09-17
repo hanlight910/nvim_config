@@ -4,11 +4,16 @@ vim.g.encoding = "utf-8" vim.g.fileencode = "utf-8"
 vim.g.termencoding = "utf-8"
 vim.opt.nu = true;
 vim.opt.relativenumber = true
-vim.opt.wrap = true
+vim.opt.wrap = true -- controls view fixed
+vim.opt.linebreak = true -- break line at word
+vim.opt.breakindent = true    -- indent wrapped lines to match start
 
+vim.opt.showbreak = "↪ "      -- optional symbol at start of wrapped line
+vim.opt.textwidth = 80        -- break lines automatically at 80 chars
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+
 vim.opt.expandtab = false;
 
 vim.opt.smartindent = true
@@ -54,9 +59,7 @@ vim.keymap.set('i', '<Bs>', '<C-o>' .. msg)
 
 vim.o.cursorline  = true;
 -- vim.o.cursorword  = false;
-vim.o.cursorcolumn = false;
-vim.api.nvim_create_autocmd("FileChangedShellPost", {
-    pattern = "*",  -- Apply to all file types, or specify file types (e.g., "*.py")
+vim.o.cursorcolumn = false; vim.api.nvim_create_autocmd("FileChangedShellPost", { pattern = "*",  -- Apply to all file types, or specify file types (e.g., "*.py")
     callback = function()
         -- Automatically reload the buffer without prompting the user
         vim.cmd("e!")

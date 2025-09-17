@@ -38,8 +38,6 @@ if status then
 					image = {}
 				})
 			end,
-
-
 		}
 
 		use {
@@ -52,7 +50,6 @@ if status then
 		}
 		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
 		use { "xiyaowong/telescope-emoji.nvim" }
-
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'mbbill/undotree' }
 		use { 'tpope/vim-fugitive' }

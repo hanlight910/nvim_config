@@ -10,3 +10,5 @@ vim.keymap.set("n", "<leader>gr", function ()
 	local grep_keyword = vim.fn.input("git grep > ");
 	vim.cmd("Ggrep " .. grep_keyword);
 end, {desc = "Git grep"});
+
+vim.keymap.set('n', '<leader>tm', ':Git merge ', { desc = "Git merge", silent = false })
