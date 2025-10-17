@@ -732,6 +732,36 @@ functions.cycle_hidden_terminal_to_window = function()
 	end
 end
 
+functions.open_current_existing_terminal = function()
+	local found_terminal = false
+	local terminal_buf
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+			if buftype == "terminal" then
+				found_terminal = true
+				terminal_buf = buf
+				break
+			end
+		end
+	end
+
+	if found_terminal then
+		-- Open a new split with the existing terminal
+		vim.cmd("botright split")
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+		vim.cmd("resize 10")
+		vim.opt.winfixheight = true
+
+		-- set to the first terminal buffer found
+		vim.api.nvim_win_set_buf(0, terminal_buf)
+		vim.api.nvim_input('i')
+	else
+		functions.open_terminal()
+	end
+end
+
 functions.md_conv_pptx_open = function()
 	local file_name = vim.fn.expand("%:t:r");
 	print("hello" .. file_name);
@@ -739,7 +769,7 @@ functions.md_conv_pptx_open = function()
 	vim.fn.system(command);
 end
 
-vim.keymap.set({"n"}, "<leader>aa", functions.run_default, {desc="test function"});
+vim.keymap.set({"n"}, "<leader>aa", functions.open_current_existing_terminal, { desc = "Open current existing terminal or new terminal" })
 vim.g.open_terminal = open_terminal;
 vim.g.move_workspace = functions.move_workspace;
 return functions;

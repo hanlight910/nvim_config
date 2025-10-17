@@ -49,6 +49,8 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>ta", fn.open_current_existing_terminal, { desc = "Open current existing terminal" })
+-- vim.keymap.set("n", "<Enter>", "0i- [ ] ");
 vim.keymap.set("n", "<leader>os", "<cmd>!xdg-open " ..  vim.fn.expand("%") .. "<CR>"
 	, {desc = "Open file path"})
 
@@ -67,7 +69,7 @@ vim.keymap.set("n", "<leader>ws", "<C-w>s<C-w>j", { desc = "Split window horizon
 vim.keymap.set({"n"}, "<leader>cc", ":r " .. vim.g.fleeting .. "/template/Cornell.md<CR>A", {desc="Template Cornell"})
 vim.keymap.set({ "n" }, "<A-b>", ut.temp_note.temp_note, { desc = "Open temp note" });
 
-vim.keymap.set({"n"}, "<leader>ta", fn.move_new_file_to_doc)
+-- vim.keymap.set({"n"}, "<leader>ta", fn.move_new_file_to_doc)
 vim.keymap.set({"n"}, "<leader>`", "i`<Esc>ea`")
 vim.keymap.set({"n"}, "<leader>y", "Vy")
 vim.keymap.set({"n"}, "<leader>pp", "\"+p")
@@ -82,7 +84,7 @@ vim.keymap.set({"n"}, "<A-e>", function ()
 end, {desc="create new file"})
 vim.keymap.set({"n"}, "<leader>{", "V{\"+y}")
 vim.keymap.set({"n"}, "<leader>}", "V}\"+y")
-vim.keymap.set({"n"}, "<A-k>", "ex " .. vim.g.vim_note .. "<CR>")
+-- vim.keymap.set({"n"}, "<A-k>", "ex " .. vim.g.vim_note .. "<CR>")
 vim.keymap.set({"n"}, "<Up>", "<C-w>k");
 vim.keymap.set({"n"}, "<Down>", "<C-w>j");
 vim.keymap.set({"n"}, "<Left>", "<C-w>h");
@@ -183,7 +185,6 @@ end, { desc = "Highlight Visual Lines" })
 
 vim.keymap.set("v", "<C-c>", "\"+y");
 
--- vim.keymap.set("v", "<leader>si", "\"+y <cmd>!silicon --from-clipboard -l c --to-clipboard<CR>");
 vim.keymap.set("v", "<leader>si", function()
 	vim.cmd('normal! "+y')
 	local filename = vim.api.nvim_buf_get_name(0)

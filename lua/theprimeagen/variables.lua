@@ -15,6 +15,7 @@ vim.g.baekjoon = vim.g.areas .. "/baekjoon"
 
 --- bash path
 vim.g.bash_config = vim.g.root .. "/.my_config";
+vim.g.remote_config = vim.g.root .. "/remote_ssh" .. "/.my_config";
 
 -- etc
 vim.g.projects = vim.g.root .. "/projects";

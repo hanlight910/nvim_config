@@ -1,9 +1,17 @@
 local status, packer = pcall(require, "packer");
-local func           = require("vim.func")
+local func = require("vim.func")
 
 if status then
 	return packer.startup(function(use)
-		use { "zbirenbaum/copilot.lua" }
+		use { 
+			"zbirenbaum/copilot.lua",
+			-- cmd = "Copilot",
+			-- event = "InsertEnter",
+			-- config = function()
+			-- 	require("copilot").setup({})
+			-- end,
+			opt = false
+		}
 		-- use "github/copilot.vim"
 		use "hat0uma/csvview.nvim"
 		use 'wbthomason/packer.nvim'
@@ -183,7 +191,7 @@ if status then
 						next = '<TAB>',
 						prev = '<S-TAB>',
 						insert_row_up = '<A-k>',
-						insert_row_down = '<A-j>',
+						insert_row_down = '<Leader>jj',
 						move_row_up = '<A-S-k>',
 						move_row_down = '<A-S-j>',
 						insert_column_left = '<A-h>',

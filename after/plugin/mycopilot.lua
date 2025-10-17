@@ -1,3 +1,5 @@
+-- local ok, copilot = pcall(require, "copilot")
+-- if ok then
 require("copilot").setup({
 	panel = {
 		auto_refresh = false,
@@ -15,13 +17,14 @@ require("copilot").setup({
 			accept = "<A-o>",
 			prev = "<C-j>",
 			next = "<C-k>",
-			dismis = "<C-]>",
+			-- dismis = "<C-]>",
 		},
 	},
 	filetypes = {
 		["*"] = true,  -- Enable Copilot for all file types
-		["markdown"] = true,
-		["text"] = false,  -- Disable Copilot for text files
+		["markdown"] = false,
+		["text"] = true,  -- Disable Copilot for text files
 	}
 })
+-- end
 

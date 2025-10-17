@@ -71,6 +71,7 @@ cmp.setup({
 	}),
 
 	sources = cmp.config.sources({
+		{ name = "codecompanion" },   -- 👈 add this line
 		{ name = "path" },
 		{ name = 'nvim_lsp_signature_help' },
 		{ name = 'nvim_lsp' },

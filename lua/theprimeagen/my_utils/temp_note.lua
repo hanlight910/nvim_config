@@ -7,10 +7,21 @@ M.temp_note = function()
 
 	-- Check if buffer named 'temp' already exists
 	for _, b in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_get_name(b):match(buf_name) then
-			buf_exists = true
-			buf_nr = b
-			break
+		local name = vim.api.nvim_buf_get_name(b)
+
+		-- check if buffer name is exactly "temp"
+		if name:match("/" .. buf_name .. "$") then
+			-- check buffer options
+			if vim.bo[b].buftype == "nofile"
+				and vim.bo[b].bufhidden == "wipe"
+				and not vim.bo[b].swapfile
+				and vim.bo[b].filetype == "markdown"
+				and vim.bo[b].modifiable
+			then
+				buf_exists = true
+				buf_nr = b
+				break
+			end
 		end
 	end
 
@@ -20,7 +31,7 @@ M.temp_note = function()
 		vim.api.nvim_set_current_buf(buf_nr)
 	else
 		-- Create a new vertical split and buffer
-		vim.cmd("vnew")
+		vim.cmd("40vnew")
 		buf_nr = vim.api.nvim_get_current_buf()
 		vim.api.nvim_buf_set_name(buf_nr, buf_name)
 		vim.bo[buf_nr].buftype = "nofile"

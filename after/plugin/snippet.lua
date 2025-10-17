@@ -27,7 +27,7 @@ ls.config.set_config({
 
 vim.keymap.set({"i"}, "<A-k>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<A-l>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<A-j>", function() ls.jump(-1) end, {silent = true})
+-- vim.keymap.set({"i", "s"}, "<A-j>", function() ls.jump(-1) end, {silent = true})
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
 	if ls.choice_active() then

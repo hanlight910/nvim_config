@@ -1,4 +1,6 @@
-local util = require('theprimeagen.utils'); local stat = util.safe_require("telescope");
+local util = require('theprimeagen.utils'); 
+local my_utils = require('theprimeagen.my_utils')
+local stat = util.safe_require("telescope");
 
 if not stat then
 	return nil;
@@ -57,7 +59,13 @@ vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { norema
 vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('n', '<A-f>', file_browse_git, { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.nvim_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-q>', '<cmd>Telescope file_browser path=' .. vim.g.bash_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-q>', function()
+	if my_utils.my_file.is_subpath_of_current_file("remote_ssh") then
+		vim.cmd('Telescope file_browser path=' .. vim.g.remote_config .. ' select_buffer=true depth=10')
+	else
+		vim.cmd('Telescope file_browser path=' .. vim.g.bash_config .. ' select_buffer=true depth=10')
+	end
+end, { noremap = true, silent = true, desc = 'Browse notes directory' })
 vim.api.nvim_set_keymap('n', '<A-z>', '<cmd>Telescope file_browser path=' .. vim.g.fleeting ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-a>', '<cmd>Telescope file_browser path=' .. vim.g.archive ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-r>', '<cmd>Telescope file_browser path=' .. vim.g.areas ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
@@ -80,6 +88,7 @@ vim.keymap.set({ 'n' }, '<leader>th', '<cmd>Telescope git_branches<CR>', { desc 
 
 ts.setup({
 	defaults = {
+		path_display = { "truncate" },  -- show full path from left, truncating from the right if too long
 		file_ignore_patterns = {
 			"%.git/*",
 			"venv",
@@ -183,3 +192,4 @@ vim.keymap.set("n", "<leader>fd", function()
 	})
 end, { desc = "Browse from 5-level-up parent (depth=5)", silent = true })
 
+-- my_utils.my_file.is_subpath_of_current_file("areas")
