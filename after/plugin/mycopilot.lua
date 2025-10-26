@@ -22,7 +22,7 @@ require("copilot").setup({
 	},
 	filetypes = {
 		["*"] = true,  -- Enable Copilot for all file types
-		["markdown"] = false,
+		["markdown"] = true,
 		["text"] = true,  -- Disable Copilot for text files
 	}
 })

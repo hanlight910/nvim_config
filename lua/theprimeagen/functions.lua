@@ -322,7 +322,7 @@ functions.run_default = function ()
 		print("Found run file: " .. found_run);
 		functions.open_terminal();
 		vim.api.nvim_input("cd " .. vim.fn.fnamemodify(found_run, ":h") .. "<CR>");
-		vim.api.nvim_input("./run<CR>");
+		vim.api.nvim_input("bash run<CR>");
 		return true
 	else
 		print("No run file found in current directory or parent directories.");

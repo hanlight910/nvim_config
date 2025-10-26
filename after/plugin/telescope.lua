@@ -117,7 +117,6 @@ ts.setup({
 						vim.fn.jobstart({ "xdg-open", filepath }, { detach = true })
 						actions.close(prompt_bufnr)
 					end,
-					-- ["<CR>"] =open_or_expand_dir,
 				},
 			},
 		},
