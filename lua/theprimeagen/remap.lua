@@ -49,6 +49,12 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
+vim.keymap.set("n", "<leader>cj", "<cmd>!bash clip_llm.sh<CR>", { desc = "Copy file content to clipboard" });
+vim.keymap.set("n", "gl", function ()
+	local path = vim.fn.expand("<cfile>");
+	print("Opening: " .. path);
+	vim.fn.system("open " .. path);
+end, { desc = "Open link under cursor" });
 vim.keymap.set("n", "<leader>ta", fn.open_current_existing_terminal, { desc = "Open current existing terminal" })
 -- vim.keymap.set("n", "<Enter>", "0i- [ ] ");
 vim.keymap.set("n", "<leader>os", "<cmd>!xdg-open " ..  vim.fn.expand("%") .. "<CR>"

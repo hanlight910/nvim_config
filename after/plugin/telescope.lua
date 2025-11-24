@@ -191,4 +191,6 @@ vim.keymap.set("n", "<leader>fd", function()
 	})
 end, { desc = "Browse from 5-level-up parent (depth=5)", silent = true })
 
+vim.keymap.set("n", "<A-t>", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Document Symbols", silent = true })
+
 -- my_utils.my_file.is_subpath_of_current_file("areas")

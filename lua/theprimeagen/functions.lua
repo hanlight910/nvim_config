@@ -8,6 +8,12 @@ local function check_file_format()
 	return file_type;
 end
 
+functions.copy_llm =  function ()
+	-- run clip_llm.sh script
+	vim.cmd("!clip_llm.sh");
+end
+
+
 functions.copy_code_as_image_to_clipboard = function()
 	local file_format = vim.fn.expand("%:e");
 	local mode_info = vim.api.nvim_get_mode();
@@ -426,7 +432,28 @@ functions.open_ssh = function()
 	local cwd = io.popen("pwd"):read("*l")  -- get current directory
 
 	if cwd:match(home .. "/" .. ssh_dir) then
-		return 1
+		local home = os.getenv("HOME")
+		local ssh_dir = os.getenv("SSH_DIR")
+		local cwd = vim.fn.getcwd()
+
+		-- get parent directory
+		local parent_dir = cwd
+
+		-- remove $HOME prefix
+		if parent_dir:sub(1, #home) == home then
+			parent_dir = parent_dir:sub(#home + 2)  -- +2 to remove "/"
+		end
+
+		-- remove $SSH_DIR prefix if present
+		if parent_dir:sub(1, #ssh_dir) == ssh_dir then
+			parent_dir = parent_dir:sub(#ssh_dir + 2)  -- +2 to remove "/"
+		end
+
+		print(parent_dir)
+
+		vim.api.nvim_input("bash sshcd.sh<CR>");
+
+		vim.api.nvim_input("cd " .. parent_dir .. "<CR>");
 	else 
 		return 0
 	end
@@ -455,31 +482,7 @@ local open_terminal = function()
 	vim.opt.winfixheight = true;
 	vim.api.nvim_input('i');
 
-	if functions.open_ssh() == 1 then
-		-- remove $HOME
-		local home = os.getenv("HOME")
-		local ssh_dir = os.getenv("SSH_DIR")
-		local cwd = vim.fn.getcwd()
-
-		-- get parent directory
-		local parent_dir = cwd
-
-		-- remove $HOME prefix
-		if parent_dir:sub(1, #home) == home then
-			parent_dir = parent_dir:sub(#home + 2)  -- +2 to remove "/"
-		end
-
-		-- remove $SSH_DIR prefix if present
-		if parent_dir:sub(1, #ssh_dir) == ssh_dir then
-			parent_dir = parent_dir:sub(#ssh_dir + 2)  -- +2 to remove "/"
-		end
-
-		print(parent_dir)
-
-		vim.api.nvim_input("bash sshcd.sh<CR>");
-
-		vim.api.nvim_input("cd " .. parent_dir .. "<CR>");
-	end
+	functions.open_ssh();
 end
 
 -- === bash ===
@@ -686,6 +689,8 @@ functions.replace_old_window_terminal_with_new_terminal = function()
 			vim.opt.winfixheight = true;
 			vim.api.nvim_input('i');
 
+			functions.open_ssh();
+
 			return -- Exit after replacing first terminal found
 		end
 	end
@@ -698,6 +703,8 @@ functions.replace_old_window_terminal_with_new_terminal = function()
 	vim.cmd("resize 10");
 	vim.opt.winfixheight = true;
 	vim.api.nvim_input('i');
+
+	functions.open_ssh();
 
 end
 

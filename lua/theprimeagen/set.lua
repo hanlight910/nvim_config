@@ -1,5 +1,5 @@
 -- vim.opt.guicursor = 'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor' -- Blinking cursor
-vim.wo.winfixwidth = true
+-- vim.wo.winfixwidth = true
 vim.g.mapleader = " "
 vim.g.encoding = "utf-8" vim.g.fileencode = "utf-8"
 vim.g.termencoding = "utf-8"

@@ -4,27 +4,30 @@ require("copilot").setup({
 	panel = {
 		auto_refresh = false,
 		keymap = {
-			accept = "<CR>",
+			accept = "<cr>",
 			jump_prev = "[[",
 			jump_next = "]]",
 			refresh = "gr",
-			open = "<M-CR>",
+			open = "<m-cr>",
 		},
 	},
 	suggestion = {
 		auto_trigger = true,
 		keymap = {
-			accept = "<A-o>",
-			prev = "<C-j>",
-			next = "<C-k>",
-			-- dismis = "<C-]>",
+			accept = "<a-o>",
+			prev = "<c-j>",
+			next = "<c-k>",
+			-- dismis = "<c-]>",
 		},
 	},
 	filetypes = {
-		["*"] = true,  -- Enable Copilot for all file types
+		["*"] = true,  -- enable copilot for all file types
 		["markdown"] = true,
-		["text"] = true,  -- Disable Copilot for text files
+		["text"] = true,  -- disable copilot for text files
 	}
 })
 -- end
+
+vim.keymap.set("i", "<c-k>k", "<cmd>Copilot detach<cr>", { noremap = true, silent = true })
+vim.keymap.set("i", "<c-k>m", "<cmd>Copilot attach<cr>", { noremap = true, silent = true })
 

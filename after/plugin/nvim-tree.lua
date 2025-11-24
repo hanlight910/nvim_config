@@ -293,5 +293,6 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 
 
 vim.keymap.set('n', '<leader>nt', "<cmd>NvimTreeOpen<cr>");
+vim.keymap.set('n', '<leader>nn', "<cmd>NvimTreeRefresh<cr>", { desc = "Refresh Nvim Tree" });
 
 -- vim.g.nvim_tree_respect_buf_cwd = 1
