@@ -30,4 +30,3 @@ require("copilot").setup({
 
 vim.keymap.set("i", "<c-k>k", "<cmd>Copilot detach<cr>", { noremap = true, silent = true })
 vim.keymap.set("i", "<c-k>m", "<cmd>Copilot attach<cr>", { noremap = true, silent = true })
-
