@@ -433,7 +433,7 @@ functions.open_ssh = function()
 
 	if cwd:match(home .. "/" .. ssh_dir) then
 		local home = os.getenv("HOME")
-		local ssh_dir = os.getenv("SSH_DIR")
+		local ssh_dir = os.getenv("SSH_DIR") .. "/"  .. os.getenv("NAME")
 		local cwd = vim.fn.getcwd()
 
 		-- get parent directory
@@ -443,6 +443,7 @@ functions.open_ssh = function()
 		if parent_dir:sub(1, #home) == home then
 			parent_dir = parent_dir:sub(#home + 2)  -- +2 to remove "/"
 		end
+		print("after removing home: " .. parent_dir)
 
 		-- remove $SSH_DIR prefix if present
 		if parent_dir:sub(1, #ssh_dir) == ssh_dir then

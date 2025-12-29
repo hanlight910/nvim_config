@@ -7,7 +7,7 @@ vim.g.fleeting = vim.g.archive .. "/05-FLEETING";
 vim.g.TIL = vim.g.archive .. "/06-DAILY/TIL";
 
 vim.g.vim_note = vim.g.archive .. "/05-FLEETING/vim/note.md";
-vim.g.todo_list = vim.g.archive .. "/05-FLEETING/todo_list.md";
+vim.g.todo_list = vim.g.archive .. "/todo_list.md";
 
 vim.g.algorithm = vim.g.areas .. "/algorithm";
 vim.g.algorithm_notes = vim.g.TIL .. "/algorithm/baekjoon";
@@ -19,6 +19,7 @@ vim.g.remote_config = vim.g.root .. "/remote_ssh" .. "/.my_config";
 
 -- etc
 vim.g.projects = vim.g.root .. "/projects";
+vim.g.py_projects = os.getenv("PY_PROJECTS");
 vim.g.project_1 = os.getenv("PROJECT_1");
 vim.g.time_track_path  = vim.g.archive .. "/03-RESOURCES/time-tracking.txt"
 

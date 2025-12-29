@@ -56,7 +56,8 @@ end
 vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>Telescope lsp_type_definitions<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-c>', '<cmd>Telescope oldfiles<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-g>', '<cmd>Telescope git_commits<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-f>', '<cmd>Telescope file_browser depth=1<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-y>', '<cmd>Telescope file_browser depth=10<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('n', '<A-f>', file_browse_git, { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-s>', '<cmd>Telescope file_browser path=' .. vim.g.nvim_config ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-q>', function()
@@ -70,6 +71,8 @@ vim.api.nvim_set_keymap('n', '<A-z>', '<cmd>Telescope file_browser path=' .. vim
 vim.api.nvim_set_keymap('n', '<A-a>', '<cmd>Telescope file_browser path=' .. vim.g.archive ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-r>', '<cmd>Telescope file_browser path=' .. vim.g.areas ..  ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pap', '<cmd>Telescope file_browser path=' .. vim.g.projects ..  ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>pal', '<cmd>Telescope file_browser path=' .. vim.g.py_projects .. ' select_buffer=true depth=1<CR>', { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>Telescope file_browser path=' .. vim.g.project_1 .. ' select_buffer=true depth=10<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-h>', '<cmd>Telescope noice<CR>', { noremap = true, silent = true })
