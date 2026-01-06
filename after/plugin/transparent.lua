@@ -1,5 +1,9 @@
 -- Optional, you don't have to run setup.
-require("transparent").setup({
+local utils = require("theprimeagen.utils")
+local transparent = utils.safe_require("transparent")
+if not transparent then return end
+
+transparent.setup({
 	-- table: default groups
 	groups = {
 		'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',

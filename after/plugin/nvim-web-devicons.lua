@@ -1,4 +1,8 @@
-require'nvim-web-devicons'.setup {
+local utils = require("theprimeagen.utils")
+local devicons = utils.safe_require("nvim-web-devicons")
+if not devicons then return end
+
+devicons.setup {
 	-- your personal icons can go here (to override)
 	-- you can specify color or cterm_color instead of specifying both of them
 	-- DevIcon will be appended to `name`

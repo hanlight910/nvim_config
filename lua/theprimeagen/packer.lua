@@ -1,3 +1,20 @@
+-- Auto-bootstrap Packer
+local ensure_packer = function()
+	local fn = vim.fn
+	local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+	if fn.empty(fn.glob(install_path)) > 0 then
+		vim.notify("Installing Packer...", vim.log.levels.INFO)
+		fn.system({'git', 'clone', '--depth', '1',
+		           'https://github.com/wbthomason/packer.nvim', install_path})
+		vim.cmd [[packadd packer.nvim]]
+		vim.notify("Packer installed! Please run :PackerSync", vim.log.levels.INFO)
+		return true
+	end
+	return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 local status, packer = pcall(require, "packer");
 local func = require("vim.func")
 
@@ -206,6 +223,10 @@ if status then
 			end
 		}
 
+		-- Auto-sync on first bootstrap
+		if packer_bootstrap then
+			packer.sync()
+		end
 	end)
 
 else

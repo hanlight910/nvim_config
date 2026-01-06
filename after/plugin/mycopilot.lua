@@ -1,6 +1,8 @@
--- local ok, copilot = pcall(require, "copilot")
--- if ok then
-require("copilot").setup({
+local utils = require("theprimeagen.utils")
+local copilot = utils.safe_require("copilot")
+if not copilot then return end
+
+copilot.setup({
 	panel = {
 		auto_refresh = false,
 		keymap = {
@@ -26,7 +28,6 @@ require("copilot").setup({
 		["text"] = true,  -- disable copilot for text files
 	}
 })
--- end
 
 vim.keymap.set("i", "<c-k>k", "<cmd>Copilot detach<cr>", { noremap = true, silent = true })
 vim.keymap.set("i", "<c-k>m", "<cmd>Copilot attach<cr>", { noremap = true, silent = true })

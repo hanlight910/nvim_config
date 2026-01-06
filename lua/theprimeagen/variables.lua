@@ -19,8 +19,8 @@ vim.g.remote_config = vim.g.root .. "/remote_ssh" .. "/.my_config";
 
 -- etc
 vim.g.projects = vim.g.root .. "/projects";
-vim.g.py_projects = os.getenv("PY_PROJECTS");
-vim.g.project_1 = os.getenv("PROJECT_1");
+vim.g.py_projects = os.getenv("PY_PROJECTS") or (vim.g.projects .. "/python");
+vim.g.project_1 = os.getenv("PROJECT_1") or (vim.g.projects .. "/project1");
 vim.g.time_track_path  = vim.g.archive .. "/03-RESOURCES/time-tracking.txt"
 
 vim.g.current_tracking = {}

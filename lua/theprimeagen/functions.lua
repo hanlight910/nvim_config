@@ -1,5 +1,7 @@
 
 local functions = {}
+local utils = require("theprimeagen.utils")
+local noice = utils.safe_require("noice")
 
 --- ==== assist ====
 local function check_file_format()
@@ -8,9 +10,11 @@ local function check_file_format()
 	return file_type;
 end
 
-functions.copy_llm =  function ()
+functions.copy_llm = function()
 	-- run clip_llm.sh script
-	vim.cmd("!clip_llm.sh");
+	if utils.safe_exec_command("clip_llm.sh", "clip_llm.sh not found in PATH") then
+		vim.cmd("!clip_llm.sh")
+	end
 end
 
 
@@ -27,7 +31,9 @@ functions.copy_code_as_image_to_clipboard = function()
 	else
 
 	end
-	vim.cmd("!silicon --from-clipboard -l " .. file_format .. " --to-clipboard");
+	if utils.safe_exec_command("silicon", "silicon not installed - install from https://github.com/Aloxaf/silicon") then
+		vim.cmd("!silicon --from-clipboard -l " .. file_format .. " --to-clipboard")
+	end
 end
 
 vim.api.nvim_create_user_command('SplitCmd', function(opts)
@@ -452,7 +458,9 @@ functions.open_ssh = function()
 
 		print(parent_dir)
 
-		vim.api.nvim_input("bash sshcd.sh<CR>");
+		if utils.safe_exec_command("sshcd.sh", "sshcd.sh not found in PATH") then
+			vim.api.nvim_input("bash sshcd.sh<CR>");
+		end
 
 		vim.api.nvim_input("cd " .. parent_dir .. "<CR>");
 	else 
@@ -636,11 +644,15 @@ end
 
 functions.time_tracker_start = function()
 	vim.g.time_tracker = os.time()
-	require("noice").notify("Time tracker started at: " .. os.date("%H:%M:%S", vim.g.time_tracker), {
-		title = "Time Tracker",
-		level = "info",
-		timeout = 5000,
-	})
+	if noice then
+		noice.notify("Time tracker started at: " .. os.date("%H:%M:%S", vim.g.time_tracker), {
+			title = "Time Tracker",
+			level = "info",
+			timeout = 5000,
+		})
+	else
+		vim.notify("Time tracker started at: " .. os.date("%H:%M:%S", vim.g.time_tracker), vim.log.levels.INFO)
+	end
 end
 
 functions.time_tracker_stop = function()
@@ -656,16 +668,18 @@ functions.time_tracker_stop = function()
 
 	local output = string.format("%02d:%02d:%02d", hours, minutes, seconds)
 
-	require("noice").notify("Time tracker stopped. Elapsed time: " .. output, {
-		title = "Time Tracker",
-		level = "info",
-		timeout = 5000,
-	})
+	if noice then
+		noice.notify("Time tracker stopped. Elapsed time: " .. output, {
+			title = "Time Tracker",
+			level = "info",
+			timeout = 5000,
+		})
+	else
+		vim.notify("Time tracker stopped. Elapsed time: " .. output, vim.log.levels.INFO)
+	end
 	vim.fn.setreg('"', output)
 	vim.fn.setreg('+', output)
 	print(output)
-	vim.g.time_tracker = nil
-
 	vim.g.time_tracker = nil
 
 end
@@ -771,6 +785,9 @@ functions.open_current_existing_terminal = function()
 end
 
 functions.md_conv_pptx_open = function()
+	if not utils.safe_exec_command("openpptx.sh", "openpptx.sh not found in PATH") then
+		return
+	end
 	local file_name = vim.fn.expand("%:t:r");
 	print("hello" .. file_name);
 	local command = "openpptx.sh " .. file_name ..".md" .. " 2> ~/Downloads/log"

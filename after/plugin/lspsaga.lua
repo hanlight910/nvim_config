@@ -1,4 +1,8 @@
-require("lspsaga").setup({
+local utils = require("theprimeagen.utils")
+local lspsaga = utils.safe_require("lspsaga")
+if not lspsaga then return end
+
+lspsaga.setup({
   -- symbol_in_winbar = false,  -- Disable symbol in the winbar if needed
   -- use_saga_diagnostic_sign = true,
   -- hover = {

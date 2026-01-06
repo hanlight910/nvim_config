@@ -2,14 +2,23 @@
 local opt = { silent = true }
 
 -- === modules ===
-local c = require("templates.c");
+local utils = require("theprimeagen.utils")
+local c = utils.safe_require("templates.c");
 local ok, fn = pcall(require, 'theprimeagen.functions');
 local ok2, ut = pcall(require, 'theprimeagen.my_utils');
 
 -- === functions ===
+if not c then
+	vim.notify("templates.c not loaded - some keymaps disabled", vim.log.levels.WARN)
+end
+
 if not ok then
 	print("Function module is not loaded.");
 	return 1;
+end
+
+if not ok2 then
+	vim.notify("my_utils not loaded - some keymaps disabled", vim.log.levels.WARN)
 end
 
 local run = fn.run;
@@ -49,7 +58,11 @@ vim.keymap.set({"i"}, "\\", function ()
 end, { expr = true });
 
 -- === normal mode ===
-vim.keymap.set("n", "<leader>cj", "<cmd>!bash clip_llm.sh<CR>", { desc = "Copy file content to clipboard" });
+vim.keymap.set("n", "<leader>cj", function()
+	if utils.safe_exec_command("clip_llm.sh", "clip_llm.sh not found in PATH") then
+		vim.cmd("!bash clip_llm.sh")
+	end
+end, { desc = "Copy file content to clipboard" });
 vim.keymap.set("n", "gl", function ()
 	local path = vim.fn.expand("<cfile>");
 	print("Opening: " .. path);
@@ -123,7 +136,9 @@ end);
 vim.keymap.set("n", "<C-k>", move_to_next_normal_buffer);
 
 vim.keymap.set("n", "<leader>co", create_algorithm_path, { desc = "Create algorithm path" });
-vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
+if c then
+	vim.keymap.set("n", "<leader>ctm", c.insert_c_template);
+end
 vim.keymap.set("n", "<F5>", run);
 
 vim.keymap.set("n", "<F9>", ":wq<CR>");
@@ -202,7 +217,9 @@ vim.keymap.set("v", "<leader>si", function()
 		extension = "sh"
 	end
 
-	vim.fn.system('customsilicon.sh ' .. extension)
+	if utils.safe_exec_command("customsilicon.sh", "customsilicon.sh not found in PATH") then
+		vim.fn.system('customsilicon.sh ' .. extension)
+	end
 
 end, { desc = "Save selection as image and copy path", silent = true })
 
