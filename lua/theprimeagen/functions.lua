@@ -116,23 +116,26 @@ functions.move_to_next_normal_buffer = function()
 		if buf == current_buf then
 			found = true -- Found the current buffer, start checking next
 		elseif found and vim.api.nvim_buf_is_loaded(buf) then
-			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+			local buftype = vim.bo[buf].buftype
+			local buflisted = vim.bo[buf].buflisted
 
-			if buftype == "" and filetype ~= "terminal" then
-				-- Switch to the buffer
-				vim.api.nvim_set_current_buf(buf);
+			if buftype == "" and buflisted then
+				vim.api.nvim_set_current_buf(buf)
 				return
 			end
 		end
 	end
 
+	-- Wrap around: search from beginning
 	for _, buf in ipairs(buffers) do
+		if buf == current_buf then
+			return -- No other buffer found
+		end
 		if vim.api.nvim_buf_is_loaded(buf) then
-			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+			local buftype = vim.bo[buf].buftype
+			local buflisted = vim.bo[buf].buflisted
 
-			if buftype == "" and filetype ~= "terminal" then
+			if buftype == "" and buflisted then
 				vim.api.nvim_set_current_buf(buf)
 				return
 			end
@@ -161,6 +164,7 @@ functions.move_to_prev_normal_buffer = function()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local buffers = vim.api.nvim_list_bufs()
 	local found = false
+	print(current_buf)
 
 	-- Start from the current buffer and move backwards
 	for i = #buffers, 1, -1 do
@@ -168,34 +172,32 @@ functions.move_to_prev_normal_buffer = function()
 		if buf == current_buf then
 			found = true  -- Start checking the previous buffer
 		elseif found and vim.api.nvim_buf_is_loaded(buf) then
-			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+			local buftype = vim.bo[buf].buftype
+			local buflisted = vim.bo[buf].buflisted
 
-			-- Check if it's not a terminal and is a normal file
-			if buftype == "" and filetype ~= "terminal" then
-				-- Switch to the buffer
+			if buftype == "" and buflisted then
 				vim.api.nvim_set_current_buf(buf)
 				return
 			end
 		end
 	end
 
-	-- If no normal file buffer is found, wrap around to the end
+	-- Wrap around: search from end
 	for i = #buffers, 1, -1 do
 		local buf = buffers[i]
+		if buf == current_buf then
+			return -- No other buffer found
+		end
 		if vim.api.nvim_buf_is_loaded(buf) then
-			local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-			local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+			local buftype = vim.bo[buf].buftype
+			local buflisted = vim.bo[buf].buflisted
 
-			-- Check if it's not a terminal and is a normal file
-			if buftype == "" and filetype ~= "terminal" then
+			if buftype == "" and buflisted then
 				vim.api.nvim_set_current_buf(buf)
 				return
 			end
 		end
 	end
-
-	print("No suitable normal file buffer found")
 end
 
 local current_terminal_index = 0

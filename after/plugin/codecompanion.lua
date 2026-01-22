@@ -76,7 +76,7 @@ cocom.setup({
 			adapter = "gemini",
 		},
 		inline = {
-			adapter = "gemini",
+			adapter = "openai"
 		},
 	},
 	display = {

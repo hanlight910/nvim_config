@@ -223,6 +223,14 @@ if status then
 			end
 		}
 
+		-- Session management
+		use {
+			'olimorris/persisted.nvim',
+			config = function()
+				-- Config will be in after/plugin/session.lua
+			end,
+		}
+
 		-- Auto-sync on first bootstrap
 		if packer_bootstrap then
 			packer.sync()

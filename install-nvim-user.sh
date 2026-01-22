@@ -9,7 +9,6 @@ echo "This will install Neovim to ~/.local for user: $(whoami)"
 echo ""
 
 # Configuration
-NVIM_VERSION="stable"  # Can be 'stable', 'nightly', or specific version like 'v0.9.5'
 INSTALL_DIR="$HOME/.local"
 BIN_DIR="$INSTALL_DIR/bin"
 TMP_DIR="/tmp/nvim-install-$$"
@@ -21,7 +20,11 @@ case $ARCH in
         NVIM_ARCH="linux64"
         ;;
     aarch64|arm64)
-        NVIM_ARCH="linux-arm64"
+        echo "Error: ARM architecture detected. Please use AppImage method instead:"
+        echo "  wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+        echo "  chmod +x nvim.appimage"
+        echo "  mv nvim.appimage ~/.local/bin/nvim"
+        exit 1
         ;;
     *)
         echo "Error: Unsupported architecture: $ARCH"
@@ -33,31 +36,78 @@ esac
 mkdir -p "$BIN_DIR"
 mkdir -p "$TMP_DIR"
 
-echo "Downloading Neovim $NVIM_VERSION for $NVIM_ARCH..."
+# Cleanup function
+cleanup() {
+    rm -rf "$TMP_DIR"
+}
+trap cleanup EXIT
+
+echo "Downloading Neovim (stable) for $NVIM_ARCH..."
 
 # Download Neovim
 cd "$TMP_DIR"
 DOWNLOAD_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-$NVIM_ARCH.tar.gz"
+FILENAME="nvim-$NVIM_ARCH.tar.gz"
 
 if command -v curl &> /dev/null; then
-    curl -LO "$DOWNLOAD_URL"
+    echo "Using curl to download..."
+    if ! curl -fL --progress-bar -o "$FILENAME" "$DOWNLOAD_URL"; then
+        echo "Error: Download failed with curl"
+        exit 1
+    fi
 elif command -v wget &> /dev/null; then
-    wget "$DOWNLOAD_URL"
+    echo "Using wget to download..."
+    if ! wget --show-progress -O "$FILENAME" "$DOWNLOAD_URL"; then
+        echo "Error: Download failed with wget"
+        exit 1
+    fi
 else
     echo "Error: Neither curl nor wget found. Please install one of them."
     exit 1
 fi
 
+# Verify download
+if [ ! -f "$FILENAME" ]; then
+    echo "Error: Downloaded file not found"
+    exit 1
+fi
+
+# Check file size (should be > 1MB for a valid download)
+FILE_SIZE=$(stat -c%s "$FILENAME" 2>/dev/null || stat -f%z "$FILENAME" 2>/dev/null || echo "0")
+if [ "$FILE_SIZE" -lt 1000000 ]; then
+    echo "Error: Downloaded file is too small ($FILE_SIZE bytes). Download may have failed."
+    echo "File contents:"
+    head -20 "$FILENAME"
+    exit 1
+fi
+
+# Verify it's a gzip file
+if ! file "$FILENAME" | grep -q "gzip compressed"; then
+    echo "Error: Downloaded file is not a valid gzip archive"
+    echo "File type: $(file "$FILENAME")"
+    echo "First few lines:"
+    head -20 "$FILENAME"
+    exit 1
+fi
+
 # Extract
 echo "Extracting Neovim..."
-tar xzf "nvim-$NVIM_ARCH.tar.gz"
+if ! tar xzf "$FILENAME"; then
+    echo "Error: Failed to extract archive"
+    exit 1
+fi
+
+# Find extracted directory
+EXTRACTED_DIR=$(find . -maxdepth 1 -type d -name "nvim-*" | head -1)
+if [ -z "$EXTRACTED_DIR" ]; then
+    echo "Error: Could not find extracted directory"
+    ls -la
+    exit 1
+fi
 
 # Install to ~/.local
 echo "Installing to $INSTALL_DIR..."
-cp -r nvim-$NVIM_ARCH/* "$INSTALL_DIR/"
-
-# Cleanup
-rm -rf "$TMP_DIR"
+cp -r "$EXTRACTED_DIR"/* "$INSTALL_DIR/"
 
 # Verify installation
 if [ -x "$BIN_DIR/nvim" ]; then
